@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gem Empire Simulator</title>
+    <!-- Outfit Font for uniform style tracking -->
+    <link rel="stylesheet" href="https://googleapis.com">
+    <link rel="stylesheet" href="fonts-options.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Main Title Container -->
+    <header>
+        <h1 id="live-empire-title">The Great Gem Empire</h1>
+        <button type="button" onclick="toggleNotifications()" style="width:auto;">Notifications <span id="notification-count">0</span></button>
+        <div id="notification-center" style="display:none; max-width:720px; margin:8px auto; text-align:left;"></div>
+        <div id="event-popup" style="display:none; position:fixed; inset:20% 20%; z-index:20; background:var(--panel-background-color); border:2px solid var(--link-color); padding:20px; box-shadow:0 8px 30px #0008;">
+            <h3>Gem Event</h3>
+            <p id="event-popup-text"></p>
+            <button type="button" onclick="closeEventPopup()" style="width:auto;">Resolve</button>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         SCREEN 1: SETUP SCREEN / LAUNCHER
+         ========================================== -->
+    <div id="screen-setup" class="game-screen active-screen">
+        <div class="control-panel">
+            <h2>Gem Empire Simulator</h2>
+            <p style="opacity:0.7; margin-bottom:15px; font-size:0.9rem;">Inspired by ClanGen. Manage your custom courts, track generations, and forge deep-space colonies.</p>
+            
+            <div class="creation-section">
+                <label for="setup-empire-name"><b>Empire Designation Name:</b></label>
+                <input type="text" id="setup-empire-name" value="The Great Gem Empire">
+
+                <label for="setup-game-mode"><b>Gameplay Mode:</b></label>
+                <select id="setup-game-mode">
+                    <option value="Classic">Classic Mode (Standard Limits)</option>
+                    <option value="Roleplay">Roleplay Mode (Infinite Resources Sandbox)</option>
+                </select>
+            </div>
+
+            <div class="creation-section">
+                <h3>Design Custom Diamond Authority Members</h3>
+                <p style="opacity:0.6; font-size:0.85rem; margin-bottom:10px;">Build your custom ruling council. Add as many custom unique leaders as you want.</p>
+                
+                <div class="diamond-setup-card">
+                    <label for="setup-diamond-name">Diamond Designation Name:</label>
+                    <input type="text" id="setup-diamond-name" placeholder="e.g. Celestia Aurora" value="">
+
+                    <label for="dia1-role">Assigned Domain Responsibility Directive:</label>
+                    <select id="dia1-role">
+                        <option value="Supreme Authority">Command of Military Soldiers</option>
+                        <option value="Public Entertainment">Director of Public Entertainment</option>
+                        <option value="Punishments & Trials">Arbiter of Punishments & Trials</option>
+                        <option value="Matriarch">Matriarch</option>
+                    </select>
+
+                    <label for="dia1-img">Artwork Illustration Image Vector URL:</label>
+                    <input type="text" id="dia1-img" placeholder="https://placehold.co" value="">
+                    <button type="button" onclick="addDiamondToSetupCouncil()" style="margin-top: 8px; width: auto;">+ Add Diamond Card</button>
+                </div>
+
+                <div class="creation-section" style="margin-top: 15px;">
+                    <h3>Diamond Council Draft</h3>
+                    <div id="setup-diamonds-grid" class="grid-layout" style="margin-top: 12px;"></div>                </div>
+            </div>
+
+            <div class="creation-section" style="margin-top:15px;">
+                <p><b>Starting Coordinates Vector:</b> <span id="sector-display-name">Nebula Quadrant E-19</span></p>
+                <button type="button" onclick="randomizeStartingSector()" style="width:auto; margin-top:5px; padding:6px 12px; font-size:0.85rem;">🎲 Roll Vector</button>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:20px;">
+                <button type="button" onclick="launchNewEmpire()">🚀 Establish Imperial Sovereignty</button>
+                <button type="button" onclick="switchScreen('screen-import')" style="background-color: var(--button-secondary-background-color); color: var(--button-secondary-text-color);">📂 Import Save File</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         SCREEN 2: IMPORT SAVE MATRIX SCREEN
+         ========================================== -->
+    <div id="screen-import" class="game-screen">
+        <div class="control-panel">
+            <h2>Import Save Code Matrix</h2>
+            <p style="opacity:0.7; margin-bottom:15px;">Paste your base64 text code block export data matrix down below to reload an existing save state.</p>
+            
+            <textarea id="import-text-box" rows="8" placeholder="Paste structural configuration code here..." style="font-family:monospace; min-height:120px;"></textarea>
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;">
+                <button type="button" onclick="executeImportSave()">Load Progress</button>
+                <button type="button" onclick="switchScreen('screen-setup')" style="background-color: var(--button-secondary-background-color); color: var(--button-secondary-text-color);">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         SCREEN 3: MAIN CORE GAMEPLAY DASHBOARD
+         ========================================== -->
+    <div id="screen-dashboard" class="game-screen">
+        
+        <!-- Live Stat Resource Bar Tracker Row -->
+        <div class="resource-bar">
+            <div>📅 <b>Fictional Year:</b> <span id="year-val">0.0</span></div>
+            <div>✨ <b>Essence Pool:</b> <span id="essence-val">200</span></div>
+            <div>📦 <b>Materials Reserve:</b> <span id="materials-val">500</span></div>
+            <div>👥 <b>Total Population:</b> <span id="pop-val">0</span></div>
+        </div>
+
+        <!-- Master View Switch Control Navigation Bar -->
+        <div class="nav-bar">
+            <button type="button" onclick="switchTab('tab-court-roster')">💎 Courts Roster</button>
+            <button type="button" onclick="switchTab('tab-celestial-colonies')">🪐 Celestial Colonies</button>
+            <button type="button" onclick="switchTab('tab-empire-infrastructure')">🔬 Empire Infrastructure</button>
+            <button type="button" onclick="exportSaveData()" style="margin-left:auto; background-color: var(--button-secondary-background-color); color: var(--button-secondary-text-color);">💾 Export Save Data</button>
+        </div>
+
+        <div class="control-panel appearance-panel">
+            <h3>Customization</h3>
+            <label style="display:block; margin-bottom:8px;"><input id="customization-toggle" type="checkbox" onchange="toggleCustomizationOptions()"> Enable customization options</label>
+            <div id="global-customization-options" style="display:none;">
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
+                <label>Page color<input id="theme-page-color" type="color" value="#181a1b"></label>
+                <label>Panel color<input id="theme-panel-color" type="color" value="#2d3133"></label>
+                <label>Accent color<input id="theme-accent-color" type="color" value="#c594a0"></label>
+            </div>
+            <label for="theme-font-select">Font</label>
+            <select id="theme-font-select"><option value="Outfit">Outfit</option><option value="Georgia">Georgia</option><option value="Verdana">Verdana</option><option value="CustomGemFont">Custom Gem Font</option></select>
+            <button type="button" onclick="applyAppearanceSettings()" style="width:auto;">Apply Appearance</button>
+            <p style="font-size:0.8rem; opacity:0.7; margin-top:8px;">Add local font files and @font-face declarations in fonts-options.css.</p>
+            </div>
+        </div>
+
+        <!-- SUB-TAB CONTAINER A: ACTIVE GEM POPULATION ROSTER -->
+        <div id="tab-court-roster" class="dashboard-tab" style="display:block;">
+            <div class="control-panel">
+                <h3>Active Gem Population Directory</h3>
+                
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;">
+                    <div>
+                        <label for="search-input" style="font-size:0.85rem; font-weight:bold;">Search Designation:</label>
+                        <input type="text" id="search-input" placeholder="Type name or caste...">
+                    </div>
+                    <div>
+                        <label for="quality-filter" style="font-size:0.85rem; font-weight:bold;">Filter Mutation Quality:</label>
+                        <select id="quality-filter">
+                            <option value="all">All Quality Tiers</option>
+                            <option value="Perfect">Perfect</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Defective">Defective</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Grid wrapper for layout profiles injection framework -->
+                <div id="roster-grid" class="grid-layout"></div>
+            </div>
+        </div>
+
+        <!-- SUB-TAB CONTAINER B: EXTRAGALACTIC SYSTEMIC OUTPOSTS -->
+        <div id="tab-celestial-colonies" class="dashboard-tab" style="display:none;">
+            <div class="control-panel">
+                <h3>Extragalactic Systemic Outposts</h3>
+                <p style="opacity:0.7; font-size:0.9rem; margin-bottom:15px;">Establish mining operational perimeters on planetary bodies outside home sectors.</p>
+                
+                    <button type="button" onclick="foundColony()" style="width:auto; margin-bottom:20px;">🚀 Colonize New Planet Layer (Cost: 300)</button>
+                
+                <!-- System Grid Elements Hook -->
+                <div id="colonies-grid" class="grid-layout"></div>
+            </div>
+        </div>
+
+        <div id="colony-modal" class="modal" style="display:none;">
+            <div class="modal-content" style="max-width:620px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <h3 id="colony-modal-title" style="margin:0;">Colony Control</h3>
+                    <button type="button" onclick="closeColonyControlPanel()" style="width:auto; padding:6px 10px;">Close</button>
+                </div>
+                <div id="colony-modal-details"></div>
+                <label for="colony-gem-type" style="font-weight:bold; display:block; margin-top:14px;">Gem type available on this colony:</label>
+                <select id="colony-gem-type"></select>
+                <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
+                    <button type="button" onclick="buildColonyKindergarten()" style="width:auto;">Build Kindergarten (10000 Materials)</button>
+                    <button id="diamond-kindergarten-button" type="button" onclick="buildDiamondShrineKindergarten()" style="width:auto;">Build Diamond Kindergarten</button>
+                    <button type="button" onclick="surveyColony()" style="width:auto;">Survey Planet</button>
+                </div>
+                <div id="colony-options-list" style="margin-top:14px; opacity:0.8;"></div>
+            </div>
+        </div>
+
+        <!-- SUB-TAB CONTAINER C: HARDWARE STRUCTURE FRAMEWORKS -->
+        <div id="tab-empire-infrastructure" class="dashboard-tab" style="display:none;">
+            <div class="control-panel">
+                <h3>Imperial Infrastructure Framework</h3>
+                <p style="opacity:0.7; font-size:0.9rem; margin-bottom:15px;">Construct architectural blueprints to expand your system capacity across the galaxy.</p>
+                
+                <div class="grid-layout">
+                    <div class="card" style="text-align:left;">
+                        <h4>Extractor Injection Rig</h4>
+                        <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Increases extraction structural throughput velocity.</p>
+                        <button id="rig-structure-button" type="button" onclick="buildStructure('Extractor Injection Rig', 15000)">Build Rig (15000 Materials)</button>
+                        <button type="button" onclick="levelUpStructure('Extractor Injection Rig')" style="width:auto; margin-top:6px;">Level Rig</button>
+                    </div>
+                    
+                    <div class="card" style="text-align:left;">
+                        <h4>Homeworld Communications Spire</h4>
+                        <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Allows deep data matrix sync arrays to run faster.</p>
+                        <button type="button" onclick="buildStructure('Homeworld Communications Spire', 40000)">Build Spire (40000 Materials)</button>
+                    </div>
+
+                    <div class="card" style="text-align:left;" id="reef-card">
+                        <h4>Reef</h4>
+                        <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Creates pearls for assignment to gems as status or cosmetic guards.</p>
+                        <button id="reef-structure-button" type="button">Build Reef (25000 Materials)</button>
+                        <div id="reef-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
+                    </div>
+
+                    <div class="card" style="text-align:left;" id="funhouse-card">
+                        <h4>Spinel Funhouse</h4>
+                        <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Produces spinels that can stabilize rebellious gems.</p>
+                        <button id="funhouse-structure-button" type="button">Build Funhouse (30000 Materials)</button>
+                        <div id="funhouse-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
+                    </div>
+
+                    <div class="card" style="text-align:left;" id="forge-card">
+                        <h4>Gem Forge</h4>
+                        <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Forges premium gem boosts using available Bismuth labor and refined materials.</p>
+                        <button id="forge-structure-button" type="button">Build Forge (35000 Materials)</button>
+                        <div id="forge-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
+                    </div>
+
+                    <div class="card" style="text-align:left;" id="shrine-card">
+                        <h4>Diamond Shrine</h4>
+                        <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">A rare authority structure that unlocks Diamond kindergartens.</p>
+                        <button id="shrine-structure-button" type="button">Build Shrine (250000 Materials)</button>
+                        <div id="shrine-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
+                    </div>
+
+                    <div class="card" style="text-align:left;" id="healing-center-card">
+                        <h4>Healing Center</h4>
+                        <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Restores cracked gems and attempts extremely costly shattered-gem repairs.</p>
+                        <button id="healing-center-button" type="button">Build Healing Center (500000 Materials)</button>
+                        <div id="healing-center-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
+                    </div>
+
+                    <div class="card" style="text-align:left;" id="soldier-ship-card">
+                        <h4>Soldier Ship</h4>
+                        <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Stores Rubies, Quartz Soldiers, and Quartz Assistants under Agate oversight.</p>
+                        <button id="soldier-ship-button" type="button">Build Soldier Ship (75000 Materials)</button>
+                        <div id="soldier-ship-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
+                    </div>
+                </div>
+
+                <div class="creation-section" style="margin-top:20px;">
+                    <h5>Constructed Coordinates Array Log:</h5>
+                    <div id="structures-list" style="margin-top:10px; opacity:0.8; font-size:0.9rem;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="profile-modal" class="modal" style="display:none;">
+        <div class="modal-content" style="max-width: 620px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <h3 id="prof-name" style="margin:0;">Gem Profile</h3>
+                <button type="button" onclick="closeProfile()" style="width:auto; padding:6px 10px;">Close</button>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 140px 1fr; gap:16px; align-items:start;">
+                <img id="prof-img" src="https://placehold.co/200x200" alt="Gem portrait" style="width:140px; height:140px; object-fit:cover; border-radius:10px; border:2px solid var(--link-color); background:#000;">
+
+                <div>
+                    <p><strong>Caste:</strong> <span id="prof-caste">-</span></p>
+                    <p><strong>Type:</strong> <span id="prof-type">-</span></p>
+                    <p><strong>Quality:</strong> <span id="prof-quality">-</span></p>
+                    <p><strong>Placement:</strong> <span id="prof-placement">-</span></p>
+                    <p><strong>Personality:</strong> <span id="prof-personality">-</span></p>
+                    <p><strong>Status:</strong> <span id="prof-status">Fine</span></p>
+                    <p><strong>Level:</strong> <span id="prof-level">0</span></p>
+                    <p><strong>Boosts:</strong> <span id="prof-boosts">None</span></p>
+                    <p><strong>Guards:</strong> <span id="prof-guards">None</span></p>
+                    <p><strong>Next Level Cost:</strong> <span id="prof-level-cost">30 Materials / 6 Essence</span></p>
+                </div>
+            </div>
+
+            <div style="margin-top:18px; display:flex; flex-wrap:wrap; gap:8px;">
+                <button type="button" onclick="levelUpGem()" style="width:auto;">Level Up</button>
+                <button type="button" onclick="assignGuard('Pearl')" style="width:auto;">Assign Pearl</button>
+                <button type="button" onclick="assignGuard('Ruby')" style="width:auto;">Assign Ruby</button>
+                <button type="button" onclick="assignGuard('Spinel')" style="width:auto;">Assign Spinel</button>
+            </div>
+
+            <div id="profile-lifecycle-actions" style="margin-top:12px; display:flex; flex-wrap:wrap; gap:8px;"></div>
+
+            <div style="margin-top:18px; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div>
+                    <label for="img-url-input" style="font-weight:bold; display:block; margin-bottom:6px;">Add Profile Photo:</label>
+                    <input type="text" id="img-url-input" placeholder="https://example.com/portrait.png" value="">
+                    <button type="button" onclick="appendImageToGalleryPool()" style="width:auto; margin-top:6px;">Add to Gallery</button>
+                </div>
+
+                <div style="margin-top:12px; display:grid; grid-template-columns:1fr auto; gap:8px; align-items:end;">
+                    <label for="prof-prefix-input">Prefix / designation<input id="prof-prefix-input" type="text"></label>
+                    <button type="button" onclick="saveGemPrefix()" style="width:auto;">Save Prefix</button>
+                </div>
+
+                <div style="margin-top:10px; padding:10px; background:var(--summary-background-color); border-radius:6px;">
+                    <p id="prof-quote">"..."</p>
+                </div>
+
+                <button type="button" onclick="openCourtAssignment()" style="width:auto; margin-top:10px;">Assign to Diamond Court</button>
+                <div>
+                    <label for="cut-img-url-input" style="font-weight:bold; display:block; margin-bottom:6px;">Gem Cut Photo:</label>
+                    <input type="text" id="cut-img-url-input" placeholder="https://example.com/gem-cut.png" value="">
+                    <button type="button" onclick="saveGemCutImage()" style="width:auto; margin-top:6px;">Save Cut Photo</button>
+                    <img id="prof-cut-img" src="" alt="Gem cut photo" style="display:none; width:100%; max-height:140px; object-fit:contain; margin-top:8px; border:1px solid var(--link-color);">
+                </div>
+            </div>
+
+            <div style="margin-top:18px;">
+                <h4 style="margin-bottom:8px;">Gallery</h4>
+                <div id="prof-gallery-container" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
+            </div>
+
+            <details style="margin-top:18px;">
+                <summary>Profile Settings</summary>
+                <div id="profile-customization-options" style="display:grid; gap:8px; margin-top:10px;">
+                    <label>Profile background color<input id="profile-bg-color" type="color" value="#2d3133"></label>
+                    <label>Profile background image URL<input id="profile-bg-image" type="text" placeholder="https://example.com/background.png"></label>
+                    <label>Portrait frame image URL<input id="profile-frame-image" type="text" placeholder="https://example.com/frame.png"></label>
+                    <label>Profile font<select id="profile-font-select"><option value="inherit">Default</option><option value="Georgia">Georgia</option><option value="Verdana">Verdana</option><option value="CustomGemFont">Custom Gem Font</option></select></label>
+                    <button type="button" onclick="applyProfileCustomization()" style="width:auto;">Apply Profile Settings</button>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <div id="court-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3>Assign Gem to Diamond Court</h3>
+            <select id="court-diamond-select"></select>
+            <button type="button" onclick="assignSelectedGemToCourt()">Assign Court</button>
+            <button type="button" onclick="closeCourtAssignment()">Cancel</button>
+        </div>
+    </div>
+
+    <div class="control-panel" style="margin:20px auto; max-width:1100px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div>
+                <button type="button" onclick="toggleGemDirectory('bubbled-gems-directory')" style="width:auto;">Bubbled Gems</button>
+                <div id="bubbled-gems-directory" style="display:none; margin-top:8px;">No bubbled gems.</div>
+            </div>
+            <div>
+                <button type="button" onclick="toggleGemDirectory('shattered-gems-directory')" style="width:auto;">Shattered Gems</button>
+                <div id="shattered-gems-directory" style="display:none; margin-top:8px;">No shattered gems.</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="gemData.js"></script>
+    <script src="data-tables.js"></script>
+    <script src="generators.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
