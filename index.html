@@ -19,6 +19,7 @@
         <div id="event-popup" style="display:none; position:fixed; inset:20% 20%; z-index:20; background:var(--panel-background-color); border:2px solid var(--link-color); padding:20px; box-shadow:0 8px 30px #0008;">
             <h3>Gem Event</h3>
             <p id="event-popup-text"></p>
+            <div id="event-popup-actions"></div>
             <button type="button" onclick="closeEventPopup()" style="width:auto;">Resolve</button>
         </div>
     </header>
@@ -58,8 +59,8 @@
                         <option value="Matriarch">Matriarch</option>
                     </select>
 
-                    <label for="dia1-img">Artwork Illustration Image Vector URL:</label>
-                    <input type="text" id="dia1-img" placeholder="https://placehold.co" value="">
+                    <label for="dia1-img-file">Diamond artwork photo:</label>
+                    <input type="file" id="dia1-img-file" accept="image/*">
                     <button type="button" onclick="addDiamondToSetupCouncil()" style="margin-top: 8px; width: auto;">+ Add Diamond Card</button>
                 </div>
 
@@ -126,10 +127,15 @@
                 <label>Page color<input id="theme-page-color" type="color" value="#181a1b"></label>
                 <label>Panel color<input id="theme-panel-color" type="color" value="#2d3133"></label>
                 <label>Accent color<input id="theme-accent-color" type="color" value="#c594a0"></label>
+                <label>Button color<input id="theme-button-color" type="color" value="#655934"></label>
+                <label>Header color<input id="theme-header-color" type="color" value="#655934"></label>
             </div>
             <label for="theme-font-select">Font</label>
             <select id="theme-font-select"><option value="Outfit">Outfit</option><option value="Georgia">Georgia</option><option value="Verdana">Verdana</option><option value="CustomGemFont">Custom Gem Font</option></select>
+            <label>Header background image<input id="theme-header-file" type="file" accept="image/*"></label>
             <button type="button" onclick="applyAppearanceSettings()" style="width:auto;">Apply Appearance</button>
+            <button type="button" onclick="saveBrowserGame()" style="width:auto;">Save in Browser</button>
+            <button type="button" onclick="loadBrowserGame()" style="width:auto;">Load Browser Save</button>
             <p style="font-size:0.8rem; opacity:0.7; margin-top:8px;">Add local font files and @font-face declarations in fonts-options.css.</p>
             </div>
         </div>
@@ -252,6 +258,13 @@
                         <button id="soldier-ship-button" type="button">Build Soldier Ship (75000 Materials)</button>
                         <div id="soldier-ship-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
                     </div>
+
+                    <div class="card" style="text-align:left;" id="trial-building-card">
+                        <h4>Trial Building</h4>
+                        <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Unlocks court trials where Zircons defend their assigned gems.</p>
+                        <button id="trial-building-button" type="button">Trial Building (Zircon Required)</button>
+                        <div id="trial-building-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
+                    </div>
                 </div>
 
                 <div class="creation-section" style="margin-top:20px;">
@@ -282,6 +295,7 @@
                     <p><strong>Level:</strong> <span id="prof-level">0</span></p>
                     <p><strong>Boosts:</strong> <span id="prof-boosts">None</span></p>
                     <p><strong>Guards:</strong> <span id="prof-guards">None</span></p>
+                    <div id="guard-assignment-menu"></div>
                     <p><strong>Next Level Cost:</strong> <span id="prof-level-cost">30 Materials / 6 Essence</span></p>
                 </div>
             </div>
@@ -297,8 +311,8 @@
 
             <div style="margin-top:18px; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
                 <div>
-                    <label for="img-url-input" style="font-weight:bold; display:block; margin-bottom:6px;">Add Profile Photo:</label>
-                    <input type="text" id="img-url-input" placeholder="https://example.com/portrait.png" value="">
+                    <label for="profile-image-file" style="font-weight:bold; display:block; margin-bottom:6px;">Add Profile Photo:</label>
+                    <input type="file" id="profile-image-file" accept="image/*">
                     <button type="button" onclick="appendImageToGalleryPool()" style="width:auto; margin-top:6px;">Add to Gallery</button>
                 </div>
 
@@ -313,8 +327,8 @@
 
                 <button type="button" onclick="openCourtAssignment()" style="width:auto; margin-top:10px;">Assign to Diamond Court</button>
                 <div>
-                    <label for="cut-img-url-input" style="font-weight:bold; display:block; margin-bottom:6px;">Gem Cut Photo:</label>
-                    <input type="text" id="cut-img-url-input" placeholder="https://example.com/gem-cut.png" value="">
+                    <label for="cut-image-file" style="font-weight:bold; display:block; margin-bottom:6px;">Gem Cut Photo:</label>
+                    <input type="file" id="cut-image-file" accept="image/*">
                     <button type="button" onclick="saveGemCutImage()" style="width:auto; margin-top:6px;">Save Cut Photo</button>
                     <img id="prof-cut-img" src="" alt="Gem cut photo" style="display:none; width:100%; max-height:140px; object-fit:contain; margin-top:8px; border:1px solid var(--link-color);">
                 </div>
@@ -329,8 +343,8 @@
                 <summary>Profile Settings</summary>
                 <div id="profile-customization-options" style="display:grid; gap:8px; margin-top:10px;">
                     <label>Profile background color<input id="profile-bg-color" type="color" value="#2d3133"></label>
-                    <label>Profile background image URL<input id="profile-bg-image" type="text" placeholder="https://example.com/background.png"></label>
-                    <label>Portrait frame image URL<input id="profile-frame-image" type="text" placeholder="https://example.com/frame.png"></label>
+                    <label>Profile background image<input id="profile-bg-image-file" type="file" accept="image/*"></label>
+                    <label>Portrait frame image<input id="profile-frame-image-file" type="file" accept="image/*"></label>
                     <label>Profile font<select id="profile-font-select"><option value="inherit">Default</option><option value="Georgia">Georgia</option><option value="Verdana">Verdana</option><option value="CustomGemFont">Custom Gem Font</option></select></label>
                     <button type="button" onclick="applyProfileCustomization()" style="width:auto;">Apply Profile Settings</button>
                 </div>

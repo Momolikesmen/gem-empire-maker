@@ -27,7 +27,7 @@ const COLONY_OPTIONS = {
         { name: "Gliese Operations Cluster", materialRate: 5, essenceRate: 2, decayYears: 960 },
         { name: "Sirius Miner Node", materialRate: 6, essenceRate: 2, decayYears: 960 }
     ],
-    GEM_TYPES: Object.values(GEM_TIERS).flatMap(tier => tier.types).filter(type => type !== "Diamond"),
+    GEM_TYPES: Object.values(GEM_TIERS).flatMap(tier => tier.types).filter(type => !["Diamond", "Pearl", "Spinel"].includes(type)),
     MIN_RANDOM_GEM_TYPES: 3,
     MAX_RANDOM_GEM_TYPES: 4,
     MAX_KINDERGARTENS: 5,
@@ -49,7 +49,8 @@ const COLONY_OPTIONS = {
         "Gem Forge": 35000,
         "Diamond Shrine": 250000,
         "Healing Center": 500000
-        ,"Soldier Ship": 75000
+        ,"Soldier Ship": 75000,
+        "Trial Building": 100000
     }
 };
 

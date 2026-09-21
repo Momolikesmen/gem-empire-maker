@@ -11,6 +11,9 @@ let GameData = {
     structureLevels: {},
     structureJobs: {},
     soldierShip: { levels: 1, inventories: [{ agateId: null, gemIds: [] }] },
+    trialBuilding: { unlocked: false, trials: [] },
+    fusionEvents: [],
+    quicktimeFrequency: 0.025,
     reefs: [],
     spinels: [],
     forgeInventory: [],
@@ -44,6 +47,9 @@ function applyAppearanceSettings() {
     const panel = document.getElementById('theme-panel-color');
     const accent = document.getElementById('theme-accent-color');
     const font = document.getElementById('theme-font-select');
+    const button = document.getElementById('theme-button-color');
+    const header = document.getElementById('theme-header-color');
+    const headerFile = document.getElementById('theme-header-file');
     const customize = document.getElementById('customization-toggle');
     if (customize && !customize.checked) return;
     if (page) root.style.setProperty('--page-background-color', page.value);
@@ -54,7 +60,41 @@ function applyAppearanceSettings() {
         root.style.setProperty('--navbar-background-color', accent.value);
         root.style.setProperty('--navbar-background-gradient', `linear-gradient(180deg, ${accent.value} 0%, #30291c 100%)`);
     }
+    if (button) root.style.setProperty('--button-background-color', button.value);
+    if (header) root.style.setProperty('--navbar-background-color', header.value);
+    selectedImageData('theme-header-file', image => {
+        if (image) root.style.setProperty('--navbar-background-gradient', `linear-gradient(180deg, ${header?.value || '#655934'}99 0%, ${header?.value || '#30291c'}dd 100%), url("${image}") center/cover`);
+    });
     if (font) root.style.setProperty('--theme-font-family', font.value === 'CustomGemFont' ? 'CustomGemFont' : font.value);
+}
+
+function saveBrowserGame() {
+    localStorage.setItem('gemEmpireSave', btoa(JSON.stringify(GameData)));
+    localStorage.setItem('gemEmpireAppearance', JSON.stringify({
+        page: document.getElementById('theme-page-color')?.value,
+        panel: document.getElementById('theme-panel-color')?.value,
+        accent: document.getElementById('theme-accent-color')?.value,
+        button: document.getElementById('theme-button-color')?.value,
+        header: document.getElementById('theme-header-color')?.value,
+        headerImage: document.documentElement.style.getPropertyValue('--navbar-background-gradient'),
+        font: document.getElementById('theme-font-select')?.value
+    }));
+    addNotification('Empire saved to this browser.');
+}
+
+function loadBrowserGame() {
+    const save = localStorage.getItem('gemEmpireSave');
+    if (!save) return alert('No browser save found.');
+    try {
+        GameData = JSON.parse(atob(save));
+        GameData.gems = Array.isArray(GameData.gems) ? GameData.gems : [];
+        updateUI();
+        renderRoster();
+        renderNotifications();
+        alert('Browser save loaded.');
+    } catch (error) {
+        alert('The browser save is invalid.');
+    }
 }
 
 function toggleCustomizationOptions() {
@@ -79,9 +119,13 @@ function renderNotifications() {
     const count = document.getElementById('notification-count');
     const notifications = GameData.notifications || [];
     if (count) count.innerText = notifications.length;
-    if (center) center.innerHTML = notifications.length
-        ? notifications.map(note => `<p style="margin:4px 0;"><strong>Year ${note.year}:</strong> ${note.text}</p>`).join('')
-        : '<p>No events recorded.</p>';
+    if (center) center.innerHTML = `<div style="padding:8px; border-bottom:1px solid var(--event-border-color);"><label for="quicktime-frequency">Quicktime event frequency: <span id="quicktime-frequency-value">${Math.round((GameData.quicktimeFrequency || 0.025) * 1000) / 10}%</span></label><input id="quicktime-frequency" type="range" min="0" max="10" step="0.1" value="${(GameData.quicktimeFrequency || 0.025) * 100}" oninput="updateQuicktimeFrequency(this.value)"></div><div style="padding-top:8px;">${notifications.length ? notifications.map(note => `<p style="margin:4px 0;"><strong>Year ${note.year}:</strong> ${note.text}</p>`).join('') : '<p>No events recorded.</p>'}</div>`;
+}
+
+function updateQuicktimeFrequency(value) {
+    GameData.quicktimeFrequency = Math.max(0, Math.min(0.1, Number(value) / 100));
+    const output = document.getElementById('quicktime-frequency-value');
+    if (output) output.innerText = `${Math.round(GameData.quicktimeFrequency * 1000) / 10}%`;
 }
 
 function toggleNotifications() {
@@ -92,8 +136,20 @@ function toggleNotifications() {
 function showEventPopup(text) {
     const popup = document.getElementById('event-popup');
     const message = document.getElementById('event-popup-text');
+    const actions = document.getElementById('event-popup-actions');
     if (message) message.innerText = text;
+    if (actions) actions.innerHTML = '';
     if (popup) popup.style.display = 'block';
+}
+
+function showEventChoices(text, choices) {
+    showEventPopup(text);
+    const actions = document.getElementById('event-popup-actions');
+    if (actions) actions.innerHTML = choices.map(choice => `<button type="button" data-event-action="${choice.id}" style="width:auto; margin:4px;">${choice.label}</button>`).join('');
+    choices.forEach(choice => {
+        const button = actions.querySelector(`[data-event-action="${choice.id}"]`);
+        if (button) button.onclick = () => { choice.action(); closeEventPopup(); };
+    });
 }
 
 function closeEventPopup() {
@@ -114,6 +170,19 @@ function normalizeGemStatus(gem) {
 function isGemUsable(gem) {
     const status = normalizeGemStatus(gem);
     return status === 'Fine' || status === 'Cracked';
+}
+
+function readImageFile(file, onLoad) {
+    if (!file) return onLoad('');
+    const reader = new FileReader();
+    reader.onload = () => onLoad(String(reader.result));
+    reader.onerror = () => alert('The selected image could not be read.');
+    reader.readAsDataURL(file);
+}
+
+function selectedImageData(inputId, callback) {
+    const input = document.getElementById(inputId);
+    readImageFile(input && input.files ? input.files[0] : null, callback);
 }
 
 // ==========================================
@@ -157,7 +226,7 @@ function addDiamondToSetupCouncil() {
     const nameInput = document.getElementById('setup-diamond-name');
     const legacyColorSelect = document.getElementById('dia1-color');
     const roleSelect = document.getElementById('dia1-role');
-    const imgInput = document.getElementById('dia1-img');
+    const imgInput = document.getElementById('dia1-img-file');
 
     const rawName = nameInput ? nameInput.value.trim() : "";
     if (!rawName) {
@@ -168,23 +237,18 @@ function addDiamondToSetupCouncil() {
     const diamondColor = legacyColorSelect ? legacyColorSelect.value : "White";
     const diamondName = rawName.includes("Diamond") ? rawName : `${rawName} Diamond`;
 
-    let customDiamond = {
-        id: "diamond_" + Date.now() + "_" + Math.floor(Math.random() * 1000),
-        name: diamondName,
-        color: diamondColor,
-        assignedRoleTag: roleSelect ? roleSelect.value : "Supreme Authority",
-        image: (imgInput && imgInput.value.trim() !== '') ? imgInput.value.trim() : "https://placehold.co"
-    };
-
-    // Push into our pre-game council data
-    GameData.diamondsCouncil.push(customDiamond);
-    
-    // Clear inputs for the next entry
-    if (nameInput) nameInput.value = '';
-    if (imgInput) imgInput.value = '';
-
-    // Render the setup character card listing
-    renderSetupDiamondCards();
+    selectedImageData('dia1-img-file', image => {
+        GameData.diamondsCouncil.push({
+            id: "diamond_" + Date.now() + "_" + Math.floor(Math.random() * 1000),
+            name: diamondName,
+            color: diamondColor,
+            assignedRoleTag: roleSelect ? roleSelect.value : "Supreme Authority",
+            image: image || "https://placehold.co"
+        });
+        if (nameInput) nameInput.value = '';
+        if (imgInput) imgInput.value = '';
+        renderSetupDiamondCards();
+    });
 }
 
 // Render the temporary setup cards on the initialization screen
@@ -558,9 +622,16 @@ function surveyColony() {
 function triggerLiveGemEvent() {
     const now = Date.now();
     const candidates = GameData.gems.filter(gem => isGemUsable(gem) && (!gem.eventCooldownUntil || gem.eventCooldownUntil <= now));
-    if (!candidates.length || Math.random() > 0.025) return;
+    if (!candidates.length || Math.random() > (GameData.quicktimeFrequency ?? 0.025)) return;
 
     const kind = candidates[Math.floor(Math.random() * candidates.length)];
+    const fusionPartner = candidates.find(gem => gem.id !== kind.id && gem.type !== 'Zircon' && gem.type !== 'Zirconium');
+    if (fusionPartner && Math.random() < 0.12) {
+        kind.eventCooldownUntil = now + 2.5 * 60 * 1000;
+        fusionPartner.eventCooldownUntil = now + 2.5 * 60 * 1000;
+        resolveFusionEvent(kind, fusionPartner);
+        return;
+    }
     const personalityRisk = {
         Fiery: 1.9,
         Rebellious: 2.4,
@@ -581,8 +652,8 @@ function triggerLiveGemEvent() {
     const roll = Math.random();
     if (other && roll < Math.min(0.5, 0.22 * personalityRisk)) {
         if (personalityRisk > 1.6) {
-            kind.status = 'Cracked';
-            other.status = 'Cracked';
+            crackLiveGem(kind);
+            crackLiveGem(other);
             eventText = `${kind.name} and ${other.name} got into a heated conflict and cracked each other. The Healing Center can repair them.`;
         } else {
             eventText = `${kind.name} and ${other.name} argued, but ${kind.name}'s calmer nature kept the conflict from escalating.`;
@@ -590,7 +661,7 @@ function triggerLiveGemEvent() {
     } else if (roll < 0.55) {
         eventText = `${kind.name} accidentally fell from a transport ledge while trying to show off. The incident was contained.`;
     } else if (roll < 0.75) {
-        kind.status = 'Cracked';
+        crackLiveGem(kind);
         eventText = `${kind.name} was caught in a chaotic equipment mishap and cracked. The Healing Center can repair them.`;
     } else if (roll < 0.9) {
         kind.status = 'Poofed';
@@ -603,6 +674,111 @@ function triggerLiveGemEvent() {
     addNotification(eventText);
     showEventPopup(eventText);
     renderRoster();
+}
+
+function crackLiveGem(gem) {
+    if (!gem || ['Shattered', 'Bubbled'].includes(normalizeGemStatus(gem))) return;
+    gem.crackCount = Number(gem.crackCount || 0) + 1;
+    if (gem.crackCount > 2) {
+        shatterLiveGem(gem.id);
+        addNotification(`${gem.name} shattered after suffering more than two cracks.`);
+        return;
+    }
+    gem.status = 'Cracked';
+}
+
+function getQualityScore(quality) {
+    return { Defective: 0.65, Regular: 1, Perfect: 1.35 }[quality] || 1;
+}
+
+function getCasteScore(gem) {
+    const caste = getGemCaste(gem);
+    const tier = Object.values(GEM_TIERS).find(entry => entry.name === caste);
+    return tier ? 1 + Number(tier.rank || 0) / 13 : 1;
+}
+
+function getTrialScore(defendant, zircon) {
+    const zirconiumBonus = zircon.assignedZirconiumId ? 1.25 : 1;
+    return (Number(defendant.level || 0) + 1) * getCasteScore(defendant) * getQualityScore(defendant.quality) * (Math.random() + 0.5) +
+        (Number(zircon.level || 0) + 1) * getQualityScore(zircon.quality) * zirconiumBonus * (Math.random() + 0.5);
+}
+
+function resolveTrial(defendantA, zirconA, defendantB, zirconB) {
+    const scoreA = getTrialScore(defendantA, zirconA);
+    const scoreB = getTrialScore(defendantB, zirconB);
+    const winnerSideA = scoreA >= scoreB;
+    const loserGem = winnerSideA ? defendantB : defendantA;
+    const loserZircon = winnerSideA ? zirconB : zirconA;
+    shatterLiveGem(loserGem.id);
+    shatterLiveGem(loserZircon.id);
+    const winnerGem = winnerSideA ? defendantA : defendantB;
+    const winnerZircon = winnerSideA ? zirconA : zirconB;
+    addNotification(`${winnerGem.name} won the court trial with ${winnerZircon.name}; ${loserGem.name} and ${loserZircon.name} were shattered.`);
+    renderRoster();
+    renderGemDirectories();
+}
+
+function startTrialEvent() {
+    if (!GameData.structures.includes('Trial Building')) return alert('Build the Trial Building first.');
+    const zircons = GameData.gems.filter(gem => gem.type === 'Zircon' && isGemUsable(gem));
+    const defendants = GameData.gems.filter(gem => gem.type !== 'Zircon' && gem.type !== 'Zirconium' && isGemUsable(gem));
+    if (zircons.length < 2 || defendants.length < 2) return alert('A trial requires two usable Zircons and two usable defendant gems.');
+    const zirconA = zircons[Math.floor(Math.random() * zircons.length)];
+    const zirconB = zircons.filter(gem => gem.id !== zirconA.id)[Math.floor(Math.random() * (zircons.length - 1))];
+    const defendantA = defendants[Math.floor(Math.random() * defendants.length)];
+    const defendantB = defendants.filter(gem => gem.id !== defendantA.id)[Math.floor(Math.random() * (defendants.length - 1))];
+    showEventChoices(`Court trial: ${zirconA.name} defends ${defendantA.name}; ${zirconB.name} defends ${defendantB.name}. Begin the trial?`, [
+        { id: 'begin-trial', label: 'Begin Trial', action: () => resolveTrial(defendantA, zirconA, defendantB, zirconB) },
+        { id: 'dismiss-trial', label: 'Dismiss', action: () => addNotification('The court trial was dismissed.') }
+    ]);
+}
+
+function createFusion(gemA, gemB) {
+    gemA.status = 'Fused';
+    gemB.status = 'Fused';
+    const fusion = {
+        id: `fusion_${Date.now()}`,
+        type: `${gemA.type}x${gemB.type} fusion`,
+        name: `${gemA.type}x${gemB.type} fusion`,
+        quality: gemA.quality === 'Perfect' && gemB.quality === 'Perfect' ? 'Perfect' : 'Regular',
+        placement: gemA.placement,
+        personality: gemA.personality,
+        level: Math.max(Number(gemA.level || 0), Number(gemB.level || 0)),
+        boosts: [...(gemA.boosts || []), ...(gemB.boosts || [])],
+        guards: [],
+        image: gemA.image,
+        galleryPool: [gemA.image],
+        fusionMembers: [gemA.id, gemB.id],
+        status: 'Fine'
+    };
+    GameData.gems.push(fusion);
+    addNotification(`${fusion.name} formed and replaced its component profile cards.`);
+    renderRoster();
+    return fusion;
+}
+
+function resolveFusionEvent(gemA, gemB) {
+    showEventChoices(`${gemA.name} and ${gemB.name} began to fuse. What should the court do?`, [
+        { id: 'split-fusion', label: 'Split the Fusion', action: () => { splitFusionByMembers(gemA, gemB); if (Math.random() < 0.4) createFusion(gemA, gemB); } },
+        { id: 'rejuvenate-fusion', label: 'Rejuvenate Both', action: () => { gemA.level = 0; gemB.level = 0; gemA.status = 'Fine'; gemB.status = 'Fine'; addNotification(`${gemA.name} and ${gemB.name} were rejuvenated and separated.`); renderRoster(); } },
+        { id: 'shatter-fusion', label: 'Shatter Both', action: () => { shatterLiveGem(gemA.id); shatterLiveGem(gemB.id); } }
+    ]);
+}
+
+function splitFusionByMembers(gemA, gemB) {
+    gemA.status = 'Fine';
+    gemB.status = 'Fine';
+    const fusion = GameData.gems.find(gem => gem.fusionMembers && gem.fusionMembers.includes(gemA.id) && gem.fusionMembers.includes(gemB.id));
+    if (fusion) GameData.gems = GameData.gems.filter(gem => gem.id !== fusion.id);
+    renderRoster();
+    addNotification(`${gemA.name} and ${gemB.name} split apart.`);
+}
+
+function splitFusionFromProfile(id) {
+    const fusion = findLiveGem(id);
+    if (!fusion || !fusion.fusionMembers) return;
+    const members = fusion.fusionMembers.map(memberId => findLiveGem(memberId)).filter(Boolean);
+    if (members.length === 2) splitFusionByMembers(members[0], members[1]);
 }
 
 // ==========================================
@@ -618,7 +794,7 @@ function renderRoster() {
     const search = searchInput ? searchInput.value.toLowerCase() : '';
     const filter = filterInput ? filterInput.value : 'all';
     
-    GameData.gems.filter(gem => !['Bubbled', 'Shattered'].includes(normalizeGemStatus(gem))).forEach(gem => {
+    GameData.gems.filter(gem => !['Bubbled', 'Shattered', 'Fused'].includes(normalizeGemStatus(gem))).forEach(gem => {
         normalizeGemStatus(gem);
         const matchesSearch = gem.name.toLowerCase().includes(search) || gem.type.toLowerCase().includes(search);
         const matchesFilter = filter === 'all' || gem.quality === filter;
@@ -670,10 +846,17 @@ function showStructureInventory(type) {
     const inventoryBox = document.getElementById(
         type === 'Reef' ? 'reef-inventory' :
         type === 'Spinel Funhouse' ? 'funhouse-inventory' :
+        type === 'Trial Building' ? 'trial-building-inventory' :
         'forge-inventory'
     );
 
     if (!inventoryBox) return;
+
+    if (type === 'Trial Building') {
+        inventoryBox.innerHTML = `<div>Trial Building unlocked.</div><button type="button" onclick="startTrialEvent()" style="width:auto;">Open Court Trial</button>`;
+        inventoryBox.style.display = 'block';
+        return;
+    }
 
     const level = getStructureLevel(type);
     const slots = getStructureSlots(type);
@@ -784,7 +967,7 @@ function describeBoost(boost) {
 function getAvailableGuardUnits(guardType) {
     return GameData.gems.filter(gem =>
         gem.type === guardType &&
-        gem.status !== 'Shattered' &&
+        isGemUsable(gem) &&
         !gem.guardOwnerId &&
         String(gem.id) !== String(selectedGemId)
     );
@@ -792,6 +975,7 @@ function getAvailableGuardUnits(guardType) {
 
 function canEquipGuard(gem, guardType) {
     if (!gem) return false;
+    if (guardType === 'Zirconium') return gem.type === 'Zircon';
     if (!['Pearl', 'Ruby', 'Spinel'].includes(guardType)) return false;
     if (gem.type === 'Hessonite' || gem.type === 'Taaffeite') return true;
     if (gem.type === 'Sapphire' && Number(gem.level || 0) >= 10) return true;
@@ -806,7 +990,7 @@ function renderGuardAssignmentMenu(gem) {
     if (!assignmentContainer) return;
 
     assignmentContainer.innerHTML = '';
-    const guardTypes = ['Pearl', 'Ruby', 'Spinel'];
+    const guardTypes = gem.type === 'Zircon' ? ['Zirconium'] : ['Pearl', 'Ruby', 'Spinel'];
 
     guardTypes.forEach((guardType) => {
         const available = getAvailableGuardUnits(guardType);
@@ -887,6 +1071,7 @@ function renderStructureInventoryButtons() {
     const rigButton = document.getElementById('rig-structure-button');
     const healingButton = document.getElementById('healing-center-button');
     const soldierShipButton = document.getElementById('soldier-ship-button');
+    const trialButton = document.getElementById('trial-building-button');
 
     if (rigButton) rigButton.disabled = GameData.structures.includes('Extractor Injection Rig');
 
@@ -898,6 +1083,12 @@ function renderStructureInventoryButtons() {
     if (soldierShipButton) {
         soldierShipButton.textContent = GameData.structures.includes('Soldier Ship') ? 'Inventory' : 'Build Soldier Ship (75000 Materials)';
         soldierShipButton.onclick = () => GameData.structures.includes('Soldier Ship') ? showSoldierShipInventory() : buildStructure('Soldier Ship', 75000);
+    }
+    if (trialButton) {
+        const hasZircon = GameData.gems.some(gem => gem.type === 'Zircon' && isGemUsable(gem));
+        trialButton.textContent = GameData.structures.includes('Trial Building') ? 'Inventory' : (hasZircon ? 'Build Trial Building (100000 Materials)' : 'Trial Building (Zircon Required)');
+        trialButton.disabled = !GameData.structures.includes('Trial Building') && !hasZircon;
+        trialButton.onclick = () => GameData.structures.includes('Trial Building') ? showStructureInventory('Trial Building') : buildStructure('Trial Building', 100000);
     }
     const shrineButton = document.getElementById('shrine-structure-button');
 
@@ -1083,6 +1274,7 @@ function assignGuard(guardType, selectedUnitId) {
 
     availableUnit.guardOwnerId = gem.id;
     gem.guards.push({ type: guardType, id: availableUnit.id, name: availableUnit.name });
+    if (guardType === 'Zirconium') gem.assignedZirconiumId = availableUnit.id;
     renderProfileAssignments(gem);
 }
 
@@ -1126,8 +1318,8 @@ function openProfile(id) {
     renderProfileAssignments(gem);
     renderProfileLifecycleActions(gem);
 
-    const urlInput = document.getElementById('img-url-input');
-    if (urlInput) urlInput.value = '';
+    const imageFile = document.getElementById('profile-image-file');
+    if (imageFile) imageFile.value = '';
     
     if (!gem.galleryPool) {
         gem.galleryPool = [gem.image];
@@ -1142,7 +1334,9 @@ function renderProfileLifecycleActions(gem) {
     const container = document.getElementById('profile-lifecycle-actions');
     if (!container) return;
     const id = String(gem.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-    if (gem.status === 'Shattered') {
+    if (gem.fusionMembers) {
+        container.innerHTML = `<button type="button" onclick="splitFusionFromProfile('${id}')" style="width:auto;">Split Fusion</button>`;
+    } else if (gem.status === 'Shattered') {
         container.innerHTML = '<span style="opacity:0.6;">This gem is shattered permanently.</span>';
     } else if (gem.status === 'Poofed') {
         container.innerHTML = `<button type="button" onclick="reformGem('${id}')" style="width:auto;">Reform</button><button type="button" onclick="bubbleGem('${id}')" style="width:auto;">Bubble</button>`;
@@ -1251,37 +1445,33 @@ function renderProfileGallery(gem) {
 }
 
 function appendImageToGalleryPool() {
-    const urlInput = document.getElementById('img-url-input');
-    const url = urlInput ? urlInput.value.trim() : "";
-    if (url === '') return alert("Please input a valid artwork illustration address string first!");
-    
     const gem = GameData.gems.find(g => g.id === selectedGemId);
-    if (gem) {
+    if (!gem) return;
+    selectedImageData('profile-image-file', image => {
+        if (!image) return alert('Choose an image from your device first.');
         if (!gem.galleryPool) gem.galleryPool = [];
-        if (!gem.galleryPool.includes(url)) {
-            gem.galleryPool.push(url);
-        }
-        gem.image = url;
-        document.getElementById('prof-img').src = url;
-        if (urlInput) urlInput.value = '';
+        if (!gem.galleryPool.includes(image)) gem.galleryPool.push(image);
+        gem.image = image;
+        document.getElementById('prof-img').src = image;
+        document.getElementById('profile-image-file').value = '';
         renderProfileGallery(gem);
         renderRoster();
-    }
+    });
 }
 
 function saveGemCutImage() {
-    const input = document.getElementById('cut-img-url-input');
     const gem = GameData.gems.find(g => String(g.id) === String(selectedGemId));
-    const url = input ? input.value.trim() : '';
     if (!gem) return alert('Open a gem profile before adding a cut photo.');
-    if (!url) return alert('Please enter a valid gem cut image URL.');
-    gem.cutImage = url;
-    const preview = document.getElementById('prof-cut-img');
-    if (preview) {
-        preview.src = url;
-        preview.style.display = 'block';
-    }
-    if (input) input.value = '';
+    selectedImageData('cut-image-file', image => {
+        if (!image) return alert('Choose a gem cut image from your device first.');
+        gem.cutImage = image;
+        const preview = document.getElementById('prof-cut-img');
+        if (preview) {
+            preview.src = image;
+            preview.style.display = 'block';
+        }
+        document.getElementById('cut-image-file').value = '';
+    });
 }
 
 function saveGemPrefix() {
@@ -1300,8 +1490,6 @@ function applyStoredProfileCustomization(gem) {
     const panel = document.querySelector('#profile-modal .modal-content');
     const portrait = document.getElementById('prof-img');
     const backgroundColor = document.getElementById('profile-bg-color');
-    const backgroundImage = document.getElementById('profile-bg-image');
-    const frameImage = document.getElementById('profile-frame-image');
     const fontSelect = document.getElementById('profile-font-select');
     if (!panel || !portrait) return;
     const settings = gem.profileCustomization || {};
@@ -1311,21 +1499,26 @@ function applyStoredProfileCustomization(gem) {
     portrait.style.borderImage = settings.frameImage ? `url("${settings.frameImage}") 30 round` : 'none';
     portrait.style.borderWidth = settings.frameImage ? '12px' : '2px';
     if (backgroundColor) backgroundColor.value = settings.backgroundColor || '#2d3133';
-    if (backgroundImage) backgroundImage.value = settings.backgroundImage || '';
-    if (frameImage) frameImage.value = settings.frameImage || '';
     if (fontSelect) fontSelect.value = settings.fontFamily || 'inherit';
 }
 
 function applyProfileCustomization() {
     const gem = findLiveGem(selectedGemId);
     if (!gem) return;
-    gem.profileCustomization = {
+    const settings = {
         backgroundColor: document.getElementById('profile-bg-color')?.value || '#2d3133',
-        backgroundImage: document.getElementById('profile-bg-image')?.value.trim() || '',
-        frameImage: document.getElementById('profile-frame-image')?.value.trim() || '',
+        backgroundImage: gem.profileCustomization?.backgroundImage || '',
+        frameImage: gem.profileCustomization?.frameImage || '',
         fontFamily: document.getElementById('profile-font-select')?.value || 'inherit'
     };
-    applyStoredProfileCustomization(gem);
+    selectedImageData('profile-bg-image-file', backgroundImage => {
+        if (backgroundImage) settings.backgroundImage = backgroundImage;
+        selectedImageData('profile-frame-image-file', frameImage => {
+            if (frameImage) settings.frameImage = frameImage;
+            gem.profileCustomization = settings;
+            applyStoredProfileCustomization(gem);
+        });
+    });
 }
 
 function openCourtAssignment() {
@@ -1406,6 +1599,9 @@ function completeStructureJob(type, job) {
 
 function buildStructure(structureDesignationName, productionMaterialCostValue) {
     productionMaterialCostValue = COLONY_OPTIONS.STRUCTURE_BUILD_COSTS[structureDesignationName] || productionMaterialCostValue * 100;
+    if (structureDesignationName === 'Trial Building' && !GameData.gems.some(gem => gem.type === 'Zircon' && isGemUsable(gem))) {
+        return alert('A usable Zircon is required to unlock the Trial Building.');
+    }
     if (GameData.mode !== "Roleplay" && GameData.materials < productionMaterialCostValue) {
         return alert("Insufficient raw construction materials inside storage nodes!");
     }
@@ -1547,6 +1743,8 @@ window.saveGemPrefix = saveGemPrefix;
 window.openCourtAssignment = openCourtAssignment;
 window.closeCourtAssignment = closeCourtAssignment;
 window.assignSelectedGemToCourt = assignSelectedGemToCourt;
+window.startTrialEvent = startTrialEvent;
+window.splitFusionFromProfile = splitFusionFromProfile;
 window.applyProfileCustomization = applyProfileCustomization;
 window.showSoldierShipInventory = showSoldierShipInventory;
 window.levelUpSoldierShip = levelUpSoldierShip;
