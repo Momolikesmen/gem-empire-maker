@@ -1,3 +1,42 @@
+const QUICKTIME_FREQUENCY_SETTINGS = {
+    Off: 0,
+    Barely: 0.01,
+    Moderately: 0.025,
+    Frequently: 0.05
+};
+const PROFILE_UI_ASSET_ROOT = 'Assets/UI/Profile';
+const LOCAL_SAVE_KEY = 'gemEmpireLocalSave';
+const STRUCTURE_UNLOCK_REQUIREMENTS = {
+    'Spinel Funhouse': ['Taaffeite'],
+    'Gem Forge': ['Bismuth'],
+    'Trial Building': ['Zircon', 'Aragonite'],
+    'Grand Ballet Hall': ['Rhyolite'],
+    'Grand Ballroom': ['Larkavite'],
+    'Grand Theater': ['Cinnabar'],
+    'Archives': ['Psilomelane'],
+    'Organic Zoo': ['Scapolite'],
+    'Grand Circus': ['Tanzanite']
+};
+const STRUCTURE_CARD_IDS = {
+    'Extractor Injection Rig': 'rig-card',
+    'Homeworld Communications Spire': 'spire-card',
+    Reef: 'reef-card',
+    'Spinel Funhouse': 'funhouse-card',
+    'Gem Forge': 'forge-card',
+    'Diamond Shrine': 'shrine-card',
+    'Healing Center': 'healing-center-card',
+    'Soldier Ship': 'soldier-ship-card',
+    'Trial Building': 'trial-building-card',
+    'Grand Ballet Hall': 'grand-ballet-hall-card',
+    'Grand Ballroom': 'grand-ballroom-card',
+    'Grand Theater': 'grand-theater-card',
+    Archives: 'archives-card',
+    'Organic Zoo': 'organic-zoo-card',
+    'Grand Circus': 'grand-circus-card',
+    'Gathering Hall': 'gathering-hall-card',
+    'Grand Palace': 'grand-palace-card'
+};
+
 // Master Game State Object Container
 let GameData = {
     name: "The Great Gem Empire",
@@ -10,7 +49,9 @@ let GameData = {
     structures: [],
     structureLevels: {},
     structureJobs: {},
+    structureStorage: {},
     soldierShip: { levels: 1, inventories: [{ agateId: null, gemIds: [] }] },
+    rebellionWar: { active: false, rebelIds: [], progress: 0, difficulty: 0 },
     trialBuilding: { unlocked: false, trials: [] },
     fusionEvents: [],
     quicktimeFrequency: 0.025,
@@ -24,6 +65,7 @@ let GameData = {
 let selectedGemId = null;
 let selectedColonyId = null;
 let profileQuoteTimer = null;
+let selectedSetupDiamondSlot = null;
 
 const GEM_QUOTES = {
     Fiery: ["I was not shouting. The room was too quiet.", "Try me. Please.", "Heat is just confidence with better lighting."],
@@ -32,75 +74,103 @@ const GEM_QUOTES = {
     Anxious: ["I have prepared for this. Probably.", "Is that a normal sound?", "I would like a smaller responsibility."],
     Proud: ["Obviously, I handled it beautifully.", "Admire from a respectful distance.", "Excellence is a habit."],
     Stoic: ["Noted.", "The crystal holds.", "I have seen worse days."],
-    Meticulous: ["There is a correct way to do this.", "I made a list for the emergency.", "Precision prevents regret."]
+    Meticulous: ["There is a correct way to do this.", "I made a list for the emergency.", "Precision prevents regret."],
+    Calm: ["There is time to think before we act.", "Let the noise pass; the answer will remain."],
+    Playful: ["Race you to the next disaster.", "I was being serious. Mostly."],
+    Cheery: ["Well, this is a bright spot in the day.", "We can make something good of this."],
+    Patient: ["We can wait until the right moment.", "No need to rush a good decision."],
+    Arrogant: ["Naturally, I was the best choice.", "Try to keep up with excellence."],
+    Empathetic: ["Tell me what you need; I am listening.", "Your worry matters to me."],
+    Sensitive: ["I felt the whole room change.", "Please be gentle with that truth."],
+    Lazy: ["Can this wait until after a rest?", "I am conserving energy for something important."],
+    Cynical: ["I expected less, and still I am disappointed.", "Every promise has a footnote."],
+    Observant: ["The detail everyone missed is right there.", "I noticed the pause before the answer."],
+    Melencholic: ["Some light takes longer to reach us.", "I remember when this felt easier."],
+    Curious: ["What happens if we try the other way?", "I have three questions and a theory."],
+    Airheaded: ["Wait, what were we talking about?", "I had a thought. It may come back."],
+    Brave: ["Stand behind me. I will go first.", "Fear can come along; it does not lead."],
+    Shy: ["I had something to say. Maybe later.", "Could you stay while I try?"],
+    Talkative: ["I can explain, but first there is a story.", "One more thing, then I promise I am done."],
+    Reserved: ["I have said enough for now.", "Some things are better kept quiet."],
+    Mean: ["I could be kinder. I choose not to.", "That was your best effort?"],
+    Logical: ["The evidence points to one conclusion.", "Let us separate facts from assumptions."],
+    Intelligent: ["I have already tested that possibility.", "There is a simpler solution."],
+    Flippant: ["Well, that went almost according to plan.", "I would worry, but it ruins the look."],
+    Puritanical: ["Some lines are not meant to be crossed.", "Discipline is its own kind of freedom."],
+    Clumsy: ["I meant to do that. Probably.", "The floor moved. I am sure of it."],
+    Authoritarian: ["Order keeps the court standing.", "The decision is made; carry it out."],
+    Benevolent: ["Power is best used to shelter others.", "Let us choose the gentler answer."],
+    Melancholic: ["The quiet has a familiar weight.", "I keep the memories others set down."],
+    Volatile: ["Do not mistake a pause for peace.", "My temper arrived before I did."],
+    Reclusive: ["I prefer the company of a quiet room.", "You will find me when I am ready."]
 };
 
 function randomGemQuote(gem) {
-    const pool = GEM_QUOTES[gem.personality] || GEM_QUOTES.Stoic;
+    if (gem.placement === 'Mouth' || gem.gemPlacement === 'Mouth' || gem.fusionPlacements?.includes('Mouth')) {
+        return Math.random() < 0.5 ? '*They seem happy*' : '*They seem focused*';
+    }
+    const personalities = gem.fusionPersonalities || [gem.personality];
+    const pool = personalities.flatMap(personality => GEM_QUOTES[personality] || []);
+    const availableQuotes = pool.length ? pool : GEM_QUOTES.Stoic;
     const mood = gem.status === 'Cracked' ? 'The fracture is inconvenient, not decisive.' : gem.level > 10 ? 'Experience has sharpened the edges.' : null;
-    return mood && Math.random() < 0.45 ? mood : pool[Math.floor(Math.random() * pool.length)];
+    return mood && Math.random() < 0.45 ? mood : availableQuotes[Math.floor(Math.random() * availableQuotes.length)];
 }
 
-function applyAppearanceSettings() {
-    const root = document.documentElement;
-    const page = document.getElementById('theme-page-color');
-    const panel = document.getElementById('theme-panel-color');
-    const accent = document.getElementById('theme-accent-color');
-    const font = document.getElementById('theme-font-select');
-    const button = document.getElementById('theme-button-color');
-    const header = document.getElementById('theme-header-color');
-    const headerFile = document.getElementById('theme-header-file');
-    const customize = document.getElementById('customization-toggle');
-    if (customize && !customize.checked) return;
-    if (page) root.style.setProperty('--page-background-color', page.value);
-    if (panel) root.style.setProperty('--content-background-color', panel.value);
-    if (accent) root.style.setProperty('--link-color', accent.value);
-    if (accent) {
-        root.style.setProperty('--button-background-color', accent.value);
-        root.style.setProperty('--navbar-background-color', accent.value);
-        root.style.setProperty('--navbar-background-gradient', `linear-gradient(180deg, ${accent.value} 0%, #30291c 100%)`);
-    }
-    if (button) root.style.setProperty('--button-background-color', button.value);
-    if (header) root.style.setProperty('--navbar-background-color', header.value);
-    selectedImageData('theme-header-file', image => {
-        if (image) root.style.setProperty('--navbar-background-gradient', `linear-gradient(180deg, ${header?.value || '#655934'}99 0%, ${header?.value || '#30291c'}dd 100%), url("${image}") center/cover`);
-    });
-    if (font) root.style.setProperty('--theme-font-family', font.value === 'CustomGemFont' ? 'CustomGemFont' : font.value);
-}
-
-function saveBrowserGame() {
-    localStorage.setItem('gemEmpireSave', btoa(JSON.stringify(GameData)));
-    localStorage.setItem('gemEmpireAppearance', JSON.stringify({
-        page: document.getElementById('theme-page-color')?.value,
-        panel: document.getElementById('theme-panel-color')?.value,
-        accent: document.getElementById('theme-accent-color')?.value,
-        button: document.getElementById('theme-button-color')?.value,
-        header: document.getElementById('theme-header-color')?.value,
-        headerImage: document.documentElement.style.getPropertyValue('--navbar-background-gradient'),
-        font: document.getElementById('theme-font-select')?.value
-    }));
-    addNotification('Empire saved to this browser.');
-}
-
-function loadBrowserGame() {
-    const save = localStorage.getItem('gemEmpireSave');
-    if (!save) return alert('No browser save found.');
+function saveLocalGame() {
     try {
-        GameData = JSON.parse(atob(save));
-        GameData.gems = Array.isArray(GameData.gems) ? GameData.gems : [];
-        updateUI();
-        renderRoster();
-        renderNotifications();
-        alert('Browser save loaded.');
+        localStorage.setItem(LOCAL_SAVE_KEY, JSON.stringify(GameData));
     } catch (error) {
-        alert('The browser save is invalid.');
+        console.warn('Local empire save could not be written.', error);
     }
 }
 
-function toggleCustomizationOptions() {
-    const toggle = document.getElementById('customization-toggle');
-    const options = document.getElementById('global-customization-options');
-    if (options) options.style.display = toggle && toggle.checked ? 'block' : 'none';
+function loadLocalGame() {
+    try {
+        let save = localStorage.getItem(LOCAL_SAVE_KEY);
+        if (!save) {
+            const legacySave = localStorage.getItem('gemEmpireSave');
+            if (legacySave) {
+                try {
+                    save = JSON.stringify(JSON.parse(legacySave));
+                } catch {
+                    save = JSON.stringify(JSON.parse(atob(legacySave)));
+                }
+            }
+        }
+        if (!save) return false;
+        const loaded = JSON.parse(save);
+        if (!loaded || typeof loaded !== 'object' || Array.isArray(loaded)) return false;
+        GameData = { ...GameData, ...loaded };
+        for (const key of ['gems', 'colonies', 'structures', 'diamondsCouncil']) {
+            if (!Array.isArray(GameData[key])) GameData[key] = [];
+        }
+        if (!GameData.structureLevels || typeof GameData.structureLevels !== 'object') GameData.structureLevels = {};
+        if (!GameData.structureJobs || typeof GameData.structureJobs !== 'object') GameData.structureJobs = {};
+        if (!GameData.structureStorage || typeof GameData.structureStorage !== 'object') GameData.structureStorage = {};
+        if (!GameData.rebellionWar || typeof GameData.rebellionWar !== 'object') GameData.rebellionWar = { active: false, rebelIds: [], progress: 0, difficulty: 0 };
+        if (!Array.isArray(GameData.rebellionWar.rebelIds)) GameData.rebellionWar.rebelIds = [];
+        GameData.gems.forEach(gem => { gem.rebellion = Math.max(0, Math.min(100, Number(gem.rebellion || 0))); });
+        GameData.gems.forEach(gem => { gem.inRebellion = GameData.rebellionWar.rebelIds.some(id => String(id) === String(gem.id)); });
+        GameData.gems.filter(gem => Array.isArray(gem.fusionMembers)).forEach(normalizeFusionCharacter);
+        saveLocalGame();
+        localStorage.removeItem('gemEmpireSave');
+        return true;
+    } catch (error) {
+        console.warn('The local empire save could not be restored.', error);
+        return false;
+    }
+}
+
+function restoreLocalGame() {
+    if (!loadLocalGame()) return;
+    const liveTitle = document.getElementById('live-empire-title');
+    if (liveTitle) liveTitle.innerText = GameData.name;
+    if (!GameData.started && !GameData.gems.length) return;
+    switchScreen('screen-dashboard');
+    switchTab('tab-court-roster');
+    renderColonies();
+    renderGemDirectories();
+    renderNotifications();
 }
 
 function getGemStatus(gem) {
@@ -119,18 +189,73 @@ function renderNotifications() {
     const count = document.getElementById('notification-count');
     const notifications = GameData.notifications || [];
     if (count) count.innerText = notifications.length;
-    if (center) center.innerHTML = `<div style="padding:8px; border-bottom:1px solid var(--event-border-color);"><label for="quicktime-frequency">Quicktime event frequency: <span id="quicktime-frequency-value">${Math.round((GameData.quicktimeFrequency || 0.025) * 1000) / 10}%</span></label><input id="quicktime-frequency" type="range" min="0" max="10" step="0.1" value="${(GameData.quicktimeFrequency || 0.025) * 100}" oninput="updateQuicktimeFrequency(this.value)"></div><div style="padding-top:8px;">${notifications.length ? notifications.map(note => `<p style="margin:4px 0;"><strong>Year ${note.year}:</strong> ${note.text}</p>`).join('') : '<p>No events recorded.</p>'}</div>`;
+    const setting = getQuicktimeFrequencySetting();
+    if (center) {
+        let frequencySelect = document.getElementById('quicktime-frequency');
+        let notificationList = document.getElementById('notification-list');
+        const initializeFrequencySelect = !frequencySelect || !notificationList || !center.contains(frequencySelect) || !center.contains(notificationList);
+        if (initializeFrequencySelect) {
+            center.replaceChildren();
+            const settings = document.createElement('div');
+            settings.className = 'notification-settings';
+            const label = document.createElement('label');
+            label.htmlFor = 'quicktime-frequency';
+            label.textContent = 'Quicktime event frequency';
+            frequencySelect = document.createElement('select');
+            frequencySelect.id = 'quicktime-frequency';
+            frequencySelect.dataset.uiAsset = 'quicktime-frequency-select-ui';
+            frequencySelect.dataset.uiKind = 'textbox';
+            frequencySelect.onchange = () => updateQuicktimeFrequency(frequencySelect.value);
+            Object.keys(QUICKTIME_FREQUENCY_SETTINGS).forEach(option => frequencySelect.add(new Option(option, option)));
+            settings.append(label, frequencySelect);
+            notificationList = document.createElement('div');
+            notificationList.id = 'notification-list';
+            notificationList.className = 'notification-list';
+            center.append(settings, notificationList);
+            frequencySelect.value = setting;
+            applyUiAsset(frequencySelect, 'quicktime-frequency-select-ui', 'textbox');
+        }
+        notificationList.innerHTML = notifications.length
+            ? notifications.map(note => `<p style="margin:4px 0;"><strong>Year ${note.year}:</strong> ${note.text}</p>`).join('')
+            : '<p>No events recorded.</p>';
+    }
 }
 
-function updateQuicktimeFrequency(value) {
-    GameData.quicktimeFrequency = Math.max(0, Math.min(0.1, Number(value) / 100));
-    const output = document.getElementById('quicktime-frequency-value');
-    if (output) output.innerText = `${Math.round(GameData.quicktimeFrequency * 1000) / 10}%`;
+function getQuicktimeFrequencySetting() {
+    const frequency = Number(GameData.quicktimeFrequency ?? QUICKTIME_FREQUENCY_SETTINGS.Moderately);
+    return Object.entries(QUICKTIME_FREQUENCY_SETTINGS).reduce((closest, [setting, value]) =>
+        Math.abs(value - frequency) < Math.abs(QUICKTIME_FREQUENCY_SETTINGS[closest] - frequency) ? setting : closest,
+    'Moderately');
+}
+
+function updateQuicktimeFrequency(setting) {
+    if (!(setting in QUICKTIME_FREQUENCY_SETTINGS)) return;
+    GameData.quicktimeFrequency = QUICKTIME_FREQUENCY_SETTINGS[setting];
 }
 
 function toggleNotifications() {
     const center = document.getElementById('notification-center');
-    if (center) center.style.display = center.style.display === 'none' ? 'block' : 'none';
+    if (!center) return;
+    const isOpening = center.style.display === 'none';
+    center.style.display = isOpening ? 'block' : 'none';
+    applyUiAsset(document.querySelector('body > header'), isOpening ? 'header-open-ui' : 'header-closed-ui', 'surface');
+}
+
+function requestEmpireReset() {
+    const modal = document.getElementById('reset-confirmation-modal');
+    if (modal) modal.style.display = 'flex';
+}
+
+function cancelEmpireReset() {
+    const modal = document.getElementById('reset-confirmation-modal');
+    if (modal) modal.style.display = 'none';
+}
+
+function confirmEmpireReset() {
+    localStorage.removeItem(LOCAL_SAVE_KEY);
+    localStorage.removeItem('gemEmpireSave');
+    localStorage.removeItem('gemEmpireAppearance');
+    window.location.reload();
 }
 
 function showEventPopup(text) {
@@ -139,16 +264,23 @@ function showEventPopup(text) {
     const actions = document.getElementById('event-popup-actions');
     if (message) message.innerText = text;
     if (actions) actions.innerHTML = '';
-    if (popup) popup.style.display = 'block';
+    if (popup) {
+        applyUiAsset(popup, 'quicktime-event-popup-ui', 'surface');
+        popup.style.display = 'block';
+    }
 }
 
 function showEventChoices(text, choices) {
     showEventPopup(text);
     const actions = document.getElementById('event-popup-actions');
-    if (actions) actions.innerHTML = choices.map(choice => `<button type="button" data-event-action="${choice.id}" style="width:auto; margin:4px;">${choice.label}</button>`).join('');
+    if (actions) actions.innerHTML = choices.map(choice => `<button type="button" data-event-action="${choice.id}" data-ui-asset="quicktime-event-choice-button-ui" data-ui-kind="button" style="width:auto; margin:4px;">${choice.label}</button>`).join('');
     choices.forEach(choice => {
         const button = actions.querySelector(`[data-event-action="${choice.id}"]`);
-        if (button) button.onclick = () => { choice.action(); closeEventPopup(); };
+        if (button) {
+            button.setAttribute('aria-label', choice.label);
+            applyUiAsset(button, 'quicktime-event-choice-button-ui', 'button');
+            button.onclick = () => { choice.action(); closeEventPopup(); };
+        }
     });
 }
 
@@ -159,7 +291,12 @@ function closeEventPopup() {
 
 function toggleGemDirectory(directoryId) {
     const directory = document.getElementById(directoryId);
-    if (directory) directory.style.display = directory.style.display === 'none' ? 'block' : 'none';
+    if (!directory) return;
+    const isOpening = directory.style.display === 'none';
+    directory.style.display = isOpening ? 'block' : 'none';
+    if (directoryId === 'shattered-gems-directory') {
+        applyUiAsset(document.getElementById('shattered-gems-panel'), isOpening ? 'shattered-gems-open-ui' : 'shattered-gems-closed-ui', 'surface');
+    }
 }
 
 function normalizeGemStatus(gem) {
@@ -169,20 +306,7 @@ function normalizeGemStatus(gem) {
 
 function isGemUsable(gem) {
     const status = normalizeGemStatus(gem);
-    return status === 'Fine' || status === 'Cracked';
-}
-
-function readImageFile(file, onLoad) {
-    if (!file) return onLoad('');
-    const reader = new FileReader();
-    reader.onload = () => onLoad(String(reader.result));
-    reader.onerror = () => alert('The selected image could not be read.');
-    reader.readAsDataURL(file);
-}
-
-function selectedImageData(inputId, callback) {
-    const input = document.getElementById(inputId);
-    readImageFile(input && input.files ? input.files[0] : null, callback);
+    return !gem.storedIn && (status === 'Fine' || status === 'Cracked');
 }
 
 // ==========================================
@@ -194,6 +318,7 @@ function switchScreen(screenId) {
     if (targetScreen) {
         targetScreen.classList.add('active-screen');
     }
+    document.body.classList.toggle('dashboard-active', screenId === 'screen-dashboard');
     updateUI();
 }
 
@@ -218,90 +343,91 @@ function randomizeStartingSector() {
 }
 
 // ==========================================
-// NEW FEATURES: SETUP MATRIARCH CREATION
+// DIAMOND COUNCIL SETUP
 // ==========================================
 
-// Player Action: Log a custom Diamond to the Council array before starting
-function addDiamondToSetupCouncil() {
-    const nameInput = document.getElementById('setup-diamond-name');
-    const legacyColorSelect = document.getElementById('dia1-color');
-    const roleSelect = document.getElementById('dia1-role');
-    const imgInput = document.getElementById('dia1-img-file');
+function setSetupDiamondColor(slot, color) {
+    if (!slot || !color) return;
+    slot.dataset.color = color;
+    slot.style.setProperty('--diamond-color', color);
+    const swatch = slot.querySelector('.diamond-swatch');
+    if (swatch) swatch.style.backgroundColor = color;
+}
 
-    const rawName = nameInput ? nameInput.value.trim() : "";
-    if (!rawName) {
-        alert("Please enter a designation name for your custom Diamond first!");
-        return;
-    }
+function initializeDiamondSetup() {
+    const slots = Array.from(document.querySelectorAll('.diamond-slot'));
+    const pickerTarget = document.getElementById('diamond-color-wheel');
+    const colorInput = document.getElementById('diamond-color-fallback');
+    const targetLabel = document.getElementById('diamond-color-target');
+    if (!slots.length) return;
 
-    const diamondColor = legacyColorSelect ? legacyColorSelect.value : "White";
-    const diamondName = rawName.includes("Diamond") ? rawName : `${rawName} Diamond`;
-
-    selectedImageData('dia1-img-file', image => {
-        GameData.diamondsCouncil.push({
-            id: "diamond_" + Date.now() + "_" + Math.floor(Math.random() * 1000),
-            name: diamondName,
-            color: diamondColor,
-            assignedRoleTag: roleSelect ? roleSelect.value : "Supreme Authority",
-            image: image || "https://placehold.co"
+    let colorPicker = null;
+    if (window.iro && pickerTarget) {
+        colorPicker = new iro.ColorPicker(pickerTarget, {
+            width: 176,
+            color: slots[0].dataset.color,
+            borderWidth: 1,
+            borderColor: '#e8e6e3'
         });
-        if (nameInput) nameInput.value = '';
-        if (imgInput) imgInput.value = '';
-        renderSetupDiamondCards();
-    });
-}
-
-// Render the temporary setup cards on the initialization screen
-function renderSetupDiamondCards() {
-    const setupGrid = document.getElementById('setup-diamonds-grid');
-    if (!setupGrid) return;
-    setupGrid.innerHTML = '';
-
-    if (GameData.diamondsCouncil.length === 0) {
-        setupGrid.innerHTML = `<p style="grid-column: 1/-1; opacity: 0.5; font-style: italic;">No custom Diamonds logged to the authority council yet.</p>`;
-        return;
+        colorPicker.on('color:change', color => {
+            if (!selectedSetupDiamondSlot) return;
+            setSetupDiamondColor(selectedSetupDiamondSlot, color.hexString);
+            if (colorInput) colorInput.value = color.hexString;
+        });
     }
 
-    GameData.diamondsCouncil.forEach((diamond, index) => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.style.borderTop = `4px solid ${getHexColorForDiamond(diamond.color)}`;
-        card.innerHTML = `
-            <img src="${diamond.image}" alt="Diamond Portrait">
-            <h4>${diamond.name}</h4>
-            <p style="font-size:0.8rem; color: var(--link-color); margin-top:2px;">${diamond.assignedRoleTag}</p>
-            <button onclick="removeDiamondFromSetup(${index})" style="padding:4px; font-size:0.75rem; margin-top:8px; background-color: var(--button-secondary-background-color); color: var(--button-secondary-text-color);">Remove</button>
-        `;
-        setupGrid.appendChild(card);
+    function selectSlot(slot) {
+        selectedSetupDiamondSlot = slot;
+        slots.forEach(candidate => {
+            const button = candidate.querySelector('.diamond-select-color');
+            if (button) button.setAttribute('aria-pressed', candidate === slot ? 'true' : 'false');
+        });
+        if (targetLabel) targetLabel.textContent = slot.querySelector('h4').textContent;
+        if (colorPicker) colorPicker.color.set(slot.dataset.color);
+        if (colorInput) colorInput.value = slot.dataset.color;
+    }
+
+    slots.forEach(slot => {
+        setSetupDiamondColor(slot, slot.dataset.color);
+        slot.querySelector('.diamond-select-color').addEventListener('click', () => selectSlot(slot));
     });
+    selectedSetupDiamondSlot = slots[0];
+
+    if (colorInput) {
+        colorInput.addEventListener('input', () => {
+            setSetupDiamondColor(selectedSetupDiamondSlot, colorInput.value);
+            if (colorPicker) colorPicker.color.set(colorInput.value);
+        });
+    }
 }
 
-// Remove a Diamond from the list if the user changes their mind during setup
-function removeDiamondFromSetup(index) {
-    GameData.diamondsCouncil.splice(index, 1);
-    renderSetupDiamondCards();
-}
-
-// Helper utility to get aesthetic borders based on gem colors
-function getHexColorForDiamond(color) {
-    const colors = {
-        "White": "#ffffff",
-        "Yellow": "#facc15",
-        "Blue": "#3b82f6",
-        "Pink": "#f472b6"
-    };
-    return colors[color] || "#ffffff";
+function collectSetupDiamondCouncil() {
+    GameData.diamondsCouncil = Array.from(document.querySelectorAll('.diamond-slot')).map(slot => {
+        const prefix = slot.querySelector('.diamond-prefix').value.trim() || slot.dataset.defaultName;
+        const name = /diamond/i.test(prefix) ? prefix : `${prefix} Diamond`;
+        return {
+            id: `diamond_${slot.dataset.diamondRole}`,
+            name,
+            color: slot.dataset.color,
+            assignedRoleTag: slot.dataset.roleTag,
+            courtMembers: [],
+            colonyIds: [],
+            image: 'https://placehold.co/90x90?text=Diamond'
+        };
+    });
 }
 
 // ==========================================
 // 2. LAUNCHER, INITIALIZATION & SAVES
 // ==========================================
 function launchNewEmpire() {
+    collectSetupDiamondCouncil();
     const nameInput = document.getElementById('setup-empire-name');
     GameData.name = nameInput ? nameInput.value.trim() : "The Great Gem Empire";
     
     const modeSelect = document.getElementById('setup-game-mode');
     GameData.mode = modeSelect ? modeSelect.value : "Classic";
+    GameData.started = true;
     
     // Require at least one leader to establish authority
     if (GameData.diamondsCouncil.length === 0) {
@@ -319,16 +445,20 @@ function launchNewEmpire() {
 
     // Automatically inject our logged council members into the core gems roster as game elements
     GameData.diamondsCouncil.forEach(diamond => {
+        const placement = chooseRandomGemPlacement();
         let gemRecord = {
             id: diamond.id,
             type: "Diamond",
             name: diamond.name,
-            quality: "Perfect",
-            placement: "Chest", 
-            personality: "Stoic",
+            quality: placement === 'Mouth' ? 'Defective' : 'Perfect',
+            placement,
+            personality: chooseRandomGemPersonality(true),
             level: 0,
             guards: [],
             boosts: [],
+            courtId: null,
+            courtMembers: [],
+            colonyIds: [],
             location: "Court",
             guardOwnerId: null,
             image: diamond.image,
@@ -342,32 +472,7 @@ function launchNewEmpire() {
     
     switchScreen('screen-dashboard');
     switchTab('tab-court-roster'); 
-}
-
-function exportSaveData() {
-    const rawCode = btoa(JSON.stringify(GameData));
-    alert("YOUR EMPIRE BACKUP SAVE CODE IS READY!\n\nCopy this text block to import later:\n\n" + rawCode);
-    console.log("SAVE_CODE:", rawCode);
-}
-
-function executeImportSave() {
-    const importBox = document.getElementById('import-text-box');
-    const rawBoxInput = importBox ? importBox.value.trim() : "";
-    if(!rawBoxInput) return alert("Please paste valid code block data matrix first!");
-
-    try {
-        const decodedState = JSON.parse(atob(rawBoxInput));
-        GameData = decodedState;
-        
-        const liveTitle = document.getElementById('live-empire-title');
-        if (liveTitle) liveTitle.innerText = GameData.name;
-        
-        switchScreen('screen-dashboard');
-        switchTab('tab-court-roster');
-        alert("Empire state safely synchronized!");
-    } catch(err) {
-        alert("CRITICAL CORE FAILURE: Invalid, expired, or corrupted save code string injected.");
-    }
+    saveLocalGame();
 }
 
 function updateUI() {
@@ -382,7 +487,6 @@ function updateUI() {
     if(popVal) popVal.innerText = GameData.gems.length;
 
     renderStructureInventoryButtons();
-    renderSoldierShipInventory();
 }
 
 // ==========================================
@@ -400,6 +504,37 @@ function chooseColonyGemTypes() {
         selected.push(pool.splice(index, 1)[0]);
     }
     return selected;
+}
+
+function getColonyCourtOptions() {
+    const councilCourts = (GameData.diamondsCouncil || []).filter(diamond => diamond && diamond.id);
+    if (councilCourts.length) return councilCourts;
+    return GameData.gems.filter(gem => gem.type === 'Diamond').map(diamond => ({
+        id: diamond.id,
+        name: diamond.name,
+        courtMembers: diamond.courtMembers || [],
+        colonyIds: diamond.colonyIds || []
+    }));
+}
+
+function assignColonyCourt(colony) {
+    if (!colony) return null;
+    const courts = getColonyCourtOptions();
+    if (!courts.length) return null;
+    let court = courts.find(candidate => String(candidate.id) === String(colony.courtId));
+    if (!court) {
+        court = courts[Math.floor(Math.random() * courts.length)];
+        colony.courtId = court.id;
+    }
+    colony.courtName = court.name;
+    if (!Array.isArray(court.colonyIds)) court.colonyIds = [];
+    if (!court.colonyIds.some(id => String(id) === String(colony.id))) court.colonyIds.push(colony.id);
+    const liveCourt = GameData.gems.find(gem => String(gem.id) === String(court.id));
+    if (liveCourt) {
+        if (!Array.isArray(liveCourt.colonyIds)) liveCourt.colonyIds = [];
+        if (!liveCourt.colonyIds.some(id => String(id) === String(colony.id))) liveCourt.colonyIds.push(colony.id);
+    }
+    return court;
 }
 
 function foundColony() {
@@ -421,7 +556,7 @@ function foundColony() {
         birthYear: GameData.year,
         isDecayed: false
     };
-    
+    assignColonyCourt(discoveryColonyRecord);
     GameData.colonies.push(discoveryColonyRecord);
     updateUI();
     renderColonies();
@@ -433,19 +568,25 @@ function renderColonies() {
     colonyGridContainer.innerHTML = '';
     
     GameData.colonies.forEach(colony => {
+        const court = assignColonyCourt(colony);
         const itemCard = document.createElement('div');
         itemCard.className = 'card';
+        const timerStatus = GameData.mode === 'Roleplay'
+            ? '<p style="font-size:0.8rem; opacity:0.75;">Gem creation: Immediate</p>'
+            : `<p style="font-size:0.8rem; opacity:0.75;">Timers: ${[...(colony.kindergartenJobs || []), ...(colony.shrineJobs || [])].map(job => formatTimer(job.readyAt)).join(', ') || 'None'}</p>`;
         
         let statusText = colony.isDecayed 
             ? `<p style="color:#ef4444; font-size:0.8rem; font-weight:bold; margin-top:5px;">⚠️ Crust Layer Decayed</p>` 
             : `<p style="opacity:0.6; font-size:0.85rem; margin-top:5px;">Output: +${colony.yieldValue} Materials, +${colony.essenceRate || 0} Essence/Tick</p>
                <p style="font-size:0.8rem; color:#00945c; margin-bottom: 5px;">Kindergartens: ${colony.kindergartensBuilt}/${COLONY_OPTIONS.MAX_KINDERGARTENS}</p>
+               <p style="font-size:0.8rem; opacity:0.75;">Court: ${court?.name || 'Unassigned'}</p>
                <p style="font-size:0.8rem; opacity:0.75;">Gem types: ${(colony.availableGemTypes || COLONY_OPTIONS.GEM_TYPES).join(', ')}</p>
-               <p style="font-size:0.8rem; opacity:0.75;">Timers: ${[...(colony.kindergartenJobs || []), ...(colony.shrineJobs || [])].map(job => formatTimer(job.readyAt)).join(', ') || 'None'}</p>
+               ${timerStatus}
                <button onclick="openColonyControlPanel(${colony.id})" style="padding:4px; font-size:0.75rem; width: auto; margin-top:8px;">Open Colony Menu</button>`;
 
-itemCard.innerHTML = `<h3>🪐 ${colony.name}</h3> ${statusText}`;
+    itemCard.innerHTML = `<h3>🪐 ${colony.name}</h3> ${statusText}`;
 colonyGridContainer.appendChild(itemCard);
+        applyUiAsset(itemCard, 'colony-card-ui', 'surface');
     });
 }
 
@@ -461,13 +602,24 @@ function openColonyControlPanel(id) {
     const gemTypeSelect = document.getElementById('colony-gem-type');
     const availableGemTypes = colony.availableGemTypes || COLONY_OPTIONS.GEM_TYPES;
     if (gemTypeSelect) {
-        gemTypeSelect.innerHTML = availableGemTypes.map(type => `<option value="${type}">${type}</option>`).join('');
+        const optionsMatch = gemTypeSelect.options.length === availableGemTypes.length &&
+            availableGemTypes.every((type, index) => gemTypeSelect.options[index].value === type);
+        if (!optionsMatch) {
+            const selectedType = gemTypeSelect.value;
+            gemTypeSelect.innerHTML = availableGemTypes.map(type => `<option value="${type}">${type}</option>`).join('');
+            if (availableGemTypes.includes(selectedType)) gemTypeSelect.value = selectedType;
+        }
     }
+    updateKindergartenButtonCost();
     document.getElementById('colony-modal-title').innerText = colony.name;
     const jobs = [...(colony.kindergartenJobs || []), ...(colony.shrineJobs || [])];
-    const jobText = jobs.length ? jobs.map(job => `${job.kind === 'diamond' ? 'Diamond Shrine' : job.gemType + ' Kindergarten'}: ${formatTimer(job.readyAt)}`).join(' | ') : 'No active kindergarten timers.';
-    document.getElementById('colony-modal-details').innerHTML = `<p>Planet type: ${colony.planetType || colony.name}</p><p>Output: +${colony.yieldValue} Materials, +${colony.essenceRate || 0} Essence/Tick</p><p>Kindergartens: ${colony.kindergartensBuilt}/${COLONY_OPTIONS.MAX_KINDERGARTENS}</p><p>Active timers: ${jobText}</p>`;
-    document.getElementById('colony-options-list').innerText = `This colony supports: ${availableGemTypes.join(', ')}. Building a Kindergarten starts a ${Math.round(getKindergartenDurationMinutes() * 10) / 10}-minute timer and can produce up to three gems of one type.`;
+    const roleplayMode = GameData.mode === 'Roleplay';
+    const jobText = roleplayMode ? 'Gem creation is immediate in Roleplay mode.' : jobs.length ? jobs.map(job => `${job.kind === 'diamond' ? 'Diamond Shrine' : job.gemType + ' Kindergarten'}: ${formatTimer(job.readyAt)}`).join(' | ') : 'No active kindergarten timers.';
+    const court = assignColonyCourt(colony);
+    document.getElementById('colony-modal-details').innerHTML = `<p>Planet type: ${colony.planetType || colony.name}</p><p>Diamond court: ${court?.name || 'Unassigned'}</p><p>Output: +${colony.yieldValue} Materials, +${colony.essenceRate || 0} Essence/Tick</p><p>Kindergartens: ${colony.kindergartensBuilt}/${COLONY_OPTIONS.MAX_KINDERGARTENS}</p><p>${roleplayMode ? 'Gem creation' : 'Active timers'}: ${jobText}</p>`;
+    document.getElementById('colony-options-list').innerText = roleplayMode
+        ? `This colony supports: ${availableGemTypes.join(', ')}. Kindergarten gem creation is immediate in Roleplay mode.`
+        : `This colony supports: ${availableGemTypes.join(', ')}. Building a Kindergarten starts a ${Math.round(getKindergartenDurationMinutes() * 10) / 10}-minute timer and can produce up to three gems of one type.`;
     const diamondKindergartenButton = document.getElementById('diamond-kindergarten-button');
     if (diamondKindergartenButton) diamondKindergartenButton.disabled = !GameData.structures.includes('Diamond Shrine');
     document.getElementById('colony-modal').style.display = 'flex';
@@ -482,21 +634,26 @@ function buildColonyKindergarten() {
     const colony = GameData.colonies.find(c => c.id === selectedColonyId);
     if (!colony) return;
     if (colony.kindergartensBuilt >= COLONY_OPTIONS.MAX_KINDERGARTENS) return alert('This colony has reached its Kindergarten limit.');
-    if (GameData.mode !== "Roleplay" && GameData.materials < COLONY_OPTIONS.KINDERGARTEN_COST) return alert('Not enough Materials to establish a Kindergarten core!');
-    if (GameData.mode !== "Roleplay") GameData.materials -= COLONY_OPTIONS.KINDERGARTEN_COST;
     const gemTypeSelect = document.getElementById('colony-gem-type');
     const gemType = gemTypeSelect ? gemTypeSelect.value : null;
     if (!gemType || !(colony.availableGemTypes || []).includes(gemType)) return alert('Choose a gem type available on this colony.');
+    const materialCost = getKindergartenCost(gemType);
+    if (GameData.mode !== 'Roleplay' && GameData.materials < materialCost) return alert(`Not enough Materials to establish a ${gemType} Kindergarten. It costs ${materialCost} Materials.`);
+    if (GameData.mode !== 'Roleplay') GameData.materials -= materialCost;
     if (!Array.isArray(colony.kindergartenJobs)) colony.kindergartenJobs = [];
     colony.kindergartensBuilt++;
     colony.yieldValue += 3;
-    colony.kindergartenJobs.push({
-        kind: 'regular',
-        gemType,
-        startedAt: Date.now(),
-        readyAt: Date.now() + getKindergartenDurationMs()
-    });
-    alert(`${gemType} Kindergarten started. Up to three gems will emerge when the timer completes.`);
+    if (GameData.mode === 'Roleplay') {
+        completeKindergartenJob(colony, { gemType });
+    } else {
+        colony.kindergartenJobs.push({
+            kind: 'regular',
+            gemType,
+            startedAt: Date.now(),
+            readyAt: Date.now() + getKindergartenDurationMs()
+        });
+        alert(`${gemType} Kindergarten started. Up to three gems will emerge when the timer completes.`);
+    }
     updateUI();
     renderColonies();
     openColonyControlPanel(colony.id);
@@ -504,11 +661,33 @@ function buildColonyKindergarten() {
 
 function getKindergartenDurationMs() {
     const agriculturalGems = GameData.gems.filter(gem =>
-        (gem.type === 'Peridot' || gem.type === 'Lapis Lazuli') && isGemUsable(gem)
+        (gem.type === 'Peridot' || gem.type === 'Lapis Lazuli' || gem.type === 'Aeschynite') && isGemUsable(gem)
     );
     const reductionPerLevel = GEM_PURPOSES.AGRICULTURAL.timeReductionPerLevel || 0;
-    const totalReduction = Math.min(0.9, agriculturalGems.reduce((sum, gem) => sum + Math.max(0, Number(gem.level || 0)) * reductionPerLevel, 0));
+    const totalReduction = Math.min(0.9, agriculturalGems.reduce((sum, gem) =>
+        sum + Math.max(0, Number(gem.level || 0)) * reductionPerLevel * (gem.type === 'Aeschynite' ? 2 : 1), 0));
     return Math.max(60 * 1000, COLONY_OPTIONS.KINDERGARTEN_DURATION_MS * (1 - totalReduction));
+}
+
+function getKindergartenCost(gemType) {
+    const tier = Object.values(GEM_TIERS).find(entry => entry.types.includes(gemType));
+    if (!tier) return COLONY_OPTIONS.KINDERGARTEN_COST;
+    const rank = Number(tier.rank);
+    if (gemType === 'Ruby' || rank === 0 || rank === 6) return 500;
+    if (rank >= 12) return 20000;
+    if (rank >= 10) return 18000;
+    if (rank === 9) return 15000;
+    if (rank >= 7) return 10000;
+    if (rank >= 5) return 5000;
+    return 2500;
+}
+
+function updateKindergartenButtonCost() {
+    const button = document.getElementById('colony-kindergarten-button');
+    const select = document.getElementById('colony-gem-type');
+    if (button && select && select.value) {
+        button.textContent = `Build ${select.value} Kindergarten (${getKindergartenCost(select.value)} Materials)`;
+    }
 }
 
 function getKindergartenDurationMinutes() {
@@ -522,12 +701,10 @@ function formatTimer(readyAt) {
     return remaining <= 0 ? 'Ready' : `${minutes}m ${String(seconds).padStart(2, '0')}s remaining`;
 }
 
-function createGemFromKindergarten(gemType) {
-    const qualities = ["Perfect", "Regular", "Regular", "Defective"];
-    const placements = ["Forehead", "Chest", "Navel", "Hands", "Back", "Face"];
-    const personalities = ["Fiery", "Meticulous", "Loyal", "Anxious", "Rebellious", "Stoic"];
-    
-    const quality = qualities[Math.floor(Math.random() * qualities.length)];
+function createGemFromKindergarten(gemType, colony) {
+    const placement = chooseRandomGemPlacement();
+    const quality = rollGemQuality(placement);
+    const personality = choosePlacementWeightedPersonality(placement);
     
     let gem = {
         id: Date.now() + Math.random(),
@@ -535,11 +712,14 @@ function createGemFromKindergarten(gemType) {
         customPrefix: typeof generateGemPrefix === 'function' ? generateGemPrefix(gemType) : 'Facet-' + Math.floor(Math.random() * 899 + 100),
         name: "Facet-" + Math.floor(Math.random() * 899 + 100) + " " + gemType,
         quality,
-        placement: placements[Math.floor(Math.random() * placements.length)],
-        personality: personalities[Math.floor(Math.random() * personalities.length)],
+        placement,
+        personality,
         level: 0,
         guards: [],
         boosts: typeof determineStartingBoosts === 'function' ? determineStartingBoosts(quality, gemType) : [],
+        courtId: assignColonyCourt(colony)?.id ?? null,
+        colonyId: colony?.id ?? null,
+        colonyName: colony?.name ?? null,
         location: "Court",
         guardOwnerId: null,
         image: "https://placehold.co/200x200",
@@ -547,32 +727,44 @@ function createGemFromKindergarten(gemType) {
         cutImage: ""
     };
     gem.name = `${gem.customPrefix} ${gem.type}`;
-    
+    if (gem.courtId !== null) {
+        const court = GameData.gems.find(candidate => String(candidate.id) === String(gem.courtId));
+        if (court) {
+            if (!Array.isArray(court.courtMembers)) court.courtMembers = [];
+            if (!court.courtMembers.some(id => String(id) === String(gem.id))) court.courtMembers.push(gem.id);
+        }
+    }
     GameData.gems.push(gem);
     return gem;
 }
 
 function completeKindergartenJob(colony, job) {
     const outputCount = Math.floor(Math.random() * 3) + 1;
-    const newGems = Array.from({ length: outputCount }, () => createGemFromKindergarten(job.gemType));
-    colony.kindergartenJobs = colony.kindergartenJobs.filter(activeJob => activeJob !== job);
+    const newGems = Array.from({ length: outputCount }, () => createGemFromKindergarten(job.gemType, colony));
+    if (job) colony.kindergartenJobs = colony.kindergartenJobs.filter(activeJob => activeJob !== job);
     alert(`${newGems.length} ${job.gemType} gem${newGems.length === 1 ? '' : 's'} emerged from ${colony.name}.`);
     renderRoster();
     updateUI();
 }
 
-function createDiamondFromShrine() {
+function createDiamondFromShrine(colony) {
     const name = `Diamond-${Math.floor(Math.random() * 900 + 100)}`;
+    const placement = chooseRandomGemPlacement();
     return {
         id: 'diamond_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
         type: 'Diamond',
         name,
-        quality: 'Perfect',
-        placement: 'Chest',
-        personality: GENERATION_TABLES.DIAMOND_PERSONALITIES[Math.floor(Math.random() * GENERATION_TABLES.DIAMOND_PERSONALITIES.length)],
+        quality: placement === 'Mouth' ? 'Defective' : 'Perfect',
+        placement,
+        personality: chooseRandomGemPersonality(true),
         level: 0,
         guards: [],
         boosts: [],
+        courtId: null,
+        courtMembers: [],
+        colonyIds: [],
+        colonyId: colony?.id ?? null,
+        colonyName: colony?.name ?? null,
         location: 'Court',
         guardOwnerId: null,
         image: 'https://placehold.co/200x200',
@@ -593,21 +785,32 @@ function buildDiamondShrineKindergarten() {
     if (GameData.mode !== 'Roleplay') GameData.essence -= COLONY_OPTIONS.SHRINE_ESSENCE_COST;
 
     colony.kindergartensBuilt += 5;
-    colony.shrineJobs.push({
-        kind: 'diamond',
-        startedAt: Date.now(),
-        readyAt: Date.now() + getKindergartenDurationMs()
-    });
-    alert('Diamond Kindergarten started. One new Diamond will emerge when the timer completes.');
+    if (GameData.mode === 'Roleplay') {
+        completeDiamondShrineJob(colony);
+    } else {
+        colony.shrineJobs.push({
+            kind: 'diamond',
+            startedAt: Date.now(),
+            readyAt: Date.now() + getKindergartenDurationMs()
+        });
+        alert('Diamond Kindergarten started. One new Diamond will emerge when the timer completes.');
+    }
     updateUI();
     renderColonies();
     openColonyControlPanel(colony.id);
 }
 
 function completeDiamondShrineJob(colony, job) {
-    const diamond = createDiamondFromShrine();
+    const diamond = createDiamondFromShrine(colony);
     GameData.gems.push(diamond);
-    colony.shrineJobs = colony.shrineJobs.filter(activeJob => activeJob !== job);
+    if (!Array.isArray(GameData.diamondsCouncil)) GameData.diamondsCouncil = [];
+    GameData.diamondsCouncil.push({
+        id: diamond.id,
+        name: diamond.name,
+        courtMembers: diamond.courtMembers,
+        colonyIds: diamond.colonyIds
+    });
+    if (job) colony.shrineJobs = colony.shrineJobs.filter(activeJob => activeJob !== job);
     alert(`${diamond.name} emerged from the Diamond Shrine.`);
     renderRoster();
     updateUI();
@@ -619,56 +822,68 @@ function surveyColony() {
     alert(`${colony.name} survey:\n\nPlanet: ${colony.planetType || colony.name}\nMaterials: +${colony.yieldValue}/tick\nEssence: +${colony.essenceRate || 0}/tick\nGem types: ${(colony.availableGemTypes || COLONY_OPTIONS.GEM_TYPES).join(', ')}`);
 }
 
+function getPersonalityBehavior(gemOrPersonality) {
+    const personality = typeof gemOrPersonality === 'string' ? gemOrPersonality : gemOrPersonality?.personality;
+    return { ...PERSONALITY_BEHAVIOR_DEFAULTS, ...(PERSONALITY_BEHAVIORS[personality] || {}) };
+}
+
 function triggerLiveGemEvent() {
     const now = Date.now();
-    const candidates = GameData.gems.filter(gem => isGemUsable(gem) && (!gem.eventCooldownUntil || gem.eventCooldownUntil <= now));
-    if (!candidates.length || Math.random() > (GameData.quicktimeFrequency ?? 0.025)) return;
+    const candidates = GameData.gems.filter(gem => !gem.fusionMembers && !gem.inRebellion && isGemUsable(gem) && (!gem.eventCooldownUntil || gem.eventCooldownUntil <= now));
+    if (!candidates.length || Math.random() >= (GameData.quicktimeFrequency ?? 0.025)) return;
 
     const kind = candidates[Math.floor(Math.random() * candidates.length)];
-    const fusionPartner = candidates.find(gem => gem.id !== kind.id && gem.type !== 'Zircon' && gem.type !== 'Zirconium');
-    if (fusionPartner && Math.random() < 0.12) {
+    const kindBehavior = getPersonalityBehavior(kind);
+    const fusionPartners = candidates.filter(gem =>
+        gem.id !== kind.id &&
+        gem.type !== 'Zircon' &&
+        gem.type !== 'Zirconium' &&
+        kindBehavior.canFuse &&
+        getPersonalityBehavior(gem).canFuse
+    );
+    const fusionPartner = fusionPartners[Math.floor(Math.random() * fusionPartners.length)];
+    const fusionChance = fusionPartner
+        ? 0.12 * kindBehavior.fusionMultiplier * getPersonalityBehavior(fusionPartner).fusionMultiplier
+        : 0;
+    if (fusionPartner && Math.random() < fusionChance) {
         kind.eventCooldownUntil = now + 2.5 * 60 * 1000;
         fusionPartner.eventCooldownUntil = now + 2.5 * 60 * 1000;
         resolveFusionEvent(kind, fusionPartner);
         return;
     }
-    const personalityRisk = {
-        Fiery: 1.9,
-        Rebellious: 2.4,
-        Proud: 1.4,
-        Anxious: 1.1,
-        Stoic: 0.45,
-        Loyal: 0.35,
-        Meticulous: 0.55
-    }[kind.personality] || 1;
-    const conflictPool = candidates.filter(gem => gem.id !== kind.id && (!gem.eventCooldownUntil || gem.eventCooldownUntil <= now));
-    const startsConflict = conflictPool.length > 0 && Math.random() < Math.min(0.8, 0.22 * personalityRisk);
-    const other = startsConflict ? conflictPool[Math.floor(Math.random() * conflictPool.length)] : null;
+
+    const placement = kind.placement || kind.gemPlacement;
+    const placementRisk = GEM_PLACEMENTS[placement]?.conflictChanceMultiplier || 1;
+    const conflictPool = candidates.filter(gem => gem.id !== kind.id && getPersonalityBehavior(gem).canFight);
+    const possibleOther = conflictPool[Math.floor(Math.random() * conflictPool.length)];
+    const conflictRisk = possibleOther
+        ? kindBehavior.conflictMultiplier * getPersonalityBehavior(possibleOther).conflictMultiplier * placementRisk
+        : 0;
+    const startsConflict = kindBehavior.canFight && possibleOther && Math.random() < Math.min(0.8, 0.22 * conflictRisk);
+    const other = startsConflict ? possibleOther : null;
     const affected = other ? [kind, other] : [kind];
     const cooldownUntil = now + (2.5 * 60 * 1000);
     affected.forEach(gem => { gem.eventCooldownUntil = cooldownUntil; });
+    if (other) affected.forEach(gem => addGemRebellion(gem, 6));
 
     let eventText;
-    const roll = Math.random();
-    if (other && roll < Math.min(0.5, 0.22 * personalityRisk)) {
-        if (personalityRisk > 1.6) {
-            crackLiveGem(kind);
-            crackLiveGem(other);
-            eventText = `${kind.name} and ${other.name} got into a heated conflict and cracked each other. The Healing Center can repair them.`;
-        } else {
-            eventText = `${kind.name} and ${other.name} argued, but ${kind.name}'s calmer nature kept the conflict from escalating.`;
-        }
-    } else if (roll < 0.55) {
-        eventText = `${kind.name} accidentally fell from a transport ledge while trying to show off. The incident was contained.`;
-    } else if (roll < 0.75) {
+    if (other && Math.random() < Math.min(0.6, 0.18 * kindBehavior.conflictMultiplier * getPersonalityBehavior(other).conflictMultiplier)) {
         crackLiveGem(kind);
-        eventText = `${kind.name} was caught in a chaotic equipment mishap and cracked. The Healing Center can repair them.`;
-    } else if (roll < 0.9) {
+        crackLiveGem(other);
+        eventText = `${kind.name} and ${other.name} got into a heated conflict and cracked each other. The Healing Center can repair them.`;
+    } else if (Math.random() < Math.min(0.8, 0.16 * kindBehavior.accidentMultiplier)) {
+        if (Math.random() < 0.65) {
+            crackLiveGem(kind);
+            eventText = `${kind.name} was caught in an accident and cracked. The Healing Center can repair them.`;
+        } else {
+            eventText = `${kind.name} had a close call, but the accident was contained.`;
+        }
+    } else if (kindBehavior.canDisobey && Math.random() < Math.min(0.75, 0.12 * kindBehavior.rebellionMultiplier)) {
         kind.status = 'Poofed';
         kind.reformAt = now + 10 * 60 * 1000;
-        eventText = `${kind.name} poofed during a sudden rebellion and will remain unusable until reformed.`;
+        eventText = `${kind.name} disobeyed the court and poofed during a rebellion. They will remain unusable until reformed.`;
     } else {
-        eventText = `${kind.name}'s ${kind.personality || 'unpredictable'} personality sparked a rebellion scare, but the court contained it.`;
+        eventText = `${kind.name}'s ${kind.personality || 'unpredictable'} nature caused a small scare, but the court contained it.`;
     }
 
     addNotification(eventText);
@@ -680,7 +895,7 @@ function crackLiveGem(gem) {
     if (!gem || ['Shattered', 'Bubbled'].includes(normalizeGemStatus(gem))) return;
     gem.crackCount = Number(gem.crackCount || 0) + 1;
     if (gem.crackCount > 2) {
-        shatterLiveGem(gem.id);
+        shatterLiveGem(gem.id, true);
         addNotification(`${gem.name} shattered after suffering more than two cracks.`);
         return;
     }
@@ -720,8 +935,10 @@ function resolveTrial(defendantA, zirconA, defendantB, zirconB) {
 
 function startTrialEvent() {
     if (!GameData.structures.includes('Trial Building')) return alert('Build the Trial Building first.');
-    const zircons = GameData.gems.filter(gem => gem.type === 'Zircon' && isGemUsable(gem));
-    const defendants = GameData.gems.filter(gem => gem.type !== 'Zircon' && gem.type !== 'Zirconium' && isGemUsable(gem));
+    if (!canAccessShattering()) return alert('An Aragonite is required to authorize shattering in court trials.');
+    const canEnterTrial = gem => getPersonalityBehavior(gem).canFight && getPersonalityBehavior(gem).canBeShattered;
+    const zircons = GameData.gems.filter(gem => gem.type === 'Zircon' && isGemUsable(gem) && canEnterTrial(gem));
+    const defendants = GameData.gems.filter(gem => gem.type !== 'Zircon' && gem.type !== 'Zirconium' && isGemUsable(gem) && canEnterTrial(gem));
     if (zircons.length < 2 || defendants.length < 2) return alert('A trial requires two usable Zircons and two usable defendant gems.');
     const zirconA = zircons[Math.floor(Math.random() * zircons.length)];
     const zirconB = zircons.filter(gem => gem.id !== zirconA.id)[Math.floor(Math.random() * (zircons.length - 1))];
@@ -734,38 +951,77 @@ function startTrialEvent() {
 }
 
 function createFusion(gemA, gemB) {
+    if (!gemA || !gemB || gemA === gemB || gemA.fusionMembers || gemB.fusionMembers) return null;
     gemA.status = 'Fused';
     gemB.status = 'Fused';
+    const fusionType = getFusionGemType(gemA.type, gemB.type);
     const fusion = {
         id: `fusion_${Date.now()}`,
-        type: `${gemA.type}x${gemB.type} fusion`,
-        name: `${gemA.type}x${gemB.type} fusion`,
-        quality: gemA.quality === 'Perfect' && gemB.quality === 'Perfect' ? 'Perfect' : 'Regular',
-        placement: gemA.placement,
-        personality: gemA.personality,
+        type: fusionType,
+        name: `... (${fusionType})`,
+        customPrefix: '',
+        quality: 'Fusion',
+        placement: `${gemA.placement || gemA.gemPlacement} + ${gemB.placement || gemB.gemPlacement}`,
+        fusionPlacements: [gemA.placement || gemA.gemPlacement, gemB.placement || gemB.gemPlacement],
+        personality: `${gemA.personality} + ${gemB.personality}`,
+        fusionPersonalities: [gemA.personality, gemB.personality],
         level: Math.max(Number(gemA.level || 0), Number(gemB.level || 0)),
         boosts: [...(gemA.boosts || []), ...(gemB.boosts || [])],
         guards: [],
-        image: gemA.image,
-        galleryPool: [gemA.image],
+        image: '',
+        galleryPool: [],
         fusionMembers: [gemA.id, gemB.id],
+        fusionMix: getFusionMixKey(gemA.type, gemB.type),
         status: 'Fine'
     };
     GameData.gems.push(fusion);
     addNotification(`${fusion.name} formed and replaced its component profile cards.`);
     renderRoster();
+    updateUI();
     return fusion;
 }
 
+function normalizeFusionCharacter(fusion) {
+    const members = (fusion.fusionMembers || [])
+        .map(memberId => GameData.gems.find(gem => String(gem.id) === String(memberId)))
+        .filter(Boolean);
+    if (members.length !== 2) return;
+    fusion.fusionPlacements = members.map(gem => gem.placement || gem.gemPlacement).filter(Boolean);
+    fusion.fusionPersonalities = members.map(gem => gem.personality).filter(Boolean);
+    fusion.fusionMix = getFusionMixKey(members[0].type, members[1].type);
+    fusion.type = getFusionGemType(members[0].type, members[1].type);
+    fusion.customPrefix = typeof fusion.customPrefix === 'string' ? fusion.customPrefix : '';
+    fusion.name = `${fusion.customPrefix.trim() || '...'} (${fusion.type})`;
+    fusion.quality = 'Fusion';
+    fusion.placement = fusion.fusionPlacements.join(' + ');
+    fusion.personality = fusion.fusionPersonalities.join(' + ');
+    fusion.guards = [];
+}
+
+function saveFusionPrefix(id) {
+    const fusion = findLiveGem(id);
+    if (!fusion || !fusion.fusionMembers) return;
+    const input = document.getElementById(`fusion-prefix-${String(id).replace(/[^a-zA-Z0-9_-]/g, '-')}`);
+    if (!input) return;
+    fusion.customPrefix = input.value.trim();
+    fusion.name = `${fusion.customPrefix || '...'} (${fusion.type})`;
+    renderRoster();
+    openProfile(fusion.id);
+}
+
 function resolveFusionEvent(gemA, gemB) {
-    showEventChoices(`${gemA.name} and ${gemB.name} began to fuse. What should the court do?`, [
-        { id: 'split-fusion', label: 'Split the Fusion', action: () => { splitFusionByMembers(gemA, gemB); if (Math.random() < 0.4) createFusion(gemA, gemB); } },
-        { id: 'rejuvenate-fusion', label: 'Rejuvenate Both', action: () => { gemA.level = 0; gemB.level = 0; gemA.status = 'Fine'; gemB.status = 'Fine'; addNotification(`${gemA.name} and ${gemB.name} were rejuvenated and separated.`); renderRoster(); } },
-        { id: 'shatter-fusion', label: 'Shatter Both', action: () => { shatterLiveGem(gemA.id); shatterLiveGem(gemB.id); } }
-    ]);
+    const choices = [
+        { id: 'keep-fusion', label: 'Keep Fusion', action: () => createFusion(gemA, gemB) },
+        { id: 'split-fusion', label: 'Split the Fusion', action: () => splitFusionByMembers(gemA, gemB) },
+        { id: 'rejuvenate-fusion', label: 'Rejuvenate Both', action: () => { gemA.level = 0; gemB.level = 0; gemA.status = 'Fine'; gemB.status = 'Fine'; addNotification(`${gemA.name} and ${gemB.name} were rejuvenated and separated.`); renderRoster(); } }
+    ];
+    if (canAccessShattering()) choices.push({ id: 'shatter-fusion', label: 'Shatter Both', action: () => { shatterLiveGem(gemA.id); shatterLiveGem(gemB.id); } });
+    showEventChoices(`${gemA.name} and ${gemB.name} began to fuse. What should the court do?`, choices);
 }
 
 function splitFusionByMembers(gemA, gemB) {
+    addGemRebellion(gemA, 15);
+    addGemRebellion(gemB, 15);
     gemA.status = 'Fine';
     gemB.status = 'Fine';
     const fusion = GameData.gems.find(gem => gem.fusionMembers && gem.fusionMembers.includes(gemA.id) && gem.fusionMembers.includes(gemB.id));
@@ -784,31 +1040,46 @@ function splitFusionFromProfile(id) {
 // ==========================================
 // 4. ROSTER & IMAGE GALLERY DIRECTORIES
 // ==========================================
+function populateGemTypeFilter() {
+    const filter = document.getElementById('gem-type-filter');
+    if (!filter) return;
+    const selectedType = filter.value;
+    const types = [...new Set([...Object.values(GEM_TIERS).flatMap(tier => tier.types), 'Placeholder'])]
+        .sort((left, right) => left.localeCompare(right));
+    filter.replaceChildren(new Option('All Gem Types', 'all'));
+    types.forEach(type => filter.add(new Option(type, type)));
+    if (types.includes(selectedType)) filter.value = selectedType;
+}
+
 function renderRoster() {
     const grid = document.getElementById('roster-grid');
     if(!grid) return;
     grid.innerHTML = '';
     
     const searchInput = document.getElementById('search-input');
-    const filterInput = document.getElementById('quality-filter');
+    const filterInput = document.getElementById('gem-type-filter');
     const search = searchInput ? searchInput.value.toLowerCase() : '';
     const filter = filterInput ? filterInput.value : 'all';
     
-    GameData.gems.filter(gem => !['Bubbled', 'Shattered', 'Fused'].includes(normalizeGemStatus(gem))).forEach(gem => {
+    GameData.gems.filter(gem => !['Bubbled', 'Shattered', 'Fused'].includes(normalizeGemStatus(gem)) && !gem.inRebellion && !gem.storedIn).forEach(gem => {
         normalizeGemStatus(gem);
         const matchesSearch = gem.name.toLowerCase().includes(search) || gem.type.toLowerCase().includes(search);
-        const matchesFilter = filter === 'all' || gem.quality === filter;
+        const matchesFilter = filter === 'all' || gem.type === filter;
         if (matchesSearch && matchesFilter) {
             const card = document.createElement('div');
             card.className = 'card';
             const safeId = String(gem.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
             const caste = getGemCaste(gem);
             const unusable = ['Poofed', 'Bubbled', 'Shattered'].includes(gem.status);
+            const qualityLabel = gem.fusionMembers ? 'Fusion' : `${gem.quality} Cut`;
             card.style.opacity = unusable ? '0.45' : '1';
-            card.innerHTML = `<img src="${gem.image}" alt="Portrait"> <h4>${gem.name}</h4> <p style="font-size:0.75rem; opacity:0.7; margin:0 0 4px;">${caste}</p> <p style="font-size:0.8rem; opacity: 0.6; margin-bottom:4px;">${gem.quality} Cut</p> <p style="font-size:0.8rem; margin-bottom:10px;">Status: ${gem.status}</p> <button onclick="openProfile('${safeId}')" style="padding:6px; font-size:0.8rem; width:auto;">View Profile</button>`;
+            const rebellionMeter = gem.type === 'Diamond' ? '' : `<div class="gem-rebellion-meter" data-ui-asset="gem-rebellion-meter-ui" data-ui-kind="surface" role="meter" aria-label="Rebellion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(gem.rebellion || 0)}" title="Rebellion: ${Math.round(gem.rebellion || 0)}%"><span style="height:${Math.max(0, Math.min(100, Number(gem.rebellion || 0)))}%"></span></div>`;
+            card.innerHTML = `${rebellionMeter}${renderGemArtwork(gem, '', `${gem.name} portrait`)} <h4>${gem.name}</h4> <p style="font-size:0.75rem; opacity:0.7; margin:0 0 4px;">${caste}</p> <p style="font-size:0.8rem; opacity: 0.6; margin-bottom:4px;">${qualityLabel}</p> <p style="font-size:0.8rem; margin-bottom:10px;">Status: ${gem.status}</p> <button onclick="openProfile('${safeId}')" style="padding:6px; font-size:0.8rem; width:auto;">View Profile</button>`;
             grid.appendChild(card);
+            if (rebellionMeter) applyUiAsset(card.querySelector('.gem-rebellion-meter'), 'gem-rebellion-meter-ui', 'surface');
         }
     });
+    renderRebellionStatus();
 }
 
 function renderGemDirectories() {
@@ -816,8 +1087,8 @@ function renderGemDirectories() {
     const shattered = GameData.gems.filter(gem => normalizeGemStatus(gem) === 'Shattered');
     const bubbledBox = document.getElementById('bubbled-gems-directory');
     const shatteredBox = document.getElementById('shattered-gems-directory');
-    if (bubbledBox) bubbledBox.innerHTML = bubbled.length ? bubbled.map(gem => `<div class="card" style="display:flex; align-items:center; gap:8px; margin:6px 0; text-align:left;"><img src="${gem.image}" alt="Portrait" style="width:42px; height:42px; margin:0;"><span>${gem.name}<br><small>Status: Bubbled</small></span><button type="button" onclick="reformGem('${gem.id}')" style="width:auto; margin-left:auto;">Reform</button><button type="button" onclick="openProfile('${gem.id}')" style="width:auto;">Profile</button></div>`).join('') : 'No bubbled gems.';
-    if (shatteredBox) shatteredBox.innerHTML = shattered.length ? shattered.map(gem => `<div class="card" style="display:flex; align-items:center; gap:8px; margin:6px 0; text-align:left; opacity:0.55;"><img src="${gem.image}" alt="Portrait" style="width:42px; height:42px; margin:0;"><span>${gem.name}<br><small>Status: Shattered, permanent</small></span><button type="button" onclick="openProfile('${gem.id}')" style="width:auto; margin-left:auto;">Profile</button></div>`).join('') : 'No shattered gems.';
+    if (bubbledBox) bubbledBox.innerHTML = bubbled.length ? bubbled.map(gem => `<div class="card gem-directory-row"><span class="gem-art-stack--directory">${renderGemArtwork(gem, '', `${gem.name} portrait`)}</span><span>${gem.name}<br><small>Status: Bubbled</small></span><button type="button" onclick="reformGem('${gem.id}')" style="width:auto; margin-left:auto;">Reform</button><button type="button" onclick="openProfile('${gem.id}')" style="width:auto;">Profile</button></div>`).join('') : 'No bubbled gems.';
+    if (shatteredBox) shatteredBox.innerHTML = shattered.length ? shattered.map(gem => `<div class="card gem-directory-row" style="opacity:0.55;"><span class="gem-art-stack--directory">${renderGemArtwork(gem, '', `${gem.name} portrait`)}</span><span>${gem.name}<br><small>Status: Shattered, permanent</small></span><button type="button" onclick="openProfile('${gem.id}')" style="width:auto; margin-left:auto;">Profile</button></div>`).join('') : 'No shattered gems.';
 }
 
 function getStructureLevel(type) {
@@ -839,72 +1110,255 @@ function getActiveProductionJobs(type) {
 }
 
 function getStructureTimerMs(type, baseMinutes) {
-    return Math.max(60 * 1000, baseMinutes * 60 * 1000 * (1 - getStructureTimeReduction(type)));
+    const structureReduction = getStructureTimeReduction(type);
+    const abaloneReduction = type === 'Reef' ? getReefAbaloneReduction() : 0;
+    return Math.max(60 * 1000, baseMinutes * 60 * 1000 * (1 - structureReduction) * (1 - abaloneReduction));
+}
+
+function getStructureUiSlug(type) {
+    return type.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function applyDynamicUiAssets(container) {
+    container.querySelectorAll('[data-ui-asset]').forEach(element => {
+        const names = element.dataset.uiAsset.split(',').map(name => name.trim());
+        applyUiAsset(element, names, element.dataset.uiKind || 'surface');
+    });
+}
+
+function renderStructureMenu(type, content) {
+    const modal = document.getElementById('structure-modal');
+    const title = document.getElementById('structure-modal-title');
+    const menu = document.getElementById('structure-modal-content');
+    if (!modal || !title || !menu) return;
+    title.textContent = type;
+    menu.innerHTML = content;
+    applyDynamicUiAssets(menu);
+    modal.style.display = 'flex';
+}
+
+function closeStructureModal() {
+    const modal = document.getElementById('structure-modal');
+    if (modal) modal.style.display = 'none';
+}
+
+function getStructureStorageRules(type) {
+    const overseerRules = {
+        'Grand Ballet Hall': { occupantType: 'Porcelain', overseerType: 'Rhyolite', overseersPerLevel: 20 },
+        'Grand Ballroom': { occupantType: 'Jade', overseerType: 'Larkavite', overseersPerLevel: 20 },
+        'Grand Theater': { occupantType: 'Lepidolite', overseerType: 'Cinnabar', overseersPerLevel: 20 }
+    };
+    if (overseerRules[type]) return overseerRules[type];
+    if (type === 'Archives') return { occupantType: 'Psilomelane', baseCapacity: 5, levelsPerSlot: 10, noOverseerRequired: true };
+    if (type === 'Grand Circus') return { occupantType: 'Tanzanite', baseCapacity: 5, levelsPerSlot: 5, noOverseerRequired: true };
+    if (type === 'Grand Palace') return { eliteOnly: true, baseCapacity: 10, levelsPerSlot: 10 };
+    if (type === 'Reef') return { overseerType: 'Abalone', overseersPerLevel: Infinity, noOverseerRequired: true };
+    return null;
+}
+
+function getStructureStorage(type) {
+    if (!GameData.structureStorage || typeof GameData.structureStorage !== 'object') GameData.structureStorage = {};
+    if (!GameData.structureStorage[type]) GameData.structureStorage[type] = { occupantIds: [], overseerIds: [] };
+    const storage = GameData.structureStorage[type];
+    if (!Array.isArray(storage.occupantIds)) storage.occupantIds = [];
+    if (!Array.isArray(storage.overseerIds)) storage.overseerIds = [];
+    return storage;
+}
+
+function getStructureStorageCapacity(type) {
+    const rules = getStructureStorageRules(type);
+    if (!rules || rules.overseerType) {
+        if (!rules?.overseerType) return 0;
+        if (type === 'Reef') return 1 + Math.floor((getStructureLevel(type) - 1) / 20);
+        return (1 + Math.floor((getStructureLevel(type) - 1) / rules.overseersPerLevel)) * 10;
+    }
+    if (rules.eliteOnly) return rules.baseCapacity + Math.floor((getStructureLevel(type) - 1) / rules.levelsPerSlot) * 5;
+    return rules.baseCapacity + Math.floor((getStructureLevel(type) - 1) / rules.levelsPerSlot);
+}
+
+function getEligibleStructureGems(type, role) {
+    const rules = getStructureStorageRules(type);
+    const storage = getStructureStorage(type);
+    const storedIds = new Set([...storage.occupantIds, ...storage.overseerIds].map(String));
+    if (role === 'overseer') {
+        return GameData.gems.filter(gem => gem.type === rules.overseerType && isGemUsable(gem) && !storedIds.has(String(gem.id)));
+    }
+    return GameData.gems.filter(gem => {
+        if (!isGemUsable(gem) || storedIds.has(String(gem.id))) return false;
+        if (rules.eliteOnly) {
+            const tier = Object.values(GEM_TIERS).find(entry => entry.types.includes(gem.type));
+            return tier && tier.rank >= 8 && gem.type !== 'Diamond';
+        }
+        return gem.type === rules.occupantType;
+    });
+}
+
+function renderStoredStructureMenu(type) {
+    const rules = getStructureStorageRules(type);
+    const storage = getStructureStorage(type);
+    const level = getStructureLevel(type);
+    const capacity = getStructureStorageCapacity(type);
+    const occupants = storage.occupantIds.map(id => findLiveGem(id)).filter(Boolean);
+    const overseers = storage.overseerIds.map(id => findLiveGem(id)).filter(Boolean);
+    const eligible = getEligibleStructureGems(type, 'occupant');
+    const slug = getStructureUiSlug(type);
+    const safeType = escapeGemArtAttribute(type);
+    const capacityLabel = capacity === Infinity ? 'Unlimited overseer positions' : `${occupants.length}/${capacity} stored`;
+    const occupantOptions = eligible.map(gem => `<option value="${escapeGemArtAttribute(gem.id)}">${escapeGemArtAttribute(gem.name)} (${escapeGemArtAttribute(gem.type)})</option>`).join('');
+    const occupantControl = rules.overseerType
+        ? `<label>Store ${escapeGemArtAttribute(rules.occupantType)}<select id="structure-storage-select" data-ui-asset="structure-storage-select-ui" data-ui-kind="textbox"><option value="">Choose gem</option>${occupantOptions}</select></label><button type="button" data-storage-add="occupant" data-ui-asset="${slug}-store-button-ui" data-ui-kind="button" ${occupants.length >= capacity ? 'disabled' : ''}>Store Gem</button>`
+        : `<label>Store gem<select id="structure-storage-select" data-ui-asset="structure-storage-select-ui" data-ui-kind="textbox"><option value="">Choose gem</option>${occupantOptions}</select></label><button type="button" data-storage-add="occupant" data-ui-asset="${slug}-store-button-ui" data-ui-kind="button" ${occupants.length >= capacity ? 'disabled' : ''}>Store Gem</button>`;
+    const overseerOptions = rules.overseerType ? getEligibleStructureGems(type, 'overseer')
+        .map(gem => `<option value="${escapeGemArtAttribute(gem.id)}">${escapeGemArtAttribute(gem.name)}</option>`).join('') : '';
+    const overseerControl = rules.overseerType
+        ? `<div><label>Overseer (${overseers.length}/${capacity === Infinity ? 'unlimited' : 1 + Math.floor((level - 1) / rules.overseersPerLevel)})<select id="structure-overseer-select" data-ui-asset="structure-overseer-select-ui" data-ui-kind="textbox"><option value="">Choose ${escapeGemArtAttribute(rules.overseerType)}</option>${overseerOptions}</select></label><button type="button" data-storage-add="overseer" data-ui-asset="${slug}-overseer-button-ui" data-ui-kind="button" ${overseers.length >= (capacity === Infinity ? Infinity : 1 + Math.floor((level - 1) / rules.overseersPerLevel)) ? 'disabled' : ''}>Assign Overseer</button></div>`
+        : '';
+    const occupantRows = occupants.length ? occupants.map(gem => `<div class="stored-gem-row"><span>${escapeGemArtAttribute(gem.name)}</span><button type="button" data-storage-remove="occupant" data-gem-id="${escapeGemArtAttribute(gem.id)}" data-ui-asset="${slug}-withdraw-button-ui" data-ui-kind="button">Take Out</button></div>`).join('') : '<p>No gems stored.</p>';
+    const overseerRows = overseers.map(gem => `<div class="stored-gem-row"><span>${escapeGemArtAttribute(gem.name)} (overseer)</span><button type="button" data-storage-remove="overseer" data-gem-id="${escapeGemArtAttribute(gem.id)}" data-ui-asset="${slug}-withdraw-button-ui" data-ui-kind="button">Take Out</button></div>`).join('');
+    const content = `<div class="structure-menu-summary">Level ${level} | ${capacityLabel}</div><div class="structure-menu-actions"><button type="button" data-ui-asset="${slug}-level-button-ui" data-ui-kind="button" onclick="levelUpStructure('${safeType}')">Level Up Structure</button></div>${overseerControl}<div class="structure-menu-actions">${occupantControl}</div><div class="stored-gem-list">${overseerRows}${occupantRows}</div>`;
+    renderStructureMenu(type, content);
+    const menu = document.getElementById('structure-modal-content');
+    menu.querySelectorAll('[data-storage-add]').forEach(button => {
+        button.onclick = () => {
+            const role = button.dataset.storageAdd;
+            const select = document.getElementById(role === 'overseer' ? 'structure-overseer-select' : 'structure-storage-select');
+            if (select?.value) storeGemInStructure(type, select.value, role);
+        };
+    });
+    menu.querySelectorAll('[data-storage-remove]').forEach(button => {
+        button.onclick = () => withdrawGemFromStructure(type, button.dataset.gemId);
+    });
+}
+
+function storeGemInStructure(type, gemId, role = 'occupant') {
+    const gem = findLiveGem(gemId);
+    const rules = getStructureStorageRules(type);
+    const storage = getStructureStorage(type);
+    if (!gem || !rules || !isGemUsable(gem)) return;
+    const destination = role === 'overseer' ? storage.overseerIds : storage.occupantIds;
+    const capacity = role === 'overseer'
+        ? (type === 'Reef' ? getStructureStorageCapacity(type) : (rules.overseersPerLevel === Infinity ? Infinity : 1 + Math.floor((getStructureLevel(type) - 1) / rules.overseersPerLevel)))
+        : getStructureStorageCapacity(type);
+    if (destination.length >= capacity) return alert(`${type} has no remaining ${role} capacity.`);
+    const eligible = getEligibleStructureGems(type, role);
+    if (!eligible.some(candidate => String(candidate.id) === String(gem.id))) return alert(`${gem.name} cannot be stored in ${type}.`);
+    destination.push(gem.id);
+    gem.storedIn = type;
+    gem.location = type;
+    addNotification(`${gem.name} entered ${type} and is now away from the active roster.`);
+    renderRoster();
+    showStructureInventory(type);
+}
+
+function withdrawGemFromStructure(type, gemId) {
+    const storage = getStructureStorage(type);
+    storage.occupantIds = storage.occupantIds.filter(id => String(id) !== String(gemId));
+    storage.overseerIds = storage.overseerIds.filter(id => String(id) !== String(gemId));
+    const gem = findLiveGem(gemId);
+    if (gem) {
+        delete gem.storedIn;
+        gem.location = 'Court';
+        addNotification(`${gem.name} left ${type} and returned to the active roster.`);
+    }
+    renderRoster();
+    showStructureInventory(type);
+}
+
+function advanceStoredGemDepartures() {
+    Object.entries(GameData.structureStorage || {}).forEach(([type, storage]) => {
+        const rules = getStructureStorageRules(type);
+        if (!rules || rules.noOverseerRequired || storage.overseerIds?.length) return;
+        const storedIds = [...(storage.occupantIds || []), ...(storage.overseerIds || [])];
+        if (!storedIds.length || Math.random() >= 0.001) return;
+        const id = storedIds[Math.floor(Math.random() * storedIds.length)];
+        storage.occupantIds = (storage.occupantIds || []).filter(memberId => String(memberId) !== String(id));
+        storage.overseerIds = (storage.overseerIds || []).filter(memberId => String(memberId) !== String(id));
+        const gem = findLiveGem(id);
+        if (!gem) return;
+        delete gem.storedIn;
+        gem.location = 'Court';
+        addNotification(`${gem.name} left ${type} without an overseer and returned to the active roster.`);
+        renderRoster();
+    });
 }
 
 function showStructureInventory(type) {
-    const inventoryBox = document.getElementById(
-        type === 'Reef' ? 'reef-inventory' :
-        type === 'Spinel Funhouse' ? 'funhouse-inventory' :
-        type === 'Trial Building' ? 'trial-building-inventory' :
-        'forge-inventory'
-    );
-
-    if (!inventoryBox) return;
-
-    if (type === 'Trial Building') {
-        inventoryBox.innerHTML = `<div>Trial Building unlocked.</div><button type="button" onclick="startTrialEvent()" style="width:auto;">Open Court Trial</button>`;
-        inventoryBox.style.display = 'block';
-        return;
+    if (!GameData.structures.includes(type)) return;
+    if (type === 'Healing Center') return showHealingCenter();
+    if (type === 'Soldier Ship') return showSoldierShipInventory();
+    if (['Grand Ballet Hall', 'Grand Ballroom', 'Grand Theater', 'Archives', 'Grand Circus', 'Grand Palace'].includes(type)) return renderStoredStructureMenu(type);
+    if (type === 'Organic Zoo') {
+        return renderStructureMenu(type, '<div class="structure-menu-summary">The Organic Zoo is online. It has no active function yet.</div>');
+    }
+    if (type === 'Gathering Hall') {
+        return renderStructureMenu(type, '<div class="structure-menu-summary">Gatherings lower Rebellion for every eligible gem.</div><div class="structure-menu-actions"><button type="button" data-ui-asset="gathering-hall-host-ball-button-ui" data-ui-kind="button" onclick="hostImperialBall()">Host Ball</button></div>');
     }
 
     const level = getStructureLevel(type);
     const slots = getStructureSlots(type);
     const structureReduction = getStructureTimeReduction(type);
+    const timerLabel = GameData.mode === 'Roleplay' ? 'Immediate gem creation' : `Timer reduction: ${Math.round(structureReduction * 1000) / 10}%`;
+    let content = '';
 
-    if (type === 'Diamond Shrine') {
-        inventoryBox.innerHTML = `<div>Level ${level} | ${slots} shrine slot${slots === 1 ? '' : 's'} | Timer reduction: ${Math.round(structureReduction * 1000) / 10}%</div><div>Diamond Shrine online. Open a colony menu to start a Diamond Kindergarten.</div>`;
-        inventoryBox.style.display = 'block';
-        return;
+    if (type === 'Extractor Injection Rig') {
+        content = `<div class="structure-menu-summary">Level ${level} | Extraction throughput increased.</div><div class="structure-menu-actions"><button type="button" data-ui-asset="extractor-injection-rig-level-button-ui" data-ui-kind="button" onclick="levelUpStructure('Extractor Injection Rig')">Level Rig</button></div>`;
+    } else if (type === 'Homeworld Communications Spire') {
+        content = `<div class="structure-menu-summary">Homeworld Communications Spire online. Deep data matrix sync arrays are available.</div>`;
+    } else if (type === 'Diamond Shrine') {
+        content = `<div class="structure-menu-summary">Level ${level} | ${slots} shrine slot${slots === 1 ? '' : 's'} | ${timerLabel}</div><div class="structure-menu-summary">Diamond Shrine online. Open a colony menu to start a Diamond Kindergarten.</div>`;
+    } else if (type === 'Trial Building') {
+        content = `<div class="structure-menu-summary">Trial Building unlocked.</div><div class="structure-menu-actions"><button type="button" data-ui-asset="trial-building-court-trial-button-ui" data-ui-kind="button" onclick="startTrialEvent()">Open Court Trial</button></div>`;
+    } else if (type === 'Reef') {
+        const pearls = GameData.gems.filter(gem => gem.type === 'Pearl' && isGemUsable(gem));
+        const jobs = getActiveProductionJobs('Reef');
+        const abaloneStorage = getStructureStorage('Reef');
+        const abalone = abaloneStorage.overseerIds.map(id => findLiveGem(id)).filter(Boolean);
+        const availableAbalone = getEligibleStructureGems('Reef', 'overseer');
+        const abaloneOptions = availableAbalone.map(gem => `<option value="${escapeGemArtAttribute(gem.id)}">${escapeGemArtAttribute(gem.name)} (Level ${Number(gem.level || 0)})</option>`).join('');
+        const assignedAbalone = abalone.map(gem => `<div class="stored-gem-row"><span>${escapeGemArtAttribute(gem.name)} oversees Pearl production</span><button type="button" data-reef-remove-abalone="${escapeGemArtAttribute(gem.id)}" data-ui-asset="reef-withdraw-button-ui" data-ui-kind="button">Withdraw</button></div>`).join('');
+        content = `<div class="structure-menu-summary">Level ${level} | ${slots} production slot${slots === 1 ? '' : 's'} | Timer reduction: ${Math.round((structureReduction + getReefAbaloneReduction()) * 1000) / 10}%</div><div class="structure-menu-actions"><button type="button" data-ui-asset="reef-level-button-ui" data-ui-kind="button" onclick="levelUpStructure('Reef')">Level Reef</button><button type="button" data-ui-asset="reef-create-pearl-button-ui" data-ui-kind="button" onclick="createPearlFromReef()" ${GameData.mode !== 'Roleplay' && jobs.length >= slots ? 'disabled' : ''}>${GameData.mode === 'Roleplay' ? 'Create Pearl' : 'Start Pearl Creation (30 minutes)'}</button></div><label>Abalone overseer<select id="reef-abalone-select" data-ui-asset="reef-abalone-select-ui" data-ui-kind="textbox"><option value="">Choose Abalone</option>${abaloneOptions}</select></label><button type="button" data-ui-asset="reef-overseer-button-ui" data-ui-kind="button" onclick="assignSelectedAbaloneToReef()" ${abalone.length >= getStructureStorageCapacity('Reef') ? 'disabled' : ''}>Assign Abalone</button>${assignedAbalone}<div>${pearls.length ? pearls.map(pearl => `${escapeGemArtAttribute(pearl.name)} (${escapeGemArtAttribute(pearl.quality)})`).join('<br>') : '<span>No pearls available.</span>'}</div>`;
+    } else if (type === 'Spinel Funhouse') {
+        const spinels = GameData.gems.filter(gem => gem.type === 'Spinel' && isGemUsable(gem));
+        const hasTaaffeite = GameData.gems.some(gem => gem.type === 'Taaffeite' && isGemUsable(gem));
+        const jobs = getActiveProductionJobs('Spinel Funhouse');
+        content = `<div class="structure-menu-summary">Level ${level} | ${slots} production slot${slots === 1 ? '' : 's'} | ${timerLabel}</div><div class="structure-menu-actions"><button type="button" data-ui-asset="spinel-funhouse-level-button-ui" data-ui-kind="button" onclick="levelUpStructure('Spinel Funhouse')">Level Funhouse</button><button type="button" data-ui-asset="spinel-funhouse-create-spinel-button-ui" data-ui-kind="button" onclick="createSpinelFromFunhouse()" ${!hasTaaffeite || (GameData.mode !== 'Roleplay' && jobs.length >= slots) ? 'disabled' : ''}>${GameData.mode === 'Roleplay' ? 'Create Spinel' : 'Start Spinel Creation (20 minutes)'}</button></div>${spinels.length ? spinels.map(spinel => `<div>${spinel.name} (${spinel.quality})</div>`).join('') : '<span>No spinels available.</span>'}`;
+    } else if (type === 'Gem Forge') {
+        const bismuths = GameData.gems.filter(gem => gem.type === 'Bismuth' && isGemUsable(gem));
+        const targetOptions = GameData.gems
+            .filter(gem => gem.type !== 'Bismuth' && isGemUsable(gem))
+            .map(gem => `<option value="${gem.id}">${gem.name} (${getGemCaste(gem)})</option>`).join('');
+        const blueprintButtons = FORGERY_BLUEPRINTS.map(blueprint =>
+            `<button type="button" data-ui-asset="gem-forge-blueprint-button-ui" data-ui-kind="button" ${!bismuths.length || (GameData.mode !== 'Roleplay' && getActiveProductionJobs('Gem Forge').length >= slots) ? 'disabled' : ''} onclick="craftForgedBoost('${blueprint.id}')">${blueprint.name}</button>`
+        ).join('');
+        content = `<div class="structure-menu-summary">Level ${level} | ${slots} production slot${slots === 1 ? '' : 's'} | ${timerLabel}</div><div class="structure-menu-actions"><button type="button" data-ui-asset="gem-forge-level-button-ui" data-ui-kind="button" onclick="levelUpStructure('Gem Forge')">Level Forge</button></div><div><strong>Bismuth in forge:</strong> ${bismuths.length}</div><label for="forge-target-gem">Gem receiving the boost:</label><select id="forge-target-gem" data-ui-asset="gem-forge-target-select-ui" data-ui-kind="textbox">${targetOptions || '<option value="">No eligible gems</option>'}</select><div class="structure-menu-actions">${blueprintButtons || '<span>No blueprints available.</span>'}</div><div>Active boost jobs: ${getActiveProductionJobs('Gem Forge').length}/${slots}</div>`;
     }
 
-    if (type === 'Reef') {
-        const pearls = GameData.gems.filter(g => g.type === 'Pearl' && isGemUsable(g));
-        inventoryBox.innerHTML = `<div>Level ${level} | ${slots} production slot${slots === 1 ? '' : 's'} | Timer reduction: ${Math.round(structureReduction * 1000) / 10}%</div><button type="button" onclick="levelUpStructure('Reef')">Level Reef</button><button type="button" onclick="createPearlFromReef()" ${getActiveProductionJobs('Reef').length >= slots ? 'disabled' : ''}>Start Pearl Creation (30 minutes)</button>` + (pearls.length
-            ? pearls.map(p => `<div>${p.name} (${p.quality})</div>`).join('')
-            : '<span>No pearls available.</span>');
-        inventoryBox.style.display = 'block';
-        return;
-    }
+    renderStructureMenu(type, content);
+    document.querySelectorAll('[data-reef-remove-abalone]').forEach(button => {
+        button.onclick = () => withdrawGemFromStructure('Reef', button.dataset.reefRemoveAbalone);
+    });
+}
 
-    if (type === 'Spinel Funhouse') {
-        const spinels = GameData.gems.filter(g => g.type === 'Spinel' && isGemUsable(g));
-        const hasTaaffeite = GameData.gems.some(g => g.type === 'Taaffeite' && isGemUsable(g));
-        inventoryBox.innerHTML = `<div>Level ${level} | ${slots} production slot${slots === 1 ? '' : 's'} | Timer reduction: ${Math.round(structureReduction * 1000) / 10}%</div><button type="button" onclick="levelUpStructure('Spinel Funhouse')">Level Funhouse</button><button type="button" onclick="createSpinelFromFunhouse()" ${!hasTaaffeite || getActiveProductionJobs('Spinel Funhouse').length >= slots ? 'disabled' : ''}>Start Spinel Creation (20 minutes)</button>` + (spinels.length
-            ? spinels.map(s => `<div>${s.name} (${s.quality})</div>`).join('')
-            : '<span>No spinels available.</span>');
-        inventoryBox.style.display = 'block';
-        return;
-    }
+function getReefAbaloneReduction() {
+    const ids = GameData.structureStorage?.Reef?.overseerIds || [];
+    const level = ids.map(id => findLiveGem(id)).filter(Boolean).reduce((sum, gem) => sum + Math.max(0, Number(gem.level || 0)), 0);
+    return Math.min(0.8, level * 0.01);
+}
 
-    const bismuths = GameData.gems.filter(g => g.type === 'Bismuth' && isGemUsable(g));
-    const targetOptions = GameData.gems
-        .filter(g => g.type !== 'Bismuth' && isGemUsable(g))
-        .map(g => `<option value="${g.id}">${g.name} (${getGemCaste(g)})</option>`).join('');
-    const blueprintButtons = FORGERY_BLUEPRINTS.map(bp => `
-        <button type="button" ${!bismuths.length || getActiveProductionJobs('Gem Forge').length >= slots ? 'disabled' : ''} style="width:auto; margin:3px 3px 0 0; padding:4px 8px;" onclick="craftForgedBoost('${bp.id}')">${bp.name}</button>
-    `).join('');
+function assignSelectedAbaloneToReef() {
+    const select = document.getElementById('reef-abalone-select');
+    if (select?.value) storeGemInStructure('Reef', select.value, 'overseer');
+}
 
-    inventoryBox.innerHTML = `
-        <div>Level ${level} | ${slots} production slot${slots === 1 ? '' : 's'} | Timer reduction: ${Math.round(structureReduction * 1000) / 10}%</div>
-        <button type="button" onclick="levelUpStructure('Gem Forge')">Level Forge</button>
-        <div><strong>Bismuth in forge:</strong> ${bismuths.length}</div>
-        <label for="forge-target-gem" style="display:block; margin-top:8px;">Gem receiving the boost:</label>
-        <select id="forge-target-gem" style="width:100%; margin-top:4px;">${targetOptions || '<option value="">No eligible gems</option>'}</select>
-        <div style="margin-top:6px;">${blueprintButtons || '<span>No blueprints available.</span>'}</div>
-        <div style="margin-top:6px;">Active boost jobs: ${getActiveProductionJobs('Gem Forge').length}/${slots}</div>
-    `;
-    inventoryBox.style.display = 'block';
+function hostImperialBall() {
+    if (!GameData.structures.includes('Gathering Hall')) return alert('Build a Gathering Hall first.');
+    if (GameData.mode === 'Roleplay') return alert('Rebellion meters do not change in Roleplay mode.');
+    GameData.gems.forEach(gem => {
+        if (gem.type !== 'Diamond') gem.rebellion = Math.max(0, Number(gem.rebellion || 0) - 25);
+    });
+    renderRoster();
+    renderStructureMenu('Gathering Hall', '<div class="structure-menu-summary">The ball lowered Rebellion by 25 points for every non-Diamond gem.</div><div class="structure-menu-actions"><button type="button" data-ui-asset="gathering-hall-host-ball-button-ui" data-ui-kind="button" onclick="hostImperialBall()">Host Another Ball</button></div>');
+    addNotification('The Gathering Hall hosted a ball. Rebellion fell across the empire.');
 }
 
 function craftForgedBoost(blueprintId, targetGemId) {
@@ -916,13 +1370,20 @@ function craftForgedBoost(blueprintId, targetGemId) {
     const blueprint = FORGERY_BLUEPRINTS.find(bp => bp.id === blueprintId);
     if (!blueprint) return alert('This forging blueprint is not available.');
 
-    const bismuth = GameData.gems.find(g => g.type === 'Bismuth' && isGemUsable(g) && !g.inForge);
+    const bismuth = GameData.gems.find(g => g.type === 'Bismuth' && isGemUsable(g) && (!g.inForge || GameData.mode === 'Roleplay'));
     if (!bismuth) return alert('The forge needs at least one active Bismuth laborer assigned to it.');
-    if (getActiveProductionJobs('Gem Forge').length >= getStructureSlots('Gem Forge')) return alert('All Gem Forge production slots are busy.');
+    if (GameData.mode !== 'Roleplay' && getActiveProductionJobs('Gem Forge').length >= getStructureSlots('Gem Forge')) return alert('All Gem Forge production slots are busy.');
 
     if (!Array.isArray(gem.boosts)) gem.boosts = [];
     if (gem.boosts.some(boost => boost.id === blueprint.id || describeBoost(boost) === blueprint.name)) {
         return alert(`${gem.name} already has ${blueprint.name}.`);
+    }
+
+    if (GameData.mode === 'Roleplay') {
+        gem.boosts.push({ id: blueprint.id, name: blueprint.name, stat: blueprint.stat, desc: blueprint.desc, origin: 'Forged' });
+        showStructureInventory('Gem Forge');
+        alert(`${blueprint.name} was forged instantly for ${gem.name}.`);
+        return;
     }
 
     if (!GameData.structureJobs) GameData.structureJobs = {};
@@ -947,6 +1408,7 @@ function getLevelCost(gem) {
 
 function getGemCaste(gem) {
     if (!gem) return "Unassigned";
+    if (gem.fusionMembers) return 'Fusion';
     let bestTier = null;
     Object.entries(GEM_TIERS).forEach(([key, tier]) => {
         if (Array.isArray(tier.types) && tier.types.includes(gem.type)) {
@@ -974,7 +1436,9 @@ function getAvailableGuardUnits(guardType) {
 }
 
 function canEquipGuard(gem, guardType) {
-    if (!gem) return false;
+    if (!gem || gem.fusionMembers) return false;
+    const caste = getGemCaste(gem).toLowerCase();
+    if (['expendable', 'guard', 'soldier'].some(restrictedTier => caste.includes(restrictedTier))) return false;
     if (guardType === 'Zirconium') return gem.type === 'Zircon';
     if (!['Pearl', 'Ruby', 'Spinel'].includes(guardType)) return false;
     if (gem.type === 'Hessonite' || gem.type === 'Taaffeite') return true;
@@ -990,6 +1454,17 @@ function renderGuardAssignmentMenu(gem) {
     if (!assignmentContainer) return;
 
     assignmentContainer.innerHTML = '';
+    if (gem.fusionMembers) {
+        const panel = document.createElement('div');
+        panel.className = 'guard-ineligible-panel';
+        panel.dataset.uiAsset = 'fusion-guard-ineligible-panel-ui';
+        panel.dataset.uiKind = 'surface';
+        panel.textContent = 'Fusions cannot be assigned guards.';
+        assignmentContainer.appendChild(panel);
+        applyUiAsset(panel, panel.dataset.uiAsset, panel.dataset.uiKind, PROFILE_UI_ASSET_ROOT);
+        return;
+    }
+
     const guardTypes = gem.type === 'Zircon' ? ['Zirconium'] : ['Pearl', 'Ruby', 'Spinel'];
 
     guardTypes.forEach((guardType) => {
@@ -1035,14 +1510,27 @@ function renderGuardAssignmentMenu(gem) {
 }
 
 function renderProfileAssignments(gem) {
-    const guardList = document.getElementById('prof-guards');
-    if (guardList) {
-        const assigned = Array.isArray(gem.guards) && gem.guards.length ? gem.guards.map(g => g.name || g.type).join(', ') : 'None';
-        guardList.innerText = assigned;
-    }
-
+    renderProfileGuardCards(gem);
+    renderProfileBoosts(gem);
     const levelValue = document.getElementById('prof-level');
-    if (levelValue) levelValue.innerText = String(Number(gem.level || 0));
+    const level = Math.max(0, Number(gem.level || 0));
+    const maxLevel = Number(CONFIG.LEVELS.MAX || 100);
+    if (levelValue) levelValue.innerText = String(level);
+
+    const pearlEligible = canEquipGuard(gem, 'Pearl');
+    const isMaxed = level >= maxLevel;
+    const progress = pearlEligible || isMaxed ? 100 : Math.min(100, (level / maxLevel) * 100);
+    const progressTrack = document.querySelector('.profile-level-track');
+    const progressBar = document.getElementById('prof-level-progress');
+    const milestone = document.getElementById('prof-level-milestone');
+    const levelButton = document.getElementById('prof-level-up-button');
+    if (progressTrack) progressTrack.setAttribute('aria-valuenow', String(Math.round(progress)));
+    if (milestone) milestone.innerText = isMaxed ? 'Maximum level reached' : pearlEligible ? 'Pearl eligible' : `Progress to level ${maxLevel}`;
+    if (progressBar) {
+        progressBar.classList.add('is-animating');
+        requestAnimationFrame(() => { progressBar.style.width = `${progress}%`; });
+    }
+    if (levelButton) levelButton.disabled = isMaxed;
 
     const casteValue = document.getElementById('prof-caste');
     if (casteValue) casteValue.innerText = getGemCaste(gem);
@@ -1056,102 +1544,98 @@ function renderProfileAssignments(gem) {
     const costLabel = document.getElementById('prof-level-cost');
     if (costLabel) {
         const nextCost = getLevelCost(gem);
-        costLabel.innerText = `${nextCost.materials} Materials / ${nextCost.essence} Essence`;
+        costLabel.innerText = isMaxed ? 'MAX LEVEL' : `Level ${level + 1}\n${nextCost.materials} Materials\n${nextCost.essence} Essence`;
     }
 
     renderGuardAssignmentMenu(gem);
 }
 
+function renderProfileGuardCards(gem) {
+    const container = document.getElementById('prof-guards');
+    if (!container) return;
+    const guards = (Array.isArray(gem.guards) ? gem.guards : []).map(guard => ({
+        record: guard,
+        unit: GameData.gems.find(candidate => String(candidate.id) === String(guard.id))
+    }));
+    container.innerHTML = '';
+    if (!guards.length) {
+        container.textContent = 'No guards assigned';
+        return;
+    }
+    guards.forEach(({ record, unit }) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'profile-guard-button';
+        button.setAttribute('aria-label', `Open ${unit?.name || record.name || record.type} profile`);
+        button.innerHTML = unit ? renderGemArtwork(unit, '', `${unit.name} portrait`) : '';
+        const label = document.createElement('span');
+        label.textContent = unit?.name || record.name || record.type || 'Guard';
+        button.appendChild(label);
+        if (unit) button.onclick = () => openProfile(unit.id);
+        else button.disabled = true;
+        applyUiAsset(button, `guard-${gemArtSlug(record.type || unit?.type)}-ui`, 'surface', PROFILE_UI_ASSET_ROOT);
+        container.appendChild(button);
+    });
+}
+
+function renderProfileBoosts(gem) {
+    const panel = document.getElementById('prof-boosts-panel');
+    const list = document.getElementById('prof-boosts');
+    if (!panel || !list) return;
+    const boosts = Array.isArray(gem.boosts) ? gem.boosts : [];
+    panel.hidden = boosts.length === 0;
+    list.innerHTML = '';
+    boosts.forEach(boost => {
+        const item = document.createElement('li');
+        item.textContent = describeBoost(boost);
+        list.appendChild(item);
+    });
+}
+
+function updateStructureCardButton(button, type, buildLabel, cost, canBuild = true) {
+    if (!button) return;
+    const isBuilt = GameData.structures.includes(type);
+    const requirements = STRUCTURE_UNLOCK_REQUIREMENTS[type] || [];
+    const prerequisitesMet = requirements.every(requiredType => GameData.gems.some(gem =>
+        gem.type === requiredType && !['Shattered', 'Fused'].includes(normalizeGemStatus(gem))
+    ));
+    const card = document.getElementById(STRUCTURE_CARD_IDS[type]);
+    if (card) card.hidden = !isBuilt && !prerequisitesMet;
+    const label = isBuilt ? `Open ${type}` : buildLabel;
+    const assetName = `${getStructureUiSlug(type)}-${isBuilt ? 'open' : 'build'}-button-ui`;
+    const assetChanged = button.dataset.uiAsset !== assetName;
+    button.textContent = label;
+    button.setAttribute('aria-label', label);
+    button.disabled = !isBuilt && (!canBuild || !prerequisitesMet);
+    button.onclick = () => isBuilt ? showStructureInventory(type) : buildStructure(type, cost);
+    if (assetChanged) {
+        button.dataset.uiAsset = assetName;
+        applyUiAsset(button, assetName, 'button');
+    }
+}
+
 function renderStructureInventoryButtons() {
-    const hasTaaffeite = GameData.gems.some(g => g.type === 'Taaffeite' && isGemUsable(g));
-    const hasBismuth = GameData.gems.some(g => g.type === 'Bismuth' && isGemUsable(g));
-    const reefButton = document.getElementById('reef-structure-button');
-    const funhouseButton = document.getElementById('funhouse-structure-button');
-    const forgeButton = document.getElementById('forge-structure-button');
-    const rigButton = document.getElementById('rig-structure-button');
-    const healingButton = document.getElementById('healing-center-button');
-    const soldierShipButton = document.getElementById('soldier-ship-button');
-    const trialButton = document.getElementById('trial-building-button');
-
-    if (rigButton) rigButton.disabled = GameData.structures.includes('Extractor Injection Rig');
-
-    if (healingButton) {
-        healingButton.textContent = GameData.structures.includes('Healing Center') ? 'Inventory' : 'Build Healing Center (500000 Materials)';
-        healingButton.onclick = () => GameData.structures.includes('Healing Center') ? showHealingCenter() : buildStructure('Healing Center', 500000);
-    }
-
-    if (soldierShipButton) {
-        soldierShipButton.textContent = GameData.structures.includes('Soldier Ship') ? 'Inventory' : 'Build Soldier Ship (75000 Materials)';
-        soldierShipButton.onclick = () => GameData.structures.includes('Soldier Ship') ? showSoldierShipInventory() : buildStructure('Soldier Ship', 75000);
-    }
-    if (trialButton) {
-        const hasZircon = GameData.gems.some(gem => gem.type === 'Zircon' && isGemUsable(gem));
-        trialButton.textContent = GameData.structures.includes('Trial Building') ? 'Inventory' : (hasZircon ? 'Build Trial Building (100000 Materials)' : 'Trial Building (Zircon Required)');
-        trialButton.disabled = !GameData.structures.includes('Trial Building') && !hasZircon;
-        trialButton.onclick = () => GameData.structures.includes('Trial Building') ? showStructureInventory('Trial Building') : buildStructure('Trial Building', 100000);
-    }
-    const shrineButton = document.getElementById('shrine-structure-button');
-
-    if (reefButton) {
-        if (GameData.structures.includes('Reef')) {
-            reefButton.textContent = 'Inventory';
-            reefButton.onclick = () => showStructureInventory('Reef');
-            const inventoryBox = document.getElementById('reef-inventory');
-            if (inventoryBox) inventoryBox.style.display = 'block';
-        } else {
-            reefButton.textContent = 'Build Reef (25000 Materials)';
-            reefButton.onclick = () => buildStructure('Reef', 250);
-            const inventoryBox = document.getElementById('reef-inventory');
-            if (inventoryBox) inventoryBox.style.display = 'none';
-        }
-    }
-
-    if (funhouseButton) {
-        if (GameData.structures.includes('Spinel Funhouse')) {
-            funhouseButton.textContent = 'Inventory';
-            funhouseButton.onclick = () => showStructureInventory('Spinel Funhouse');
-            const inventoryBox = document.getElementById('funhouse-inventory');
-            if (inventoryBox) inventoryBox.style.display = 'block';
-        } else {
-            funhouseButton.textContent = hasTaaffeite ? 'Build Funhouse (30000 Materials)' : 'Build Funhouse (Taaffeite Required)';
-            funhouseButton.onclick = () => buildStructure('Spinel Funhouse', 300);
-            funhouseButton.disabled = !hasTaaffeite;
-            const inventoryBox = document.getElementById('funhouse-inventory');
-            if (inventoryBox) inventoryBox.style.display = 'none';
-        }
-    }
-
-    if (forgeButton) {
-        if (GameData.structures.includes('Gem Forge')) {
-            forgeButton.textContent = 'Inventory';
-            forgeButton.onclick = () => showStructureInventory('Gem Forge');
-            const inventoryBox = document.getElementById('forge-inventory');
-            if (inventoryBox) inventoryBox.style.display = 'block';
-        } else {
-            forgeButton.textContent = hasBismuth ? 'Build Forge (35000 Materials)' : 'Build Forge (Bismuth Required)';
-            forgeButton.onclick = () => buildStructure('Gem Forge', 350);
-            forgeButton.disabled = !hasBismuth;
-            const inventoryBox = document.getElementById('forge-inventory');
-            if (inventoryBox) inventoryBox.style.display = 'none';
-        }
-    }
-
-    if (shrineButton) {
-        if (GameData.structures.includes('Diamond Shrine')) {
-            shrineButton.textContent = 'Inventory';
-            shrineButton.onclick = () => showStructureInventory('Diamond Shrine');
-            const inventoryBox = document.getElementById('shrine-inventory');
-            if (inventoryBox) {
-                inventoryBox.style.display = 'block';
-                inventoryBox.textContent = 'Diamond Shrine online. Open a colony menu to start a Diamond Kindergarten.';
-            }
-        } else {
-            shrineButton.textContent = 'Build Shrine (250000 Materials)';
-            shrineButton.onclick = () => buildStructure('Diamond Shrine', COLONY_OPTIONS.SHRINE_KINDERGARTEN_COST);
-            const inventoryBox = document.getElementById('shrine-inventory');
-            if (inventoryBox) inventoryBox.style.display = 'none';
-        }
-    }
+    const hasTaaffeite = GameData.gems.some(gem => gem.type === 'Taaffeite' && isGemUsable(gem));
+    const hasBismuth = GameData.gems.some(gem => gem.type === 'Bismuth' && isGemUsable(gem));
+    const hasZircon = GameData.gems.some(gem => gem.type === 'Zircon' && isGemUsable(gem));
+    const hasAragonite = canAccessShattering();
+    updateStructureCardButton(document.getElementById('rig-structure-button'), 'Extractor Injection Rig', 'Build Rig (15000 Materials)', 15000);
+    updateStructureCardButton(document.getElementById('spire-structure-button'), 'Homeworld Communications Spire', 'Build Spire (40000 Materials)', 40000);
+    updateStructureCardButton(document.getElementById('reef-structure-button'), 'Reef', 'Build Reef (25000 Materials)', 25000);
+    updateStructureCardButton(document.getElementById('funhouse-structure-button'), 'Spinel Funhouse', hasTaaffeite ? 'Build Funhouse (30000 Materials)' : 'Build Funhouse (Taaffeite Required)', 30000, hasTaaffeite);
+    updateStructureCardButton(document.getElementById('forge-structure-button'), 'Gem Forge', hasBismuth ? 'Build Forge (35000 Materials)' : 'Build Forge (Bismuth Required)', 35000, hasBismuth);
+    updateStructureCardButton(document.getElementById('shrine-structure-button'), 'Diamond Shrine', 'Build Shrine (250000 Materials)', COLONY_OPTIONS.SHRINE_KINDERGARTEN_COST);
+    updateStructureCardButton(document.getElementById('healing-center-button'), 'Healing Center', 'Build Healing Center (500000 Materials)', 500000);
+    updateStructureCardButton(document.getElementById('soldier-ship-button'), 'Soldier Ship', 'Build Soldier Ship (75000 Materials)', 75000);
+    updateStructureCardButton(document.getElementById('trial-building-button'), 'Trial Building', hasZircon && hasAragonite ? 'Build Trial Building (100000 Materials)' : 'Trial Building (Zircon and Aragonite Required)', 100000, hasZircon && hasAragonite);
+    updateStructureCardButton(document.getElementById('grand-ballet-hall-button'), 'Grand Ballet Hall', 'Build Grand Ballet Hall (750000 Materials)', COLONY_OPTIONS.STRUCTURE_BUILD_COSTS['Grand Ballet Hall']);
+    updateStructureCardButton(document.getElementById('grand-ballroom-button'), 'Grand Ballroom', 'Build Grand Ballroom (750000 Materials)', COLONY_OPTIONS.STRUCTURE_BUILD_COSTS['Grand Ballroom']);
+    updateStructureCardButton(document.getElementById('grand-theater-button'), 'Grand Theater', 'Build Grand Theater (750000 Materials)', COLONY_OPTIONS.STRUCTURE_BUILD_COSTS['Grand Theater']);
+    updateStructureCardButton(document.getElementById('archives-button'), 'Archives', 'Build Archives (3000000 Materials)', COLONY_OPTIONS.STRUCTURE_BUILD_COSTS.Archives);
+    updateStructureCardButton(document.getElementById('organic-zoo-button'), 'Organic Zoo', 'Build Organic Zoo (300000 Materials)', COLONY_OPTIONS.STRUCTURE_BUILD_COSTS['Organic Zoo']);
+    updateStructureCardButton(document.getElementById('grand-circus-button'), 'Grand Circus', 'Build Grand Circus (400000 Materials)', COLONY_OPTIONS.STRUCTURE_BUILD_COSTS['Grand Circus']);
+    updateStructureCardButton(document.getElementById('gathering-hall-button'), 'Gathering Hall', 'Build Gathering Hall (1000000 Materials)', COLONY_OPTIONS.STRUCTURE_BUILD_COSTS['Gathering Hall']);
+    updateStructureCardButton(document.getElementById('grand-palace-button'), 'Grand Palace', 'Build Grand Palace (5000000 Materials)', COLONY_OPTIONS.STRUCTURE_BUILD_COSTS['Grand Palace']);
 }
 
 function getSoldierShipCapacity() {
@@ -1159,13 +1643,12 @@ function getSoldierShipCapacity() {
 }
 
 function renderSoldierShipInventory() {
-    const box = document.getElementById('soldier-ship-inventory');
-    if (!box || !GameData.structures.includes('Soldier Ship')) return;
+    if (!GameData.structures.includes('Soldier Ship')) return;
     const ship = GameData.soldierShip || { levels: 1, inventories: [{ agateId: null, gemIds: [] }] };
     const eligible = GameData.gems.filter(gem => ['Ruby', 'Amethyst', 'Rose Quartz', 'Jasper', 'Citrine', 'Carnelian', 'Honey Quartz', 'Clear Quartz', 'Smoky Quartz', 'Milky Quartz', 'Ametrine', 'Prasiolite', "Tiger's Eye", "Hawk's Eye", 'Rutile', 'Bloodstone', 'Cherry Quartz', 'Flint', 'Chert', 'Obsidian'].includes(gem.type) && isGemUsable(gem));
     const agates = GameData.gems.filter(gem => gem.type === 'Agate' && isGemUsable(gem));
-    box.style.display = 'block';
-    box.innerHTML = `<div>Level ${ship.levels} | Capacity ${getSoldierShipCapacity()} | Inventories ${ship.inventories.length}</div><button type="button" onclick="levelUpSoldierShip()" style="width:auto;">Level Ship</button><label>Agate oversight<select id="ship-agate-select"><option value="">Choose Agate</option>${agates.map(g => `<option value="${g.id}">${g.name}</option>`).join('')}</select></label><label>Assign soldier<select id="ship-gem-select"><option value="">Choose gem</option>${eligible.map(g => `<option value="${g.id}">${g.name} (${g.type})</option>`).join('')}</select></label><button type="button" onclick="assignGemToSoldierShip()" style="width:auto;">Assign to Ship</button><div>${ship.inventories.map((inventory, index) => `<p>Ship inventory ${index + 1}: ${inventory.gemIds.length}/${getSoldierShipCapacity()} assigned</p>`).join('')}</div>`;
+    const content = `<div class="structure-menu-summary">Level ${ship.levels} | Capacity ${getSoldierShipCapacity()} | Inventories ${ship.inventories.length}</div><div class="structure-menu-actions"><button type="button" data-ui-asset="soldier-ship-level-button-ui" data-ui-kind="button" onclick="levelUpSoldierShip()">Level Ship</button></div><label>Agate oversight<select id="ship-agate-select" data-ui-asset="soldier-ship-agate-select-ui" data-ui-kind="textbox"><option value="">Choose Agate</option>${agates.map(gem => `<option value="${gem.id}">${gem.name}</option>`).join('')}</select></label><label>Assign soldier<select id="ship-gem-select" data-ui-asset="soldier-ship-gem-select-ui" data-ui-kind="textbox"><option value="">Choose gem</option>${eligible.map(gem => `<option value="${gem.id}">${gem.name} (${gem.type})</option>`).join('')}</select></label><div class="structure-menu-actions"><button type="button" data-ui-asset="soldier-ship-assign-button-ui" data-ui-kind="button" onclick="assignGemToSoldierShip()">Assign to Ship</button></div><div>${ship.inventories.map((inventory, index) => `<p>Ship inventory ${index + 1}: ${inventory.gemIds.length}/${getSoldierShipCapacity()} assigned</p>`).join('')}</div>`;
+    renderStructureMenu('Soldier Ship', content);
 }
 
 function showSoldierShipInventory() {
@@ -1197,12 +1680,11 @@ function assignGemToSoldierShip() {
 }
 
 function showHealingCenter() {
-    const box = document.getElementById('healing-center-inventory');
-    if (!box) return;
     const cracked = GameData.gems.filter(gem => normalizeGemStatus(gem) === 'Cracked');
     const shattered = GameData.gems.filter(gem => normalizeGemStatus(gem) === 'Shattered');
-    box.style.display = 'block';
-    box.innerHTML = `<div>Cracked repairs: ${cracked.length ? cracked.map(gem => `<button type="button" onclick="healCrackedGem('${gem.id}')" style="width:auto; margin:2px;">Heal ${gem.name} (100000)</button>`).join('') : 'None'}</div><div style="margin-top:6px;">Shattered repairs: ${shattered.length ? shattered.map(gem => `<button type="button" onclick="healShatteredGem('${gem.id}')" style="width:auto; margin:2px;">Repair ${gem.name} (1000000)</button>`).join('') : 'None'}</div>`;
+    const repairButtons = gems => gems.map(gem => `<button type="button" data-ui-asset="healing-center-repair-button-ui" data-ui-kind="button" onclick="${normalizeGemStatus(gem) === 'Cracked' ? 'healCrackedGem' : 'healShatteredGem'}('${gem.id}')">${normalizeGemStatus(gem) === 'Cracked' ? `Heal ${gem.name} (100000)` : `Repair ${gem.name} (1000000)`}</button>`).join('');
+    const content = `<div>Cracked repairs: ${cracked.length ? `<div class="structure-menu-actions">${repairButtons(cracked)}</div>` : 'None'}</div><div>Shattered repairs: ${shattered.length ? `<div class="structure-menu-actions">${repairButtons(shattered)}</div>` : 'None'}</div>`;
+    renderStructureMenu('Healing Center', content);
 }
 
 function healCrackedGem(id) {
@@ -1232,6 +1714,7 @@ function healShatteredGem(id) {
 function levelUpGem() {
     const gem = GameData.gems.find(g => String(g.id) === String(selectedGemId));
     if (!gem) return alert('No gem selected.');
+    if (Number(gem.level || 0) >= Number(CONFIG.LEVELS.MAX || 100)) return alert('This gem has reached the maximum level.');
 
     const nextLevel = Number(gem.level || 0) + 1;
     const cost = getLevelCost(gem);
@@ -1282,7 +1765,7 @@ function openProfile(id) {
     const targetId = String(id);
     selectedGemId = id;
     const gem = GameData.gems.find(g => String(g.id) === targetId);
-    if (!gem) return;
+    if (!gem || gem.storedIn || gem.inRebellion) return;
 
     gem.level = Number(gem.level || 0);
     gem.guards = Array.isArray(gem.guards) ? gem.guards : [];
@@ -1294,8 +1777,6 @@ function openProfile(id) {
     document.getElementById('prof-placement').innerText = gem.placement;
     document.getElementById('prof-personality').innerText = gem.personality;
     document.getElementById('prof-status').innerText = gem.status;
-    const prefixInput = document.getElementById('prof-prefix-input');
-    if (prefixInput) prefixInput.value = gem.customPrefix || (gem.name || '').split(' ')[0];
     const quote = document.getElementById('prof-quote');
     if (quote) {
         quote.innerText = `"${randomGemQuote(gem)}"`;
@@ -1307,53 +1788,278 @@ function openProfile(id) {
         }, 90000);
     }
     document.getElementById('prof-caste').innerText = getGemCaste(gem);
-    document.getElementById('prof-img').src = gem.image;
-    const cutPreview = document.getElementById('prof-cut-img');
-    if (cutPreview) {
-        cutPreview.src = gem.cutImage || '';
-        cutPreview.style.display = gem.cutImage ? 'block' : 'none';
-    }
-    applyStoredProfileCustomization(gem);
+    const portrait = document.getElementById('prof-img');
+    if (portrait) portrait.outerHTML = renderGemArtwork(gem, 'gem-art-stack--profile profile-hero-art', `${gem.name} artwork`, 'prof-img', 'menu');
+    const casteArt = document.getElementById('prof-caste-art');
+    if (casteArt) casteArt.innerHTML = renderGemArtwork(gem, 'profile-caste-gem-art', `${gem.name} caste mark`, '', 'none');
+    const profileCard = document.querySelector('#profile-modal .modal-content');
+    if (profileCard) applyUiAsset(profileCard, `${gemArtSlug(gem.type)}-profile-card-ui`, 'surface');
 
+    renderProfileGallery(gem);
+    applyProfileOptionAssets(gem);
     renderProfileAssignments(gem);
     renderProfileLifecycleActions(gem);
 
-    const imageFile = document.getElementById('profile-image-file');
-    if (imageFile) imageFile.value = '';
-    
-    if (!gem.galleryPool) {
-        gem.galleryPool = [gem.image];
-    }
-    
-    renderProfileGallery(gem);
     const modal = document.getElementById('profile-modal');
     if (modal) modal.style.display = 'flex';
+}
+
+function applyProfileOptionAssets(gem) {
+    const fusion = Array.isArray(gem.fusionMembers) && gem.fusionMembers.length === 2;
+    const fusionMembers = fusion
+        ? gem.fusionMembers.map(memberId => GameData.gems.find(member => String(member.id) === String(memberId))).filter(Boolean)
+        : [];
+    const fusionPlacements = gem.fusionPlacements || fusionMembers.map(member => member.placement || member.gemPlacement);
+    const fusionPersonalities = gem.fusionPersonalities || fusionMembers.map(member => member.personality);
+    const placementAsset = fusion
+        ? getFusionMixAssetName('placement', ...fusionPlacements)
+        : `placement-${gemArtSlug(gem.placement)}-ui`;
+    const personalityAsset = fusion
+        ? getFusionMixAssetName('personality', ...fusionPersonalities)
+        : `personality-${gemArtSlug(gem.personality)}-ui`;
+    const assets = [
+        [document.getElementById('profile-caste-panel'), fusion ? 'fusion-caste-box-ui' : `caste-${gemArtSlug(getGemCaste(gem))}-ui`],
+        [document.getElementById('profile-quality-box'), fusion ? 'fusion-quality-box-ui' : `quality-${gemArtSlug(gem.quality)}-ui`],
+        [document.getElementById('profile-type-box'), fusion ? 'fusion-type-box-ui' : `type-${gemArtSlug(gem.type)}-ui`],
+        [document.getElementById('profile-placement-box'), placementAsset],
+        [document.getElementById('profile-personality-box'), personalityAsset],
+        [document.getElementById('prof-status'), `status-${gemArtSlug(gem.status)}-ui`],
+        [document.getElementById('prof-quote'), 'profile-quote-ui'],
+        [document.getElementById('profile-gallery-frame'), 'profile-gallery-frame-ui'],
+        [document.querySelector('.profile-nameplate'), 'profile-nameplate-ui'],
+        [document.querySelector('.profile-level-panel'), 'profile-level-panel-ui'],
+        [document.getElementById('prof-boosts-panel'), 'profile-boosts-panel-ui'],
+        [document.getElementById('profile-guards-panel'), 'profile-guards-panel-ui']
+    ];
+    assets.forEach(([element, assetName]) => applyUiAsset(element, assetName, 'surface', PROFILE_UI_ASSET_ROOT));
+}
+
+function getFusionMixAssetName(kind, firstValue, secondValue) {
+    const values = [firstValue, secondValue].map(gemArtSlug).sort();
+    return `fusion-${kind}-${values[0]}-${values[1]}-box-ui`;
+}
+
+function getProfileGalleryImages(gem) {
+    if (normalizeGemStatus(gem) === 'Bubbled') return [];
+    const images = Array.isArray(gem.galleryPool) ? gem.galleryPool : [];
+    const candidates = [...images, gem.image].filter(source =>
+        typeof source === 'string' && source && !/^https?:\/\/placehold\.co\//i.test(source)
+    );
+    return [...new Set(candidates)];
+}
+
+function renderProfileGallery(gem) {
+    const images = getProfileGalleryImages(gem);
+    const image = document.getElementById('profile-gallery-image');
+    const fallback = document.getElementById('prof-img');
+    const count = document.getElementById('profile-gallery-count');
+    const previous = document.querySelector('.profile-gallery-previous');
+    const next = document.querySelector('.profile-gallery-next');
+    const remove = document.querySelector('.profile-gallery-settings button');
+    gem.galleryIndex = images.length ? Math.max(0, Math.min(Number(gem.galleryIndex || 0), images.length - 1)) : 0;
+    if (count) count.textContent = images.length ? `${gem.galleryIndex + 1} / ${images.length}` : 'Gem artwork';
+    if (previous) previous.disabled = images.length < 2;
+    if (next) next.disabled = images.length < 2;
+    if (remove) remove.disabled = images.length === 0;
+    if (!image || !fallback) return;
+    if (!images.length) {
+        image.hidden = true;
+        image.removeAttribute('src');
+        fallback.hidden = false;
+        return;
+    }
+    const source = images[gem.galleryIndex];
+    image.dataset.gallerySource = source;
+    image.onload = () => {
+        if (image.dataset.gallerySource !== source) return;
+        image.hidden = false;
+        fallback.hidden = true;
+    };
+    image.onerror = () => {
+        if (image.dataset.gallerySource !== source) return;
+        image.hidden = true;
+        fallback.hidden = false;
+        if (count) count.textContent = 'Gem artwork';
+    };
+    image.src = source;
+}
+
+function changeProfileGalleryImage(direction) {
+    const gem = findLiveGem(selectedGemId);
+    if (!gem) return;
+    const images = getProfileGalleryImages(gem);
+    if (images.length < 2) return;
+    gem.galleryIndex = (Number(gem.galleryIndex || 0) + direction + images.length) % images.length;
+    renderProfileGallery(gem);
+}
+
+function addProfileGalleryImages(files) {
+    const gem = findLiveGem(selectedGemId);
+    const selectedFiles = Array.from(files || []).filter(file => ['image/png', 'image/gif'].includes(file.type));
+    if (!gem || !selectedFiles.length) return;
+    const results = selectedFiles.map(file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result));
+        reader.onerror = () => reject(new Error(`Could not read ${file.name}.`));
+        reader.readAsDataURL(file);
+    }));
+    Promise.all(results).then(images => {
+        const existing = getProfileGalleryImages(gem);
+        gem.galleryPool = [...existing, ...images];
+        gem.galleryIndex = existing.length;
+        if (String(selectedGemId) === String(gem.id)) {
+            renderProfileGallery(gem);
+            const status = document.getElementById('profile-gallery-settings-status');
+            if (status) status.textContent = `${images.length} image${images.length === 1 ? '' : 's'} added to ${gem.name}.`;
+        }
+    }).catch(error => alert(error.message));
+}
+
+function removeCurrentProfileGalleryImage() {
+    const gem = findLiveGem(selectedGemId);
+    if (!gem) return;
+    const images = getProfileGalleryImages(gem);
+    if (!images.length) return;
+    images.splice(Number(gem.galleryIndex || 0), 1);
+    gem.galleryPool = images;
+    gem.image = images[0] || '';
+    gem.galleryIndex = Math.max(0, Math.min(Number(gem.galleryIndex || 0), images.length - 1));
+    renderProfileGallery(gem);
+    const status = document.getElementById('profile-gallery-settings-status');
+    if (status) status.textContent = 'Current gallery image removed.';
 }
 
 function renderProfileLifecycleActions(gem) {
     const container = document.getElementById('profile-lifecycle-actions');
     if (!container) return;
     const id = String(gem.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    const shatterAction = canAccessShattering() && getPersonalityBehavior(gem).canBeShattered
+        ? `<button type="button" onclick="shatterLiveGem('${id}')">Shatter</button>`
+        : '';
     if (gem.fusionMembers) {
-        container.innerHTML = `<button type="button" onclick="splitFusionFromProfile('${id}')" style="width:auto;">Split Fusion</button>`;
+        const inputId = `fusion-prefix-${String(gem.id).replace(/[^a-zA-Z0-9_-]/g, '-')}`;
+        container.innerHTML = `<label for="${inputId}">Fusion prefix</label><input id="${inputId}" type="text" data-ui-asset="fusion-prefix-input-ui" data-ui-kind="textbox" maxlength="40" value="${escapeGemArtAttribute(gem.customPrefix || '')}" placeholder="Your prefix"><button type="button" data-ui-asset="fusion-prefix-save-button-ui" data-ui-kind="button" onclick="saveFusionPrefix('${id}')">Save Prefix</button><button type="button" onclick="splitFusionFromProfile('${id}')" style="width:auto;">Split Fusion</button>`;
+        const input = container.querySelector('input');
+        const saveButton = container.querySelector('[data-ui-asset="fusion-prefix-save-button-ui"]');
+        applyUiAsset(input, 'fusion-prefix-input-ui', 'textbox', PROFILE_UI_ASSET_ROOT);
+        applyUiAsset(saveButton, 'fusion-prefix-save-button-ui', 'button', PROFILE_UI_ASSET_ROOT);
     } else if (gem.status === 'Shattered') {
         container.innerHTML = '<span style="opacity:0.6;">This gem is shattered permanently.</span>';
     } else if (gem.status === 'Poofed') {
-        container.innerHTML = `<button type="button" onclick="reformGem('${id}')" style="width:auto;">Reform</button><button type="button" onclick="bubbleGem('${id}')" style="width:auto;">Bubble</button>`;
+        container.innerHTML = `<button type="button" onclick="reformGem('${id}')">Reform</button><button type="button" onclick="bubbleGem('${id}')">Bubble</button>${shatterAction}`;
     } else if (gem.status === 'Bubbled') {
-        container.innerHTML = `<button type="button" onclick="reformGem('${id}')" style="width:auto;">Reform</button>`;
+        container.innerHTML = `<button type="button" onclick="reformGem('${id}')">Reform</button>${shatterAction}`;
     } else {
-        container.innerHTML = `<button type="button" onclick="poofLiveGem('${id}')" style="width:auto;">Poof</button><button type="button" onclick="rejuvenateLiveGem('${id}')" style="width:auto;">Rejuvenate</button><button type="button" onclick="shatterLiveGem('${id}')" style="width:auto;">Shatter</button>`;
+        container.innerHTML = `<button type="button" onclick="poofLiveGem('${id}')">Poof</button><button type="button" onclick="bubbleGem('${id}')">Bubble</button>${shatterAction}`;
     }
+}
+
+function canAccessShattering() {
+    return GameData.gems.some(gem => gem.type === 'Aragonite' && !['Shattered', 'Fused'].includes(normalizeGemStatus(gem)));
 }
 
 function findLiveGem(id) {
     return GameData.gems.find(gem => String(gem.id) === String(id));
 }
 
+function getRebellionWarState() {
+    if (!GameData.rebellionWar || typeof GameData.rebellionWar !== 'object') {
+        GameData.rebellionWar = { active: false, rebelIds: [], progress: 0, difficulty: 0 };
+    }
+    if (!Array.isArray(GameData.rebellionWar.rebelIds)) GameData.rebellionWar.rebelIds = [];
+    return GameData.rebellionWar;
+}
+
+function addGemRebellion(gem, amount) {
+    if (!gem || gem.type === 'Diamond' || GameData.mode === 'Roleplay') return;
+    gem.rebellion = Math.max(0, Math.min(100, Number(gem.rebellion || 0) + amount * getRebellionResistanceMultiplier()));
+    if (gem.rebellion >= 100) recruitRebel(gem);
+}
+
+function recruitRebel(gem) {
+    const war = getRebellionWarState();
+    if (war.rebelIds.some(id => String(id) === String(gem.id))) return;
+    gem.inRebellion = true;
+    war.rebelIds.push(gem.id);
+    war.active = true;
+    war.difficulty += 1000 + Math.max(0, Number(gem.level || 0)) * 10;
+    if (war.rebelIds.length === 1) {
+        addNotification(`${gem.name} reached maximum rebellion. War has broken out.`);
+    } else {
+        addNotification(`${gem.name} joined the rebellion. The uprising has grown stronger.`);
+    }
+    renderRebellionStatus();
+}
+
+function getRebellionSoldierPower() {
+    return GameData.gems
+        .filter(gem => getGemCaste(gem) === 'Quartz Soldier Tier' && isGemUsable(gem) && !gem.inRebellion)
+        .reduce((power, gem) => power + 1 + Math.max(0, Number(gem.level || 0)), 0);
+}
+
+function getRebellionResistanceMultiplier() {
+    const activeGems = GameData.gems.filter(gem => isGemUsable(gem));
+    const goldLevels = activeGems.filter(gem => gem.type === 'Gold').reduce((sum, gem) => sum + Math.max(0, Number(gem.level || 0)), 0);
+    const psilomelanes = GameData.gems.filter(gem => gem.type === 'Psilomelane' && !['Shattered', 'Fused'].includes(normalizeGemStatus(gem)));
+    const archivedPsilomelaneIds = new Set(GameData.structureStorage?.Archives?.occupantIds?.map(String) || []);
+    const psilomelaneStrength = psilomelanes.reduce((sum, gem) => {
+        const archivedMultiplier = archivedPsilomelaneIds.has(String(gem.id)) ? 2 : 1;
+        return sum + Math.max(1, Number(gem.level || 0)) * archivedMultiplier;
+    }, 0);
+    return Math.max(0.1, 1 - goldLevels * 0.005 - psilomelaneStrength * 0.02);
+}
+
+function advanceRebellionWar() {
+    if (GameData.mode === 'Roleplay') return;
+    const war = getRebellionWarState();
+    const entertainers = GameData.gems.filter(gem =>
+        getGemCaste(gem) === 'Elite Entertainer Tier' && isGemUsable(gem) && !gem.inRebellion
+    ).length;
+    GameData.gems.forEach(gem => {
+        if (gem.type === 'Diamond' || gem.storedIn) return;
+        gem.rebellion = Math.max(0, Number(gem.rebellion || 0) - entertainers);
+        if (war.active && !gem.inRebellion) {
+            const behavior = getPersonalityBehavior(gem);
+            if (behavior.canDisobey && behavior.rebellionMultiplier > 0) {
+                addGemRebellion(gem, 0.02 * behavior.rebellionMultiplier * (1 + Math.max(0, Number(gem.level || 0)) / 100));
+            }
+        }
+    });
+
+    if (war.active) {
+        war.progress += getRebellionSoldierPower();
+        if (war.progress >= Math.max(1000, Number(war.difficulty || 0))) {
+            war.active = false;
+            war.rebelIds = [];
+            war.progress = 0;
+            war.difficulty = 0;
+            GameData.gems.forEach(gem => {
+                gem.inRebellion = false;
+                gem.rebellion = 0;
+            });
+            addNotification('The soldiers defeated the rebellion. The empire has been restored.');
+            renderRoster();
+        }
+    }
+    renderRebellionStatus();
+}
+
+function renderRebellionStatus() {
+    const panel = document.getElementById('rebellion-war-status');
+    if (!panel) return;
+    const war = getRebellionWarState();
+    panel.hidden = !war.active;
+    if (!war.active) return;
+    const soldierPower = getRebellionSoldierPower();
+    const progress = Math.min(100, Math.round((war.progress / Math.max(1000, war.difficulty || 0)) * 100));
+    panel.innerHTML = `<strong>Rebellion in progress</strong><span>${war.rebelIds.length} rebel gem${war.rebelIds.length === 1 ? '' : 's'} | Soldier strength: ${soldierPower}</span><div class="rebellion-war-progress" role="progressbar" aria-label="War progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${progress}"><span style="width:${progress}%"></span></div>`;
+    applyUiAsset(panel.querySelector('.rebellion-war-progress'), 'rebellion-war-progress-ui', 'surface');
+}
+
 function poofLiveGem(id) {
     const gem = findLiveGem(id);
-    if (!gem || gem.status === 'Shattered') return;
+    if (!gem || gem.status === 'Shattered' || gem.storedIn || gem.inRebellion) return;
+    addGemRebellion(gem, 15);
     gem.status = 'Poofed';
     gem.reformAt = Date.now() + 10 * 60 * 1000;
     addNotification(`${gem.name} poofed and is unusable until reformed.`);
@@ -1363,7 +2069,8 @@ function poofLiveGem(id) {
 
 function bubbleGem(id) {
     const gem = findLiveGem(id);
-    if (!gem || gem.status !== 'Poofed') return;
+    if (!gem || gem.storedIn || gem.inRebellion || !['Fine', 'Cracked', 'Poofed'].includes(normalizeGemStatus(gem))) return;
+    ensureGemBubbleColor(gem);
     gem.status = 'Bubbled';
     gem.reformAt = null;
     addNotification(`${gem.name} was bubbled and moved to the Bubbled Gems directory.`);
@@ -1400,9 +2107,14 @@ function rejuvenateLiveGem(id) {
     openProfile(gem.id);
 }
 
-function shatterLiveGem(id) {
+function shatterLiveGem(id, involuntary = false) {
     const gem = findLiveGem(id);
-    if (!gem || gem.status === 'Shattered') return;
+    if (!gem || gem.status === 'Shattered' || gem.storedIn || gem.inRebellion) return;
+    if (!involuntary && !canAccessShattering()) return alert('An Aragonite is required to authorize shattering.');
+    if (!getPersonalityBehavior(gem).canBeShattered) {
+        addNotification(`${gem.name} cannot be shattered due to their personality.`);
+        return;
+    }
     gem.status = 'Shattered';
     gem.reformAt = null;
     gem.guards = [];
@@ -1410,140 +2122,6 @@ function shatterLiveGem(id) {
     addNotification(`${gem.name} shattered permanently.`);
     renderGemDirectories();
     renderRoster();
-    openProfile(gem.id);
-}
-
-function renderProfileGallery(gem) {
-    const container = document.getElementById('prof-gallery-container');
-    if (!container) return;
-    container.innerHTML = '';
-    
-    gem.galleryPool.forEach(imgUrl => {
-        const img = document.createElement('img');
-        img.src = imgUrl;
-        img.className = 'gallery-thumb';
-        img.style.width = '50px';
-        img.style.height = '50px';
-        img.style.margin = '5px';
-        img.style.cursor = 'pointer';
-        img.style.borderRadius = '4px';
-        
-        if (gem.image === imgUrl) {
-            img.style.border = '2px solid #c594a0';
-        } else {
-            img.style.border = '1px solid #444';
-        }
-        
-        img.onclick = () => {
-            gem.image = imgUrl;
-            document.getElementById('prof-img').src = imgUrl;
-            renderProfileGallery(gem);
-            renderRoster();
-        };
-        container.appendChild(img);
-    });
-}
-
-function appendImageToGalleryPool() {
-    const gem = GameData.gems.find(g => g.id === selectedGemId);
-    if (!gem) return;
-    selectedImageData('profile-image-file', image => {
-        if (!image) return alert('Choose an image from your device first.');
-        if (!gem.galleryPool) gem.galleryPool = [];
-        if (!gem.galleryPool.includes(image)) gem.galleryPool.push(image);
-        gem.image = image;
-        document.getElementById('prof-img').src = image;
-        document.getElementById('profile-image-file').value = '';
-        renderProfileGallery(gem);
-        renderRoster();
-    });
-}
-
-function saveGemCutImage() {
-    const gem = GameData.gems.find(g => String(g.id) === String(selectedGemId));
-    if (!gem) return alert('Open a gem profile before adding a cut photo.');
-    selectedImageData('cut-image-file', image => {
-        if (!image) return alert('Choose a gem cut image from your device first.');
-        gem.cutImage = image;
-        const preview = document.getElementById('prof-cut-img');
-        if (preview) {
-            preview.src = image;
-            preview.style.display = 'block';
-        }
-        document.getElementById('cut-image-file').value = '';
-    });
-}
-
-function saveGemPrefix() {
-    const gem = findLiveGem(selectedGemId);
-    const input = document.getElementById('prof-prefix-input');
-    const prefix = input ? input.value.trim() : '';
-    if (!gem || !prefix) return alert('Enter a prefix first.');
-    gem.customPrefix = prefix;
-    gem.name = `${prefix} ${gem.type}`;
-    addNotification(`${gem.name} received a customized prefix.`);
-    renderRoster();
-    openProfile(gem.id);
-}
-
-function applyStoredProfileCustomization(gem) {
-    const panel = document.querySelector('#profile-modal .modal-content');
-    const portrait = document.getElementById('prof-img');
-    const backgroundColor = document.getElementById('profile-bg-color');
-    const fontSelect = document.getElementById('profile-font-select');
-    if (!panel || !portrait) return;
-    const settings = gem.profileCustomization || {};
-    panel.style.backgroundColor = settings.backgroundColor || '#2d3133';
-    panel.style.backgroundImage = settings.backgroundImage ? `url("${settings.backgroundImage}")` : 'none';
-    panel.style.fontFamily = settings.fontFamily || 'inherit';
-    portrait.style.borderImage = settings.frameImage ? `url("${settings.frameImage}") 30 round` : 'none';
-    portrait.style.borderWidth = settings.frameImage ? '12px' : '2px';
-    if (backgroundColor) backgroundColor.value = settings.backgroundColor || '#2d3133';
-    if (fontSelect) fontSelect.value = settings.fontFamily || 'inherit';
-}
-
-function applyProfileCustomization() {
-    const gem = findLiveGem(selectedGemId);
-    if (!gem) return;
-    const settings = {
-        backgroundColor: document.getElementById('profile-bg-color')?.value || '#2d3133',
-        backgroundImage: gem.profileCustomization?.backgroundImage || '',
-        frameImage: gem.profileCustomization?.frameImage || '',
-        fontFamily: document.getElementById('profile-font-select')?.value || 'inherit'
-    };
-    selectedImageData('profile-bg-image-file', backgroundImage => {
-        if (backgroundImage) settings.backgroundImage = backgroundImage;
-        selectedImageData('profile-frame-image-file', frameImage => {
-            if (frameImage) settings.frameImage = frameImage;
-            gem.profileCustomization = settings;
-            applyStoredProfileCustomization(gem);
-        });
-    });
-}
-
-function openCourtAssignment() {
-    const select = document.getElementById('court-diamond-select');
-    if (!select) return;
-    const diamonds = GameData.gems.filter(gem => gem.type === 'Diamond' && isGemUsable(gem));
-    select.innerHTML = diamonds.map(diamond => `<option value="${diamond.id}">${diamond.name}</option>`).join('');
-    document.getElementById('court-modal').style.display = 'flex';
-}
-
-function closeCourtAssignment() {
-    document.getElementById('court-modal').style.display = 'none';
-}
-
-function assignSelectedGemToCourt() {
-    const gem = findLiveGem(selectedGemId);
-    const select = document.getElementById('court-diamond-select');
-    if (!gem || !isGemUsable(gem) || !select || !select.value) return alert('Choose a usable gem and Diamond court.');
-    const diamond = findLiveGem(select.value);
-    if (!diamond || diamond.type !== 'Diamond' || !isGemUsable(diamond)) return alert('Choose a usable Diamond court.');
-    gem.courtId = select.value;
-    if (!Array.isArray(diamond.courtMembers)) diamond.courtMembers = [];
-    if (!diamond.courtMembers.includes(gem.id)) diamond.courtMembers.push(gem.id);
-    addNotification(`${gem.name} was assigned to a Diamond court.`);
-    closeCourtAssignment();
     openProfile(gem.id);
 }
 
@@ -1561,7 +2139,13 @@ function createPearlFromReef() {
     if (!GameData.structures.includes('Reef')) {
         return alert('Build a Reef before producing pearls.');
     }
-    if (getActiveProductionJobs('Reef').length >= getStructureSlots('Reef')) return alert('All Reef production slots are busy.');
+    if (GameData.mode !== 'Roleplay' && getActiveProductionJobs('Reef').length >= getStructureSlots('Reef')) return alert('All Reef production slots are busy.');
+    if (GameData.mode === 'Roleplay') {
+        completeStructureJob('Reef');
+        showStructureInventory('Reef');
+        alert('A Pearl was created instantly.');
+        return;
+    }
     if (!GameData.structureJobs) GameData.structureJobs = {};
     if (!GameData.structureJobs.Reef) GameData.structureJobs.Reef = [];
     GameData.structureJobs.Reef.push({ kind: 'pearl', readyAt: Date.now() + getStructureTimerMs('Reef', 30) });
@@ -1574,7 +2158,13 @@ function createSpinelFromFunhouse() {
         return alert('Build a Spinel Funhouse before producing spinels.');
     }
     if (!GameData.gems.some(g => g.type === 'Taaffeite' && isGemUsable(g))) return alert('A Taaffeite is required to operate the Spinel Funhouse.');
-    if (getActiveProductionJobs('Spinel Funhouse').length >= getStructureSlots('Spinel Funhouse')) return alert('All Spinel Funhouse production slots are busy.');
+    if (GameData.mode !== 'Roleplay' && getActiveProductionJobs('Spinel Funhouse').length >= getStructureSlots('Spinel Funhouse')) return alert('All Spinel Funhouse production slots are busy.');
+    if (GameData.mode === 'Roleplay') {
+        completeStructureJob('Spinel Funhouse');
+        showStructureInventory('Spinel Funhouse');
+        alert('A Spinel was created instantly.');
+        return;
+    }
     if (!GameData.structureJobs) GameData.structureJobs = {};
     if (!GameData.structureJobs['Spinel Funhouse']) GameData.structureJobs['Spinel Funhouse'] = [];
     GameData.structureJobs['Spinel Funhouse'].push({ kind: 'spinel', readyAt: Date.now() + getStructureTimerMs('Spinel Funhouse', 20) });
@@ -1582,25 +2172,43 @@ function createSpinelFromFunhouse() {
     alert('Spinel creation started. The Funhouse will produce it when the timer completes.');
 }
 
+function createStructureGem(type) {
+    const generatedGem = generateIndividualGem(type, null);
+    const placeholderImage = 'https://placehold.co/200x200';
+    return {
+        ...generatedGem,
+        placement: generatedGem.gemPlacement,
+        guards: [],
+        guardOwnerId: null,
+        location: 'Court',
+        image: placeholderImage,
+        galleryPool: [placeholderImage],
+        cutImage: ''
+    };
+}
+
 function completeStructureJob(type, job) {
     if (type === 'Reef') {
-        GameData.gems.push({ id: 'pearl_' + Date.now(), type: 'Pearl', name: 'Pearl-' + Math.floor(Math.random() * 900 + 100), quality: 'Perfect', placement: 'Navel', personality: 'Loyal', level: 0, guards: [], boosts: [], guardOwnerId: null, image: 'https://placehold.co/200x200', galleryPool: ['https://placehold.co/200x200'] });
+        GameData.gems.push(createStructureGem('Pearl'));
     } else if (type === 'Spinel Funhouse') {
-        GameData.gems.push({ id: 'spinel_' + Date.now(), type: 'Spinel', name: 'Spinel-' + Math.floor(Math.random() * 900 + 100), quality: 'Perfect', placement: 'Face', personality: 'Meticulous', level: 0, guards: [], boosts: [], guardOwnerId: null, image: 'https://placehold.co/200x200', galleryPool: ['https://placehold.co/200x200'] });
+        GameData.gems.push(createStructureGem('Spinel'));
     } else if (type === 'Gem Forge') {
         const gem = GameData.gems.find(g => String(g.id) === String(job.targetGemId));
         const blueprint = FORGERY_BLUEPRINTS.find(bp => bp.id === job.blueprintId);
         if (gem && blueprint) gem.boosts.push({ id: blueprint.id, name: blueprint.name, stat: blueprint.stat, desc: blueprint.desc, origin: 'Forged' });
     }
-    GameData.structureJobs[type] = getActiveProductionJobs(type).filter(activeJob => activeJob !== job);
+    if (job) GameData.structureJobs[type] = getActiveProductionJobs(type).filter(activeJob => activeJob !== job);
     renderRoster();
     updateUI();
 }
 
 function buildStructure(structureDesignationName, productionMaterialCostValue) {
     productionMaterialCostValue = COLONY_OPTIONS.STRUCTURE_BUILD_COSTS[structureDesignationName] || productionMaterialCostValue * 100;
-    if (structureDesignationName === 'Trial Building' && !GameData.gems.some(gem => gem.type === 'Zircon' && isGemUsable(gem))) {
-        return alert('A usable Zircon is required to unlock the Trial Building.');
+    const missingRequirement = (STRUCTURE_UNLOCK_REQUIREMENTS[structureDesignationName] || []).find(requiredType =>
+        !GameData.gems.some(gem => gem.type === requiredType && !['Shattered', 'Fused'].includes(normalizeGemStatus(gem)))
+    );
+    if (missingRequirement) {
+        return alert(`${missingRequirement} is required to unlock ${structureDesignationName}.`);
     }
     if (GameData.mode !== "Roleplay" && GameData.materials < productionMaterialCostValue) {
         return alert("Insufficient raw construction materials inside storage nodes!");
@@ -1614,6 +2222,8 @@ function buildStructure(structureDesignationName, productionMaterialCostValue) {
     if (!GameData.structureJobs) GameData.structureJobs = {};
     GameData.structureLevels[structureDesignationName] = 1;
     GameData.structureJobs[structureDesignationName] = [];
+    if (!GameData.structureStorage) GameData.structureStorage = {};
+    GameData.structureStorage[structureDesignationName] = { occupantIds: [], overseerIds: [] };
     updateUI();
     renderStructureInventoryButtons();
     const structList = document.getElementById('structures-list');
@@ -1670,6 +2280,7 @@ function createBismuthForForge() {
 // 6. HEARTBEAT TIMELINE AUTOMATION TICK
 // ==========================================
 setInterval(() => {
+    saveLocalGame();
     const mainViewDashboard = document.getElementById('screen-dashboard');
     if (mainViewDashboard && mainViewDashboard.classList.contains('active-screen')) {
         GameData.year += 0.16;
@@ -1678,13 +2289,15 @@ setInterval(() => {
         GameData.essence += activeDiamonds * diamondEssenceRate;
         GameData.colonies.forEach(colony => {
             if (!colony.isDecayed) {
-                GameData.materials += colony.yieldValue;
+                const serpentineLevels = GameData.gems.filter(gem => gem.type === 'Serpentine' && isGemUsable(gem))
+                    .reduce((sum, gem) => sum + Math.max(0, Number(gem.level || 0)), 0);
+                GameData.materials += colony.yieldValue * (1 + serpentineLevels * 0.01);
             GameData.essence += Number(colony.essenceRate || 0);
                 (colony.kindergartenJobs || []).slice().forEach(job => {
-                    if (Date.now() >= job.readyAt) completeKindergartenJob(colony, job);
+                    if (GameData.mode === 'Roleplay' || Date.now() >= job.readyAt) completeKindergartenJob(colony, job);
                 });
                 (colony.shrineJobs || []).slice().forEach(job => {
-                    if (Date.now() >= job.readyAt) completeDiamondShrineJob(colony, job);
+                    if (GameData.mode === 'Roleplay' || Date.now() >= job.readyAt) completeDiamondShrineJob(colony, job);
                 });
                 if (GameData.year - colony.birthYear >= 960) {
                     colony.isDecayed = true;
@@ -1701,7 +2314,7 @@ setInterval(() => {
         triggerLiveGemEvent();
         Object.keys(GameData.structureJobs || {}).forEach(type => {
             getActiveProductionJobs(type).slice().forEach(job => {
-                if (Date.now() >= job.readyAt) {
+                if (GameData.mode === 'Roleplay' || Date.now() >= job.readyAt) {
                     if (type === 'Gem Forge') {
                         const bismuth = GameData.gems.find(g => g.inForge && isGemUsable(g));
                         if (bismuth) bismuth.inForge = false;
@@ -1710,6 +2323,8 @@ setInterval(() => {
                 }
             });
         });
+        advanceStoredGemDepartures();
+        advanceRebellionWar();
         updateUI();
         renderGemDirectories();
         renderNotifications();
@@ -1726,31 +2341,29 @@ window.switchScreen = switchScreen;
 window.switchTab = switchTab;
 window.randomizeStartingSector = randomizeStartingSector;
 window.launchNewEmpire = launchNewEmpire;
-window.exportSaveData = exportSaveData;
-window.executeImportSave = executeImportSave;
 window.foundColony = foundColony;
 window.openColonyControlPanel = openColonyControlPanel;
 window.closeColonyControlPanel = closeColonyControlPanel;
 window.buildColonyKindergarten = buildColonyKindergarten;
+window.updateKindergartenButtonCost = updateKindergartenButtonCost;
 window.buildDiamondShrineKindergarten = buildDiamondShrineKindergarten;
 window.surveyColony = surveyColony;
 window.openProfile = openProfile;
-window.appendImageToGalleryPool = appendImageToGalleryPool;
-window.saveGemCutImage = saveGemCutImage;
-window.applyAppearanceSettings = applyAppearanceSettings;
-window.toggleCustomizationOptions = toggleCustomizationOptions;
-window.saveGemPrefix = saveGemPrefix;
-window.openCourtAssignment = openCourtAssignment;
-window.closeCourtAssignment = closeCourtAssignment;
-window.assignSelectedGemToCourt = assignSelectedGemToCourt;
 window.startTrialEvent = startTrialEvent;
 window.splitFusionFromProfile = splitFusionFromProfile;
-window.applyProfileCustomization = applyProfileCustomization;
 window.showSoldierShipInventory = showSoldierShipInventory;
+window.closeStructureModal = closeStructureModal;
 window.levelUpSoldierShip = levelUpSoldierShip;
 window.assignGemToSoldierShip = assignGemToSoldierShip;
 window.closeProfile = closeProfile;
+window.saveFusionPrefix = saveFusionPrefix;
+window.changeProfileGalleryImage = changeProfileGalleryImage;
+window.addProfileGalleryImages = addProfileGalleryImages;
+window.removeCurrentProfileGalleryImage = removeCurrentProfileGalleryImage;
 window.toggleNotifications = toggleNotifications;
+window.requestEmpireReset = requestEmpireReset;
+window.confirmEmpireReset = confirmEmpireReset;
+window.cancelEmpireReset = cancelEmpireReset;
 window.toggleGemDirectory = toggleGemDirectory;
 window.closeEventPopup = closeEventPopup;
 window.poofLiveGem = poofLiveGem;
@@ -1763,8 +2376,6 @@ window.healShatteredGem = healShatteredGem;
 window.buildStructure = buildStructure;
 window.createPearlFromReef = createPearlFromReef;
 window.createSpinelFromFunhouse = createSpinelFromFunhouse;
-window.addDiamondToSetupCouncil = addDiamondToSetupCouncil;
-window.removeDiamondFromSetup = removeDiamondFromSetup;
 window.levelUpGem = levelUpGem;
 window.levelUpStructure = levelUpStructure;
 window.assignGuard = assignGuard;
@@ -1772,7 +2383,12 @@ window.assignGuard = assignGuard;
 // Safe runtime inputs fallback setup
 document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById('search-input');
-    const filterInput = document.getElementById('quality-filter');
+    const filterInput = document.getElementById('gem-type-filter');
+    populateGemTypeFilter();
     if (searchInput) searchInput.addEventListener('input', renderRoster);
     if (filterInput) filterInput.addEventListener('change', renderRoster);
+    initializeDiamondSetup();
+    loadDefaultPageBackground();
+    initializeUiAssets();
+    restoreLocalGame();
 });

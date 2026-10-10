@@ -90,35 +90,23 @@ function determineStartingBoosts(quality, gemType) {
 }
 // Generate a gem with placement-influenced personality and boost rolling.
 function generateIndividualGem(gemType, assignedCourtId) {
-    const randomPrefix = typeof generateGemPrefix === "function"
-        ? generateGemPrefix(gemType)
-        : GENERATION_TABLES.PREFIXES[Math.floor(Math.random() * GENERATION_TABLES.PREFIXES.length)];
     const randomWeapon = GENERATION_TABLES.WEAPONS[Math.floor(Math.random() * GENERATION_TABLES.WEAPONS.length)];
     
     // 1. Pick a completely random physical Gem Placement first
-    const placementOptions = Object.keys(GEM_PLACEMENTS);
-    const chosenPlacement = placementOptions[Math.floor(Math.random() * placementOptions.length)];
-    const placementData = GEM_PLACEMENTS[chosenPlacement];
+    const chosenPlacement = chooseRandomGemPlacement();
 
-    // 2. Determine personality based on placement weights
-    let pool = [...GENERATION_TABLES.GEM_PERSONALITIES];
-    // Double the weight of preferred traits to make them much more likely to roll!
-    placementData.preferredPersonalities.forEach(p => {
-        pool.push(p);
-        pool.push(p); 
-    });
-    const finalPersonality = pool[Math.floor(Math.random() * pool.length)];
+    const finalPersonality = choosePlacementWeightedPersonality(chosenPlacement);
 
-    // 3. Weighted roll for Cut Quality (97% Regular, 2% Defective, 1% Perfect)
-    const roll = Math.random();
-    let quality = "Regular";
-    let startingLevel = CONFIG.LEVELS.MIN;
-    if (roll < CONFIG.CUT_RATES.PERFECT) {
-        quality = "Perfect";
-        startingLevel = CONFIG.LEVELS.PERFECT_START_BOOST;
-    } else if (roll < CONFIG.CUT_RATES.PERFECT + CONFIG.CUT_RATES.DEFECTIVE) {
-        quality = "Defective";
-    }
+    const offColorPrefixes = PREFIX_TABLES.OFF_COLOR_PREFIXES[gemType] || [];
+    const useOffColorPrefix = offColorPrefixes.length > 0 && Math.random() < CONFIG.CUT_RATES.DEFECTIVE;
+    const quality = useOffColorPrefix ? 'Defective' : rollGemQuality(chosenPlacement);
+    const startingLevel = quality === 'Perfect' ? CONFIG.LEVELS.PERFECT_START_BOOST : CONFIG.LEVELS.MIN;
+
+    const randomPrefix = useOffColorPrefix
+        ? offColorPrefixes[Math.floor(Math.random() * offColorPrefixes.length)]
+        : typeof generateGemPrefix === "function"
+            ? generateGemPrefix(gemType)
+            : GENERATION_TABLES.PREFIXES[Math.floor(Math.random() * GENERATION_TABLES.PREFIXES.length)];
 
     // 4. Handle innate armorer boost assignments
     const startingBoosts = typeof determineStartingBoosts === "function" ? determineStartingBoosts(quality, gemType) : [];

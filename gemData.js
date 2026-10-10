@@ -4,13 +4,18 @@
 const GEM_TIERS = {
     DIAMOND: {
         name: "Diamond Authority",
-        rank: 13,
+        rank: 14,
         types: ["Diamond"]
+    },
+    ELITE_ARISTOCRATIC: {
+        name: "Elite Aristocratic Tier",
+        rank: 13,
+        types: ["Gold", "Rhyolite"]
     },
     ELITE_COMMANDER: {
         name: "Elite Commander Tier",
         rank: 12,
-        types: ["Hessonite", "Demantoid", "Pyrope"]
+        types: ["Hessonite", "Demantoid", "Pyrope", "Aragonite"]
     },
     ELITE_CAPTAIN: {
         name: "Elite Captain Tier",
@@ -20,7 +25,7 @@ const GEM_TIERS = {
     ELITE_SPECIAL: {
         name: "Elite Special Tier",
         rank: 10,
-        types: ["Morganite", "Jadeite", "Taaffeite"]
+        types: ["Morganite", "Jadeite", "Taaffeite", "Psilomelane", "Cinnabar", "Abalone", "Scapolite", "Larkavite"]
         
     },
     ELITE_ADVISOR: {
@@ -31,7 +36,7 @@ const GEM_TIERS = {
     ELITE_ENTERTAINER: {
         name: "Elite Entertainer Tier",
         rank: 8,
-        types: ["Jade", "Porcelain", "Opal", "Rhodonite"]
+        types: ["Jade", "Porcelain", "Opal", "Rhodonite", "Lepidolite", "Tanzanite"]
     },
     QUARTZ_COMMANDER: {
         name: "Quartz Commander Tier",
@@ -61,7 +66,7 @@ const GEM_TIERS = {
     AGRICULTURAL: {
         name: "Agricultural Tier",
         rank: 3,
-        types: ["Peridot", "Lapis Lazuli", "Turquoise"]
+        types: ["Peridot", "Lapis Lazuli", "Turquoise", "Serpentine", "Aeschynite"]
     },
     TRANSPORTATION: {
         name: "Transportation Tier",
@@ -88,20 +93,70 @@ const PREFIX_TABLES = {
     GENERAL: [
         "Calm", "Sleepy", "Snowflake", "Winter", "Autumn", 
         "Snarky", "Evil", "Innocent", "Serious", "Clumsy", 
-        "Curious", "Giddy", "Sullen", "Bold", "Timid"
+        "Curious", "Giddy", "Sullen", "Bold", "Timid", "Summer",
+        "Misty", "Stormy", "Sunny", "Shy", "Brave", "Mischevious",
+        "Cheerful", "Grumpy", "Gentle", "Quiet", "Lazy",
+        "Kind", "Lonely", "Playful", "Clever", "Witty", "Wise", "Fierce",
+        "Loyal", "Friendly", "Caring", "Brilliant", "Daring", "Noble",
+        "Elegant", "Charming", "Radiant", "Vibrant", "Mysterious",
+        "Enchanting", "Majestic", "Regal", "Divine", "Celestial",
+        "Ethereal", "Heavenly", "Magical", "Mythical"
     ],
     
     // Shared color arrays for administrative, advisor, and aristocratic tracking units
     COLORS: [
         "Pink", "Blue", "Yellow", "Green", "White", "Purple", "Orange", 
-        "Red", "Teal", "Lavender", "Brown", "Black", "Crimson", "Violet"
+        "Red", "Teal", "Lavender", "Brown", "Black", "Crimson", "Violet",
+        "Indigo", "Turquoise", "Magenta", "Cyan", "Amber", "Coral",
+        "Fuchsia", "Maroon", "Olive", "Peach", "Plum", "Salmon", "Tan", 
+        "Beige", "Mint", "Navy", "Sky", "Lime", "Chocolate", "Lemon",
+        "Burgundy", "Tangerine", "Blood", "Blush", "Carmine", "Scarlet",
+        "Periwinkle", "Azure", "Cerulean", "Lavender", "Blueberry", "Rasberry", "Gold", "Cream",
+        "Apricot", "Saffron", "Mauve", "Lilac", "Sage"
     ],
+
+    COLOR_PREFIXES_BY_TYPE: {
+        "Gold": ["Yellow", "Lemon", "Saffron", "Gold"],
+        "Serpentine": ["Green", "Olive", "Lime", "Mint", "Sage"],
+        "Rhyolite": ["Pink", "Blush", "Fuchsia", "Magenta", "Salmon", "Peach", "Mauve"],
+        "Psilomelane": ["Black", "White"],
+        "Aeschynite": ["Black", "Brown", "Indigo", "Navy", "Burgundy", "Chocolate"],
+        "Cinnabar": ["Red", "Crimson", "Carmine", "Scarlet", "Blood"],
+        "Lepidolite": ["White", "Pink", "Blush", "Lavender", "Peach", "Mint", "Sky", "Lemon", "Lilac"],
+        "Abalone": ["White", "Blush", "Peach", "Lavender", "Mint", "Sky", "Lilac"],
+        "Scapolite": ["Pink", "Blush", "Fuchsia", "Magenta", "Salmon", "Peach", "Mauve"],
+        "Larkavite": ["Black", "Brown", "Indigo", "Navy", "Burgundy", "Chocolate", "Maroon"],
+        "Emerald": ["Yellow", "Green", "Olive", "Lime", "Lemon", "Mint", "Sage"],
+        "Amethyst": ["Purple", "Violet", "Indigo", "Lavender", "Plum", "Periwinkle", "Mauve", "Lilac"],
+        "Jasper": ["Red", "Orange", "Yellow", "Crimson", "Amber", "Coral", "Maroon", "Burgundy", "Tangerine", "Blood", "Carmine", "Scarlet", "Apricot", "Saffron"],
+        "Amber": ["Red", "Orange", "Yellow", "Crimson", "Amber", "Coral", "Maroon", "Burgundy", "Tangerine", "Blood", "Carmine", "Scarlet", "Apricot", "Saffron"],
+        "Honey Quartz": ["Orange", "Yellow", "Amber", "Coral", "Peach", "Lemon", "Tangerine", "Apricot", "Saffron"],
+        "Citrine": ["Orange", "Yellow", "Amber", "Coral", "Peach", "Lemon", "Tangerine", "Apricot", "Saffron"],
+        "Ruby": ["Red", "Orange", "Crimson", "Maroon", "Burgundy", "Blood", "Carmine", "Scarlet", "Coral", "Tangerine"],
+        "Rutile": ["Red", "Black", "Yellow", "Crimson", "Carmine", "Scarlet", "Lemon"],
+        "Nephrite": ["Green", "Yellow", "Olive", "Lime", "Lemon", "Mint", "Sage"],
+        "Lapis Lazuli": ["Blue", "Teal", "Navy", "Sky", "Indigo", "Turquoise", "Cyan", "Azure", "Cerulean", "Blueberry"],
+        "Aquamarine": ["Blue", "Teal", "Navy", "Sky", "Indigo", "Turquoise", "Cyan", "Azure", "Cerulean", "Blueberry"],
+        "Turquoise": ["Blue", "Teal", "Navy", "Sky", "Indigo", "Turquoise", "Cyan", "Azure", "Cerulean", "Blueberry"],
+        "Rose Quartz": ["Pink", "Blush", "Fuchsia", "Magenta", "Salmon", "Peach", "Lavender", "Mauve"],
+        "Morganite": ["Pink", "Blush", "Fuchsia", "Magenta", "Salmon", "Peach", "Lavender", "Mauve"],
+        "Opal": ["White", "Blush", "Pink", "Lavender", "Peach", "Mint", "Sky", "Lemon", "Periwinkle", "Beige", "Lilac"],
+        "Carnelian": ["Red", "Crimson", "Maroon", "Burgundy", "Blood", "Carmine", "Scarlet"],
+        "Aragonite": ["White", "Cream", "Tan", "Yellow", "Peach"]
+    },
+
+    COLOR_ONLY_TYPES: ["Gold", "Serpentine", "Rhyolite", "Psilomelane", "Aeschynite", "Cinnabar", "Lepidolite", "Abalone", "Scapolite", "Larkavite"],
+
+    OFF_COLOR_PREFIXES: {
+        "Sapphire": ["Red"],
+        "Ruby": ["Blue"]
+    },
 
     // Specialized unique classification overlays mapped to target profiles
     SPECIALIZED: {
         "Jasper": [
-            "Zebra", "Ocean", "Leopard", "Imperial", "Picture", "Brecciated", 
-            "Dalmation", "Red", "Kambaba", "Green", "Bumblebee", "Rainforest", "Blue-Spot"
+            "Zebra", "Leopard", "Imperial", "Picture", "Brecciated", 
+            "Dalmation", "Red", "Redstripe"
         ],
         "Aquamarine": [
             "Moss", "Milky"
@@ -110,7 +165,7 @@ const PREFIX_TABLES = {
             "Banded", "Moss", "Blue-Lace", "Crazy-Lace", "Holly Blue", "Fire", "Dendritic", "Botswana"
         ],
         "Sapphire": [
-            "Padparadscha", "Peacock", "Mermaid", "Star", "Color Change"
+            "Padparadscha", "Peacock", "Mermaid", "Star", "Color Change", "Pink"
         ],
         "Lapis Lazuli": [
             "Lazurite", "Calcite", "Pyrite"
@@ -127,19 +182,25 @@ const PREFIX_TABLES = {
 
 // Calculates and compiles a valid custom prefix description card upon birth
 function generateGemPrefix(gemType) {
-    let choices = [...PREFIX_TABLES.GENERAL];
+    let choices = PREFIX_TABLES.COLOR_ONLY_TYPES.includes(gemType) ? [] : [...PREFIX_TABLES.GENERAL];
+    const colorPrefixes = PREFIX_TABLES.COLOR_PREFIXES_BY_TYPE[gemType];
+    if (colorPrefixes) choices = choices.concat(colorPrefixes);
 
     // Check if the type has a dedicated specialized custom array match
     if (PREFIX_TABLES.SPECIALIZED[gemType]) {
         const specList = PREFIX_TABLES.SPECIALIZED[gemType];
         
         // Handle standard color substitution linkages seamlessly
-        if (specList[0] === "Color_Link") {
+        if (specList[0] === "Color_Link" && !colorPrefixes) {
             choices = choices.concat(PREFIX_TABLES.COLORS);
-        } else {
+        } else if (specList[0] !== "Color_Link") {
             choices = choices.concat(specList);
         }
     }
+
+    const offColorPrefixes = PREFIX_TABLES.OFF_COLOR_PREFIXES[gemType] || [];
+    choices = choices.filter(prefix => !offColorPrefixes.includes(prefix));
+    choices = [...new Set(choices)];
 
     // Pick a random prefix option from our compiled pool
     return choices[Math.floor(Math.random() * choices.length)];

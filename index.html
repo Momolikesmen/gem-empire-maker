@@ -12,15 +12,18 @@
 <body>
 
     <!-- Main Title Container -->
-    <header>
+    <header data-ui-asset="header-closed-ui" data-ui-kind="surface">
         <h1 id="live-empire-title">The Great Gem Empire</h1>
-        <button type="button" onclick="toggleNotifications()" style="width:auto;">Notifications <span id="notification-count">0</span></button>
-        <div id="notification-center" style="display:none; max-width:720px; margin:8px auto; text-align:left;"></div>
-        <div id="event-popup" style="display:none; position:fixed; inset:20% 20%; z-index:20; background:var(--panel-background-color); border:2px solid var(--link-color); padding:20px; box-shadow:0 8px 30px #0008;">
+        <div class="header-actions">
+            <button type="button" data-ui-asset="notifications-button-ui" data-ui-kind="button" onclick="toggleNotifications()">Notifications <span id="notification-count">0</span></button>
+            <button type="button" data-ui-asset="reset-empire-button-ui" data-ui-kind="button" onclick="requestEmpireReset()">Reset Empire</button>
+        </div>
+        <div id="notification-center" class="notification-scroll-panel" data-ui-asset="notification-scroll-panel-ui" data-ui-kind="surface" style="display:none;"></div>
+        <div id="event-popup" data-ui-asset="quicktime-event-popup-ui" data-ui-kind="surface" style="display:none; position:fixed; inset:20% 20%; z-index:20; background:var(--panel-background-color); border:2px solid var(--link-color); padding:20px; box-shadow:0 8px 30px #0008;">
             <h3>Gem Event</h3>
             <p id="event-popup-text"></p>
             <div id="event-popup-actions"></div>
-            <button type="button" onclick="closeEventPopup()" style="width:auto;">Resolve</button>
+            <button type="button" class="event-popup-close-button" data-ui-asset="quicktime-event-close-button-ui" data-ui-kind="button" aria-label="Close event" onclick="closeEventPopup()">Close</button>
         </div>
     </header>
 
@@ -33,67 +36,62 @@
             <p style="opacity:0.7; margin-bottom:15px; font-size:0.9rem;">Inspired by ClanGen. Manage your custom courts, track generations, and forge deep-space colonies.</p>
             
             <div class="creation-section">
-                <label for="setup-empire-name"><b>Empire Designation Name:</b></label>
-                <input type="text" id="setup-empire-name" value="The Great Gem Empire">
+                <div data-ui-asset="setup-empure-name-ui" data-ui-kind="surface">
+                    <label for="setup-empire-name"><b>Empire Designation Name:</b></label>
+                    <input type="text" id="setup-empire-name" data-ui-asset="empire-designation-input-ui" data-ui-kind="textbox" value="The Great Gem Empire">
+                </div>
 
-                <label for="setup-game-mode"><b>Gameplay Mode:</b></label>
-                <select id="setup-game-mode">
-                    <option value="Classic">Classic Mode (Standard Limits)</option>
-                    <option value="Roleplay">Roleplay Mode (Infinite Resources Sandbox)</option>
-                </select>
+                <div data-ui-asset="setup-game-mode-ui" data-ui-kind="surface">
+                    <label for="setup-game-mode"><b>Gameplay Mode:</b></label>
+                    <select id="setup-game-mode" data-ui-asset="game-mode-select-ui" data-ui-kind="textbox">
+                        <option value="Classic">Classic Mode (Standard Limits)</option>
+                        <option value="Roleplay">Roleplay Mode (Infinite Resources Sandbox)</option>
+                    </select>
+                </div>
             </div>
 
             <div class="creation-section">
-                <h3>Design Custom Diamond Authority Members</h3>
-                <p style="opacity:0.6; font-size:0.85rem; margin-bottom:10px;">Build your custom ruling council. Add as many custom unique leaders as you want.</p>
-                
-                <div class="diamond-setup-card">
-                    <label for="setup-diamond-name">Diamond Designation Name:</label>
-                    <input type="text" id="setup-diamond-name" placeholder="e.g. Celestia Aurora" value="">
-
-                    <label for="dia1-role">Assigned Domain Responsibility Directive:</label>
-                    <select id="dia1-role">
-                        <option value="Supreme Authority">Command of Military Soldiers</option>
-                        <option value="Public Entertainment">Director of Public Entertainment</option>
-                        <option value="Punishments & Trials">Arbiter of Punishments & Trials</option>
-                        <option value="Matriarch">Matriarch</option>
-                    </select>
-
-                    <label for="dia1-img-file">Diamond artwork photo:</label>
-                    <input type="file" id="dia1-img-file" accept="image/*">
-                    <button type="button" onclick="addDiamondToSetupCouncil()" style="margin-top: 8px; width: auto;">+ Add Diamond Card</button>
+                <h3>Diamond Council</h3>
+                <div class="diamond-builder">
+                    <div class="diamond-layout" aria-label="Diamond council hierarchy">
+                        <article class="diamond-slot diamond-matriarch" data-ui-asset="diamondslot-matriarch-ui" data-ui-kind="surface" data-diamond-role="matriarch" data-role-tag="Matriarch" data-default-name="Matriarch" data-color="#f5d76e">
+                            <h4>Matriarch</h4>
+                            <label for="diamond-prefix-matriarch">Name prefix</label>
+                            <input id="diamond-prefix-matriarch" class="diamond-prefix" data-ui-asset="diamond-prefix-input-ui" data-ui-kind="textbox" type="text" placeholder="e.g. Celestia" autocomplete="off">
+                            <button type="button" class="diamond-select-color" data-ui-asset="diamond-color-select-button-ui" data-ui-kind="button" aria-pressed="true"><span class="diamond-swatch"></span> Choose color</button>
+                        </article>
+                        <article class="diamond-slot diamond-military" data-ui-asset="diamondslot-military-ui" data-ui-kind="surface" data-diamond-role="military" data-role-tag="Supreme Authority" data-default-name="Military" data-color="#568edb">
+                            <h4>Military</h4>
+                            <label for="diamond-prefix-military">Name prefix</label>
+                            <input id="diamond-prefix-military" class="diamond-prefix" data-ui-asset="diamond-prefix-input-ui" data-ui-kind="textbox" type="text" placeholder="e.g. Valiant" autocomplete="off">
+                            <button type="button" class="diamond-select-color" data-ui-asset="diamond-color-select-button-ui" data-ui-kind="button" aria-pressed="false"><span class="diamond-swatch"></span> Choose color</button>
+                        </article>
+                        <article class="diamond-slot diamond-justice" data-ui-asset="diamondslot-justice-ui" data-ui-kind="surface" data-diamond-role="justice" data-role-tag="Punishments &amp; Trials" data-default-name="Justice" data-color="#b586ca">
+                            <h4>Justice</h4>
+                            <label for="diamond-prefix-justice">Name prefix</label>
+                            <input id="diamond-prefix-justice" class="diamond-prefix" data-ui-asset="diamond-prefix-input-ui" data-ui-kind="textbox" type="text" placeholder="e.g. Verity" autocomplete="off">
+                            <button type="button" class="diamond-select-color" data-ui-asset="diamond-color-select-button-ui" data-ui-kind="button" aria-pressed="false"><span class="diamond-swatch"></span> Choose color</button>
+                        </article>
+                        <article class="diamond-slot diamond-entertainer" data-ui-asset="diamondslot-entertainer-ui" data-ui-kind="surface" data-diamond-role="entertainer" data-role-tag="Public Entertainment" data-default-name="Entertainer" data-color="#e986aa">
+                            <h4>Entertainer</h4>
+                            <label for="diamond-prefix-entertainer">Name prefix</label>
+                            <input id="diamond-prefix-entertainer" class="diamond-prefix" data-ui-asset="diamond-prefix-input-ui" data-ui-kind="textbox" type="text" placeholder="e.g. Melody" autocomplete="off">
+                            <button type="button" class="diamond-select-color" data-ui-asset="diamond-color-select-button-ui" data-ui-kind="button" aria-pressed="false"><span class="diamond-swatch"></span> Choose color</button>
+                        </article>
+                    </div>
+                    <aside class="diamond-color-panel" data-ui-asset="diamond-color-wheel-ui" data-ui-kind="surface">
+                        <h4>Diamond color</h4>
+                        <p id="diamond-color-target">Matriarch</p>
+                        <div id="diamond-color-wheel" aria-label="Choose diamond color"></div>
+                        <label class="diamond-native-color" for="diamond-color-fallback">Color value
+                            <input id="diamond-color-fallback" type="color" value="#f5d76e">
+                        </label>
+                    </aside>
                 </div>
-
-                <div class="creation-section" style="margin-top: 15px;">
-                    <h3>Diamond Council Draft</h3>
-                    <div id="setup-diamonds-grid" class="grid-layout" style="margin-top: 12px;"></div>                </div>
             </div>
 
-            <div class="creation-section" style="margin-top:15px;">
-                <p><b>Starting Coordinates Vector:</b> <span id="sector-display-name">Nebula Quadrant E-19</span></p>
-                <button type="button" onclick="randomizeStartingSector()" style="width:auto; margin-top:5px; padding:6px 12px; font-size:0.85rem;">🎲 Roll Vector</button>
-            </div>
-
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:20px;">
-                <button type="button" onclick="launchNewEmpire()">🚀 Establish Imperial Sovereignty</button>
-                <button type="button" onclick="switchScreen('screen-import')" style="background-color: var(--button-secondary-background-color); color: var(--button-secondary-text-color);">📂 Import Save File</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==========================================
-         SCREEN 2: IMPORT SAVE MATRIX SCREEN
-         ========================================== -->
-    <div id="screen-import" class="game-screen">
-        <div class="control-panel">
-            <h2>Import Save Code Matrix</h2>
-            <p style="opacity:0.7; margin-bottom:15px;">Paste your base64 text code block export data matrix down below to reload an existing save state.</p>
-            
-            <textarea id="import-text-box" rows="8" placeholder="Paste structural configuration code here..." style="font-family:monospace; min-height:120px;"></textarea>
-            
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;">
-                <button type="button" onclick="executeImportSave()">Load Progress</button>
-                <button type="button" onclick="switchScreen('screen-setup')" style="background-color: var(--button-secondary-background-color); color: var(--button-secondary-text-color);">Cancel</button>
+            <div style="margin-top:20px;">
+                <button type="button" data-ui-asset="launch-new-empire-button-ui" data-ui-kind="button" onclick="launchNewEmpire()">🚀 Establish Imperial Sovereignty</button>
             </div>
         </div>
     </div>
@@ -116,50 +114,25 @@
             <button type="button" onclick="switchTab('tab-court-roster')">💎 Courts Roster</button>
             <button type="button" onclick="switchTab('tab-celestial-colonies')">🪐 Celestial Colonies</button>
             <button type="button" onclick="switchTab('tab-empire-infrastructure')">🔬 Empire Infrastructure</button>
-            <button type="button" onclick="exportSaveData()" style="margin-left:auto; background-color: var(--button-secondary-background-color); color: var(--button-secondary-text-color);">💾 Export Save Data</button>
-        </div>
-
-        <div class="control-panel appearance-panel">
-            <h3>Customization</h3>
-            <label style="display:block; margin-bottom:8px;"><input id="customization-toggle" type="checkbox" onchange="toggleCustomizationOptions()"> Enable customization options</label>
-            <div id="global-customization-options" style="display:none;">
-            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
-                <label>Page color<input id="theme-page-color" type="color" value="#181a1b"></label>
-                <label>Panel color<input id="theme-panel-color" type="color" value="#2d3133"></label>
-                <label>Accent color<input id="theme-accent-color" type="color" value="#c594a0"></label>
-                <label>Button color<input id="theme-button-color" type="color" value="#655934"></label>
-                <label>Header color<input id="theme-header-color" type="color" value="#655934"></label>
-            </div>
-            <label for="theme-font-select">Font</label>
-            <select id="theme-font-select"><option value="Outfit">Outfit</option><option value="Georgia">Georgia</option><option value="Verdana">Verdana</option><option value="CustomGemFont">Custom Gem Font</option></select>
-            <label>Header background image<input id="theme-header-file" type="file" accept="image/*"></label>
-            <button type="button" onclick="applyAppearanceSettings()" style="width:auto;">Apply Appearance</button>
-            <button type="button" onclick="saveBrowserGame()" style="width:auto;">Save in Browser</button>
-            <button type="button" onclick="loadBrowserGame()" style="width:auto;">Load Browser Save</button>
-            <p style="font-size:0.8rem; opacity:0.7; margin-top:8px;">Add local font files and @font-face declarations in fonts-options.css.</p>
-            </div>
         </div>
 
         <!-- SUB-TAB CONTAINER A: ACTIVE GEM POPULATION ROSTER -->
         <div id="tab-court-roster" class="dashboard-tab" style="display:block;">
-            <div class="control-panel">
+            <div class="control-panel" data-ui-asset="colonies-panel-ui" data-ui-kind="surface">
                 <h3>Active Gem Population Directory</h3>
                 
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;">
                     <div>
-                        <label for="search-input" style="font-size:0.85rem; font-weight:bold;">Search Designation:</label>
-                        <input type="text" id="search-input" placeholder="Type name or caste...">
+                        <input type="text" id="search-input" data-ui-asset="roster-search-input-ui" data-ui-kind="textbox" placeholder="Search gems..." aria-label="Search gems">
                     </div>
                     <div>
-                        <label for="quality-filter" style="font-size:0.85rem; font-weight:bold;">Filter Mutation Quality:</label>
-                        <select id="quality-filter">
-                            <option value="all">All Quality Tiers</option>
-                            <option value="Perfect">Perfect</option>
-                            <option value="Regular">Regular</option>
-                            <option value="Defective">Defective</option>
+                        <select id="gem-type-filter" data-ui-asset="gem-type-filter-select-ui" data-ui-kind="textbox" aria-label="Filter by gem type">
+                            <option value="all">All Gem Types</option>
                         </select>
                     </div>
                 </div>
+
+                <div id="rebellion-war-status" data-ui-asset="rebellion-war-panel-ui" data-ui-kind="surface" hidden></div>
 
                 <!-- Grid wrapper for layout profiles injection framework -->
                 <div id="roster-grid" class="grid-layout"></div>
@@ -172,28 +145,38 @@
                 <h3>Extragalactic Systemic Outposts</h3>
                 <p style="opacity:0.7; font-size:0.9rem; margin-bottom:15px;">Establish mining operational perimeters on planetary bodies outside home sectors.</p>
                 
-                    <button type="button" onclick="foundColony()" style="width:auto; margin-bottom:20px;">🚀 Colonize New Planet Layer (Cost: 300)</button>
+                    <button type="button" data-ui-asset="found-colony-button-ui" data-ui-kind="button" onclick="foundColony()" style="width:auto; margin-bottom:20px;">🚀 Colonize New Planet Layer (Cost: 300)</button>
                 
                 <!-- System Grid Elements Hook -->
-                <div id="colonies-grid" class="grid-layout"></div>
+                <div id="colonies-grid" class="grid-layout" data-ui-asset="colonies-grid-ui" data-ui-kind="surface"></div>
             </div>
         </div>
 
         <div id="colony-modal" class="modal" style="display:none;">
-            <div class="modal-content" style="max-width:620px;">
+            <div class="modal-content" data-ui-asset="colony-control-modal-ui" data-ui-kind="surface" style="max-width:620px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
                     <h3 id="colony-modal-title" style="margin:0;">Colony Control</h3>
-                    <button type="button" onclick="closeColonyControlPanel()" style="width:auto; padding:6px 10px;">Close</button>
+                    <button type="button" data-ui-asset="colony-close-button-ui" data-ui-kind="button" onclick="closeColonyControlPanel()" style="width:auto; padding:6px 10px;">Close</button>
                 </div>
-                <div id="colony-modal-details"></div>
+                <div id="colony-modal-details" data-ui-asset="colony-details-box-ui" data-ui-kind="surface"></div>
                 <label for="colony-gem-type" style="font-weight:bold; display:block; margin-top:14px;">Gem type available on this colony:</label>
-                <select id="colony-gem-type"></select>
+                <select id="colony-gem-type" data-ui-asset="colony-gem-type-select-ui" data-ui-kind="textbox" onchange="updateKindergartenButtonCost()"></select>
                 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
-                    <button type="button" onclick="buildColonyKindergarten()" style="width:auto;">Build Kindergarten (10000 Materials)</button>
-                    <button id="diamond-kindergarten-button" type="button" onclick="buildDiamondShrineKindergarten()" style="width:auto;">Build Diamond Kindergarten</button>
-                    <button type="button" onclick="surveyColony()" style="width:auto;">Survey Planet</button>
+                    <button id="colony-kindergarten-button" type="button" data-ui-asset="colony-kindergarten-button-ui" data-ui-kind="button" onclick="buildColonyKindergarten()" style="width:auto;">Build Kindergarten (500 Materials)</button>
+                    <button id="diamond-kindergarten-button" type="button" data-ui-asset="diamond-kindergarten-button-ui" data-ui-kind="button" onclick="buildDiamondShrineKindergarten()" style="width:auto;">Build Diamond Kindergarten</button>
+                    <button type="button" data-ui-asset="colony-survey-button-ui" data-ui-kind="button" onclick="surveyColony()" style="width:auto;">Survey Planet</button>
                 </div>
-                <div id="colony-options-list" style="margin-top:14px; opacity:0.8;"></div>
+                <div id="colony-options-list" data-ui-asset="colony-options-box-ui" data-ui-kind="surface" style="margin-top:14px; opacity:0.8;"></div>
+            </div>
+        </div>
+
+        <div id="structure-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="structure-modal-title">
+            <div class="modal-content structure-modal-panel" data-ui-asset="structure-control-modal-ui" data-ui-kind="surface">
+                <div class="structure-modal-heading">
+                    <h3 id="structure-modal-title">Building</h3>
+                    <button type="button" data-ui-asset="structure-modal-close-button-ui" data-ui-kind="button" onclick="closeStructureModal()" aria-label="Close building menu">Close</button>
+                </div>
+                <div id="structure-modal-content" class="structure-menu-content" data-ui-asset="structure-menu-content-ui" data-ui-kind="surface"></div>
             </div>
         </div>
 
@@ -203,180 +186,210 @@
                 <h3>Imperial Infrastructure Framework</h3>
                 <p style="opacity:0.7; font-size:0.9rem; margin-bottom:15px;">Construct architectural blueprints to expand your system capacity across the galaxy.</p>
                 
-                <div class="grid-layout">
-                    <div class="card" style="text-align:left;">
+                <div class="grid-layout infrastructure-building-grid">
+                    <div class="card" id="rig-card" data-ui-asset="extractor-injection-rig-infrastructure-option-ui" data-ui-kind="surface" style="text-align:left;">
                         <h4>Extractor Injection Rig</h4>
                         <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Increases extraction structural throughput velocity.</p>
-                        <button id="rig-structure-button" type="button" onclick="buildStructure('Extractor Injection Rig', 15000)">Build Rig (15000 Materials)</button>
-                        <button type="button" onclick="levelUpStructure('Extractor Injection Rig')" style="width:auto; margin-top:6px;">Level Rig</button>
+                        <button id="rig-structure-button" type="button" data-ui-asset="extractor-injection-rig-build-button-ui" data-ui-kind="button" onclick="buildStructure('Extractor Injection Rig', 15000)">Build Rig (15000 Materials)</button>
                     </div>
                     
-                    <div class="card" style="text-align:left;">
+                    <div class="card" id="spire-card" data-ui-asset="homeworld-communications-spire-infrastructure-option-ui" data-ui-kind="surface" style="text-align:left;">
                         <h4>Homeworld Communications Spire</h4>
                         <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Allows deep data matrix sync arrays to run faster.</p>
-                        <button type="button" onclick="buildStructure('Homeworld Communications Spire', 40000)">Build Spire (40000 Materials)</button>
+                        <button id="spire-structure-button" type="button" data-ui-asset="homeworld-communications-spire-build-button-ui" data-ui-kind="button" onclick="buildStructure('Homeworld Communications Spire', 40000)">Build Spire (40000 Materials)</button>
                     </div>
 
-                    <div class="card" style="text-align:left;" id="reef-card">
+                    <div class="card" style="text-align:left;" id="reef-card" data-ui-asset="reef-infrastructure-option-ui" data-ui-kind="surface">
                         <h4>Reef</h4>
                         <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Creates pearls for assignment to gems as status or cosmetic guards.</p>
-                        <button id="reef-structure-button" type="button">Build Reef (25000 Materials)</button>
-                        <div id="reef-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
+                        <button id="reef-structure-button" type="button" data-ui-asset="reef-build-button-ui" data-ui-kind="button">Build Reef (25000 Materials)</button>
                     </div>
 
-                    <div class="card" style="text-align:left;" id="funhouse-card">
+                    <div class="card" style="text-align:left;" id="funhouse-card" data-ui-asset="spinel-funhouse-infrastructure-option-ui" data-ui-kind="surface">
                         <h4>Spinel Funhouse</h4>
                         <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Produces spinels that can stabilize rebellious gems.</p>
-                        <button id="funhouse-structure-button" type="button">Build Funhouse (30000 Materials)</button>
-                        <div id="funhouse-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
+                        <button id="funhouse-structure-button" type="button" data-ui-asset="spinel-funhouse-build-button-ui" data-ui-kind="button">Build Funhouse (30000 Materials)</button>
                     </div>
 
-                    <div class="card" style="text-align:left;" id="forge-card">
+                    <div class="card" style="text-align:left;" id="forge-card" data-ui-asset="gem-forge-infrastructure-option-ui" data-ui-kind="surface">
                         <h4>Gem Forge</h4>
                         <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Forges premium gem boosts using available Bismuth labor and refined materials.</p>
-                        <button id="forge-structure-button" type="button">Build Forge (35000 Materials)</button>
-                        <div id="forge-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
+                        <button id="forge-structure-button" type="button" data-ui-asset="gem-forge-build-button-ui" data-ui-kind="button">Build Forge (35000 Materials)</button>
                     </div>
 
-                    <div class="card" style="text-align:left;" id="shrine-card">
+                    <div class="card" style="text-align:left;" id="shrine-card" data-ui-asset="diamond-shrine-infrastructure-option-ui" data-ui-kind="surface">
                         <h4>Diamond Shrine</h4>
                         <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">A rare authority structure that unlocks Diamond kindergartens.</p>
-                        <button id="shrine-structure-button" type="button">Build Shrine (250000 Materials)</button>
-                        <div id="shrine-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
+                        <button id="shrine-structure-button" type="button" data-ui-asset="diamond-shrine-build-button-ui" data-ui-kind="button">Build Shrine (250000 Materials)</button>
                     </div>
 
-                    <div class="card" style="text-align:left;" id="healing-center-card">
+                    <div class="card" style="text-align:left;" id="healing-center-card" data-ui-asset="healing-center-infrastructure-option-ui" data-ui-kind="surface">
                         <h4>Healing Center</h4>
                         <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Restores cracked gems and attempts extremely costly shattered-gem repairs.</p>
-                        <button id="healing-center-button" type="button">Build Healing Center (500000 Materials)</button>
-                        <div id="healing-center-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
+                        <button id="healing-center-button" type="button" data-ui-asset="healing-center-build-button-ui" data-ui-kind="button">Build Healing Center (500000 Materials)</button>
                     </div>
 
-                    <div class="card" style="text-align:left;" id="soldier-ship-card">
+                    <div class="card" style="text-align:left;" id="soldier-ship-card" data-ui-asset="soldier-ship-infrastructure-option-ui" data-ui-kind="surface">
                         <h4>Soldier Ship</h4>
                         <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Stores Rubies, Quartz Soldiers, and Quartz Assistants under Agate oversight.</p>
-                        <button id="soldier-ship-button" type="button">Build Soldier Ship (75000 Materials)</button>
-                        <div id="soldier-ship-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
+                        <button id="soldier-ship-button" type="button" data-ui-asset="soldier-ship-build-button-ui" data-ui-kind="button">Build Soldier Ship (75000 Materials)</button>
                     </div>
 
-                    <div class="card" style="text-align:left;" id="trial-building-card">
+                    <div class="card" style="text-align:left;" id="trial-building-card" data-ui-asset="trial-building-infrastructure-option-ui" data-ui-kind="surface">
                         <h4>Trial Building</h4>
                         <p style="font-size:0.85rem; opacity:0.7; margin:8px 0;">Unlocks court trials where Zircons defend their assigned gems.</p>
-                        <button id="trial-building-button" type="button">Trial Building (Zircon Required)</button>
-                        <div id="trial-building-inventory" style="display:none; margin-top:10px; font-size:0.8rem; opacity:0.8;"></div>
+                        <button id="trial-building-button" type="button" data-ui-asset="trial-building-build-button-ui" data-ui-kind="button">Trial Building (Zircon Required)</button>
+                    </div>
+
+                    <div class="card" id="grand-ballet-hall-card" data-ui-asset="grand-ballet-hall-infrastructure-option-ui" data-ui-kind="surface" hidden>
+                        <h4>Grand Ballet Hall</h4>
+                        <p>Rhyolites oversee stored Porcelains. Each Rhyolite can supervise ten.</p>
+                        <button id="grand-ballet-hall-button" type="button" data-ui-asset="grand-ballet-hall-build-button-ui" data-ui-kind="button">Build Grand Ballet Hall (750000 Materials)</button>
+                    </div>
+
+                    <div class="card" id="grand-ballroom-card" data-ui-asset="grand-ballroom-infrastructure-option-ui" data-ui-kind="surface" hidden>
+                        <h4>Grand Ballroom</h4>
+                        <p>Larkavites oversee stored Jades. Each Larkavite can supervise ten.</p>
+                        <button id="grand-ballroom-button" type="button" data-ui-asset="grand-ballroom-build-button-ui" data-ui-kind="button">Build Grand Ballroom (750000 Materials)</button>
+                    </div>
+
+                    <div class="card" id="grand-theater-card" data-ui-asset="grand-theater-infrastructure-option-ui" data-ui-kind="surface" hidden>
+                        <h4>Grand Theater</h4>
+                        <p>Cinnabars oversee stored Lepidolites. Each Cinnabar can supervise ten.</p>
+                        <button id="grand-theater-button" type="button" data-ui-asset="grand-theater-build-button-ui" data-ui-kind="button">Build Grand Theater (750000 Materials)</button>
+                    </div>
+
+                    <div class="card" id="archives-card" data-ui-asset="archives-infrastructure-option-ui" data-ui-kind="surface" hidden>
+                        <h4>Archives</h4>
+                        <p>Stores Psilomelanes; each ten levels adds another archive place.</p>
+                        <button id="archives-button" type="button" data-ui-asset="archives-build-button-ui" data-ui-kind="button">Build Archives (3000000 Materials)</button>
+                    </div>
+
+                    <div class="card" id="organic-zoo-card" data-ui-asset="organic-zoo-infrastructure-option-ui" data-ui-kind="surface" hidden>
+                        <h4>Organic Zoo</h4>
+                        <p>An experimental structure with no active function yet.</p>
+                        <button id="organic-zoo-button" type="button" data-ui-asset="organic-zoo-build-button-ui" data-ui-kind="button">Build Organic Zoo (300000 Materials)</button>
+                    </div>
+
+                    <div class="card" id="grand-circus-card" data-ui-asset="grand-circus-infrastructure-option-ui" data-ui-kind="surface" hidden>
+                        <h4>Grand Circus</h4>
+                        <p>Holds Tanzanites while they prepare their tricks.</p>
+                        <button id="grand-circus-button" type="button" data-ui-asset="grand-circus-build-button-ui" data-ui-kind="button">Build Grand Circus (400000 Materials)</button>
+                    </div>
+
+                    <div class="card" id="gathering-hall-card" data-ui-asset="gathering-hall-infrastructure-option-ui" data-ui-kind="surface">
+                        <h4>Gathering Hall</h4>
+                        <p>Host a ball to reduce rebellion across the empire.</p>
+                        <button id="gathering-hall-button" type="button" data-ui-asset="gathering-hall-build-button-ui" data-ui-kind="button">Build Gathering Hall (1000000 Materials)</button>
+                    </div>
+
+                    <div class="card" id="grand-palace-card" data-ui-asset="grand-palace-infrastructure-option-ui" data-ui-kind="surface">
+                        <h4>Grand Palace</h4>
+                        <p>Stores elite gems while they attend court.</p>
+                        <button id="grand-palace-button" type="button" data-ui-asset="grand-palace-build-button-ui" data-ui-kind="button">Build Grand Palace (5000000 Materials)</button>
                     </div>
                 </div>
 
                 <div class="creation-section" style="margin-top:20px;">
                     <h5>Constructed Coordinates Array Log:</h5>
-                    <div id="structures-list" style="margin-top:10px; opacity:0.8; font-size:0.9rem;"></div>
+                    <div id="structures-list" data-ui-asset="structures-log-ui" data-ui-kind="surface" style="margin-top:10px; opacity:0.8; font-size:0.9rem;"></div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="reset-confirmation-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="reset-confirmation-title">
+        <div class="modal-content reset-confirmation-panel" data-ui-asset="reset-empire-confirmation-modal-ui" data-ui-kind="surface">
+            <h2 id="reset-confirmation-title">Reset Empire?</h2>
+            <p>Your current local empire will be erased and the starting menu will reopen.</p>
+            <div class="reset-confirmation-actions">
+                <button type="button" data-ui-asset="reset-empire-confirm-button-ui" data-ui-kind="button" onclick="confirmEmpireReset()">Reset Empire</button>
+                <button type="button" data-ui-asset="reset-empire-cancel-button-ui" data-ui-kind="button" onclick="cancelEmpireReset()">Cancel</button>
             </div>
         </div>
     </div>
 
     <div id="profile-modal" class="modal" style="display:none;">
-        <div class="modal-content" style="max-width: 620px;">
+        <div class="modal-content" data-ui-kind="surface" style="max-width: 620px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                <h3 id="prof-name" style="margin:0;">Gem Profile</h3>
+                <h3 style="margin:0;">Gem Profile</h3>
                 <button type="button" onclick="closeProfile()" style="width:auto; padding:6px 10px;">Close</button>
             </div>
 
-            <div style="display:grid; grid-template-columns: 140px 1fr; gap:16px; align-items:start;">
-                <img id="prof-img" src="https://placehold.co/200x200" alt="Gem portrait" style="width:140px; height:140px; object-fit:cover; border-radius:10px; border:2px solid var(--link-color); background:#000;">
+            <div class="profile-layout">
+                <section class="profile-showcase" aria-label="Gem portrait and progression">
+                    <div id="profile-gallery-frame" class="profile-gallery-frame">
+                        <div id="prof-img" class="gem-art-stack gem-art-stack--profile profile-hero-art" role="img" aria-label="Gem artwork"></div>
+                        <img id="profile-gallery-image" class="profile-gallery-image" alt="" hidden>
+                        <button type="button" class="profile-gallery-arrow profile-gallery-previous" onclick="changeProfileGalleryImage(-1)" aria-label="Previous image" title="Previous image">‹</button>
+                        <button type="button" class="profile-gallery-arrow profile-gallery-next" onclick="changeProfileGalleryImage(1)" aria-label="Next image" title="Next image">›</button>
+                        <span id="profile-gallery-count" class="profile-gallery-count">Gem artwork</span>
+                    </div>
+                    <header class="profile-nameplate">
+                        <h2 id="prof-name">Gem</h2>
+                        <p id="prof-status" class="profile-status-box">Fine</p>
+                    </header>
+                    <section class="profile-level-panel" aria-label="Gem level">
+                        <div class="profile-level-heading"><strong>Level <span id="prof-level">0</span></strong><span id="prof-level-milestone">Next milestone: Pearl eligibility or Level 100</span></div>
+                        <div class="profile-level-track" role="progressbar" aria-label="Level progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="prof-level-progress"></span></div>
+                        <button id="prof-level-up-button" type="button" onclick="levelUpGem()"><span id="prof-level-cost">Level Up</span></button>
+                    </section>
+                    <section id="prof-boosts-panel" class="profile-boosts-panel" hidden>
+                        <h3>Boosts</h3>
+                        <ul id="prof-boosts"></ul>
+                    </section>
+                </section>
 
-                <div>
-                    <p><strong>Caste:</strong> <span id="prof-caste">-</span></p>
-                    <p><strong>Type:</strong> <span id="prof-type">-</span></p>
-                    <p><strong>Quality:</strong> <span id="prof-quality">-</span></p>
-                    <p><strong>Placement:</strong> <span id="prof-placement">-</span></p>
-                    <p><strong>Personality:</strong> <span id="prof-personality">-</span></p>
-                    <p><strong>Status:</strong> <span id="prof-status">Fine</span></p>
-                    <p><strong>Level:</strong> <span id="prof-level">0</span></p>
-                    <p><strong>Boosts:</strong> <span id="prof-boosts">None</span></p>
-                    <p><strong>Guards:</strong> <span id="prof-guards">None</span></p>
-                    <div id="guard-assignment-menu"></div>
-                    <p><strong>Next Level Cost:</strong> <span id="prof-level-cost">30 Materials / 6 Essence</span></p>
-                </div>
-            </div>
-
-            <div style="margin-top:18px; display:flex; flex-wrap:wrap; gap:8px;">
-                <button type="button" onclick="levelUpGem()" style="width:auto;">Level Up</button>
-                <button type="button" onclick="assignGuard('Pearl')" style="width:auto;">Assign Pearl</button>
-                <button type="button" onclick="assignGuard('Ruby')" style="width:auto;">Assign Ruby</button>
-                <button type="button" onclick="assignGuard('Spinel')" style="width:auto;">Assign Spinel</button>
-            </div>
-
-            <div id="profile-lifecycle-actions" style="margin-top:12px; display:flex; flex-wrap:wrap; gap:8px;"></div>
-
-            <div style="margin-top:18px; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                <div>
-                    <label for="profile-image-file" style="font-weight:bold; display:block; margin-bottom:6px;">Add Profile Photo:</label>
-                    <input type="file" id="profile-image-file" accept="image/*">
-                    <button type="button" onclick="appendImageToGalleryPool()" style="width:auto; margin-top:6px;">Add to Gallery</button>
-                </div>
-
-                <div style="margin-top:12px; display:grid; grid-template-columns:1fr auto; gap:8px; align-items:end;">
-                    <label for="prof-prefix-input">Prefix / designation<input id="prof-prefix-input" type="text"></label>
-                    <button type="button" onclick="saveGemPrefix()" style="width:auto;">Save Prefix</button>
-                </div>
-
-                <div style="margin-top:10px; padding:10px; background:var(--summary-background-color); border-radius:6px;">
-                    <p id="prof-quote">"..."</p>
-                </div>
-
-                <button type="button" onclick="openCourtAssignment()" style="width:auto; margin-top:10px;">Assign to Diamond Court</button>
-                <div>
-                    <label for="cut-image-file" style="font-weight:bold; display:block; margin-bottom:6px;">Gem Cut Photo:</label>
-                    <input type="file" id="cut-image-file" accept="image/*">
-                    <button type="button" onclick="saveGemCutImage()" style="width:auto; margin-top:6px;">Save Cut Photo</button>
-                    <img id="prof-cut-img" src="" alt="Gem cut photo" style="display:none; width:100%; max-height:140px; object-fit:contain; margin-top:8px; border:1px solid var(--link-color);">
-                </div>
-            </div>
-
-            <div style="margin-top:18px;">
-                <h4 style="margin-bottom:8px;">Gallery</h4>
-                <div id="prof-gallery-container" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
+                <aside class="profile-side-list" aria-label="Gem details">
+                    <div id="profile-caste-panel" class="profile-caste-mark"><div class="profile-caste-art-wrap"><div id="prof-caste-art"></div></div><small id="prof-caste">Unassigned</small></div>
+                    <blockquote id="prof-quote" class="profile-quote">"..."</blockquote>
+                    <div class="profile-facts">
+                        <div id="profile-quality-box" class="profile-fact"><span>Quality</span><strong id="prof-quality">-</strong></div>
+                        <div id="profile-personality-box" class="profile-fact"><span>Personality</span><strong id="prof-personality">-</strong></div>
+                        <div id="profile-type-box" class="profile-fact"><span>Type</span><strong id="prof-type">-</strong></div>
+                        <div id="profile-placement-box" class="profile-fact"><span>Placement</span><strong id="prof-placement">-</strong></div>
+                    </div>
+                    <section id="profile-guards-panel" class="profile-guards-panel">
+                        <h3>Guards</h3>
+                        <div id="prof-guards" class="profile-guards-list"></div>
+                        <div id="guard-assignment-menu"></div>
+                    </section>
+                    <div id="profile-lifecycle-actions" class="profile-lifecycle-actions"></div>
+                </aside>
             </div>
 
             <details style="margin-top:18px;">
                 <summary>Profile Settings</summary>
-                <div id="profile-customization-options" style="display:grid; gap:8px; margin-top:10px;">
-                    <label>Profile background color<input id="profile-bg-color" type="color" value="#2d3133"></label>
-                    <label>Profile background image<input id="profile-bg-image-file" type="file" accept="image/*"></label>
-                    <label>Portrait frame image<input id="profile-frame-image-file" type="file" accept="image/*"></label>
-                    <label>Profile font<select id="profile-font-select"><option value="inherit">Default</option><option value="Georgia">Georgia</option><option value="Verdana">Verdana</option><option value="CustomGemFont">Custom Gem Font</option></select></label>
-                    <button type="button" onclick="applyProfileCustomization()" style="width:auto;">Apply Profile Settings</button>
+                <div id="profile-customization-options" class="profile-gallery-settings">
+                    <label for="profile-gallery-files">Add gallery images (PNG or GIF)<input id="profile-gallery-files" type="file" accept="image/png,image/gif" multiple onchange="addProfileGalleryImages(this.files)"></label>
+                    <button type="button" onclick="removeCurrentProfileGalleryImage()" style="width:auto;">Remove current image</button>
+                    <p id="profile-gallery-settings-status" aria-live="polite">Added images are saved with this gem.</p>
                 </div>
             </details>
         </div>
     </div>
 
-    <div id="court-modal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <h3>Assign Gem to Diamond Court</h3>
-            <select id="court-diamond-select"></select>
-            <button type="button" onclick="assignSelectedGemToCourt()">Assign Court</button>
-            <button type="button" onclick="closeCourtAssignment()">Cancel</button>
-        </div>
-    </div>
-
-    <div class="control-panel" style="margin:20px auto; max-width:1100px;">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-            <div>
-                <button type="button" onclick="toggleGemDirectory('bubbled-gems-directory')" style="width:auto;">Bubbled Gems</button>
-                <div id="bubbled-gems-directory" style="display:none; margin-top:8px;">No bubbled gems.</div>
-            </div>
-            <div>
-                <button type="button" onclick="toggleGemDirectory('shattered-gems-directory')" style="width:auto;">Shattered Gems</button>
-                <div id="shattered-gems-directory" style="display:none; margin-top:8px;">No shattered gems.</div>
-            </div>
+    <div id="gem-status-directories" class="control-panel" style="margin:20px auto; max-width:1100px;">
+        <div class="gem-status-directory-grid">
+            <section class="status-directory-panel" data-ui-asset="bubbled-gems-panel-ui" data-ui-kind="surface">
+                <button type="button" data-ui-asset="bubbled-gems-toggle-button-ui" data-ui-kind="button" onclick="toggleGemDirectory('bubbled-gems-directory')" style="width:auto;">Bubbled Gems</button>
+                <div id="bubbled-gems-directory" class="status-directory-scroll" style="display:none;">No bubbled gems.</div>
+            </section>
+            <section id="shattered-gems-panel" class="status-directory-panel" data-ui-asset="shattered-gems-closed-ui" data-ui-kind="surface">
+                <button type="button" data-ui-asset="shattered-gems-toggle-button-ui" data-ui-kind="button" onclick="toggleGemDirectory('shattered-gems-directory')" style="width:auto;">Shattered Gems</button>
+                <div id="shattered-gems-directory" class="status-directory-scroll" style="display:none;">No shattered gems.</div>
+            </section>
         </div>
     </div>
 
     <script src="gemData.js"></script>
+    <script src="fusion-types.js"></script>
+    <script src="gem-art.js"></script>
+    <script src="ui-assets.js"></script>
+    <script src="backgrounds.js"></script>
     <script src="data-tables.js"></script>
     <script src="generators.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
     <script src="game.js"></script>
 </body>
 </html>

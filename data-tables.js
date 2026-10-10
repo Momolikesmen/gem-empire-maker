@@ -50,14 +50,28 @@ const COLONY_OPTIONS = {
         "Diamond Shrine": 250000,
         "Healing Center": 500000
         ,"Soldier Ship": 75000,
-        "Trial Building": 100000
+        "Trial Building": 100000,
+        "Grand Ballet Hall": 750000,
+        "Grand Ballroom": 750000,
+        "Grand Theater": 750000,
+        "Archives": 3000000,
+        "Organic Zoo": 300000,
+        "Grand Circus": 400000,
+        "Gathering Hall": 1000000,
+        "Grand Palace": 5000000
     }
 };
 
 // Static lists for generation tables
 const GENERATION_TABLES = {
     DIAMOND_PERSONALITIES: ["Authoritarian", "Benevolent", "Melancholic", "Volatile", "Reclusive"],
-    GEM_PERSONALITIES: ["Loyal", "Anxious", "Proud", "Stoic", "Rebellious", "Meticulous", "Fiery"],
+    GEM_PERSONALITIES: [
+        "Loyal", "Anxious", "Proud", "Stoic", "Rebellious", "Meticulous", "Fiery",
+        "Calm", "Playful", "Cheery", "Patient", "Arrogant", "Empathetic", "Sensitive",
+        "Lazy", "Cynical", "Observant", "Melencholic", "Curious", "Airheaded", "Brave",
+        "Shy", "Talkative", "Reserved", "Mean", "Logical", "Intelligent", "Flippant",
+        "Puritanical", "Clumsy"
+    ],
     WEAPONS: ["Scythe", "Spear", "Gauntlets", "Whip", "Shield", "Sword", "Helmet", "Crossbow"],
     PREFIXES: ["Cut-5Xn", "Facet-9G", "Cabochon-3B", "Facet-4D", "Cut-2L"]
 };
@@ -68,14 +82,53 @@ CONFIG.EVENTS = {
 };
 
 // Personality-based behavioral weights for event probabilities
+const PERSONALITY_BEHAVIOR_DEFAULTS = {
+    conflictMultiplier: 1,
+    rebellionMultiplier: 1,
+    accidentMultiplier: 1,
+    fusionMultiplier: 1,
+    canFight: true,
+    canDisobey: true,
+    canFuse: true,
+    canBeShattered: true
+};
+
 const PERSONALITY_BEHAVIORS = {
-    "Fiery":      { conflictMultiplier: 2.0, rebellionMultiplier: 1.5 },
-    "Rebellious": { conflictMultiplier: 1.5, rebellionMultiplier: 2.5 },
-    "Loyal":      { conflictMultiplier: 0.5, rebellionMultiplier: 0.1 },
-    "Anxious":    { conflictMultiplier: 0.8, rebellionMultiplier: 0.5 },
-    "Proud":      { conflictMultiplier: 1.2, rebellionMultiplier: 1.0 },
-    "Stoic":      { conflictMultiplier: 0.6, rebellionMultiplier: 0.6 },
-    "Meticulous": { conflictMultiplier: 0.7, rebellionMultiplier: 0.7 }
+    Fiery: { conflictMultiplier: 2.2, rebellionMultiplier: 1.4, accidentMultiplier: 1.2, fusionMultiplier: 0.08 },
+    Rebellious: { conflictMultiplier: 2.5, rebellionMultiplier: 2.5, fusionMultiplier: 0.05 },
+    Loyal: { conflictMultiplier: 0, rebellionMultiplier: 0, canFight: false, canDisobey: false },
+    Anxious: { conflictMultiplier: 0.8, rebellionMultiplier: 0.5, accidentMultiplier: 1.3 },
+    Proud: { conflictMultiplier: 1.3, rebellionMultiplier: 1.1 },
+    Stoic: { conflictMultiplier: 0.2, rebellionMultiplier: 0.1, accidentMultiplier: 0.35 },
+    Meticulous: { conflictMultiplier: 0.3, rebellionMultiplier: 0.2, accidentMultiplier: 0.3 },
+    Calm: { conflictMultiplier: 0.15, rebellionMultiplier: 0.1, accidentMultiplier: 0.5 },
+    Playful: { conflictMultiplier: 0.8, rebellionMultiplier: 0.4, accidentMultiplier: 1.1 },
+    Cheery: { conflictMultiplier: 0.4, rebellionMultiplier: 0.2, accidentMultiplier: 0.7 },
+    Patient: { conflictMultiplier: 0.2, rebellionMultiplier: 0.1, accidentMultiplier: 0.4 },
+    Arrogant: { conflictMultiplier: 1.5, rebellionMultiplier: 1.1, fusionMultiplier: 0.25 },
+    Empathetic: { conflictMultiplier: 0.15, rebellionMultiplier: 0.1, accidentMultiplier: 0.45 },
+    Sensitive: { conflictMultiplier: 0.7, rebellionMultiplier: 0.5, accidentMultiplier: 1.2 },
+    Lazy: { conflictMultiplier: 0.4, rebellionMultiplier: 0.2, accidentMultiplier: 1.1 },
+    Cynical: { conflictMultiplier: 1.6, rebellionMultiplier: 1.2, fusionMultiplier: 0.12 },
+    Observant: { conflictMultiplier: 0.2, rebellionMultiplier: 0.1, accidentMultiplier: 0.25 },
+    Melencholic: { conflictMultiplier: 0.35, rebellionMultiplier: 0.25, accidentMultiplier: 1.1 },
+    Curious: { conflictMultiplier: 0.65, rebellionMultiplier: 0.4, accidentMultiplier: 1.4 },
+    Airheaded: { conflictMultiplier: 1.1, rebellionMultiplier: 0.9, accidentMultiplier: 2.4 },
+    Brave: { conflictMultiplier: 1.6, rebellionMultiplier: 0.7, accidentMultiplier: 0.6 },
+    Shy: { conflictMultiplier: 0.25, rebellionMultiplier: 0.2, accidentMultiplier: 0.6 },
+    Talkative: { conflictMultiplier: 0.8, rebellionMultiplier: 0.5 },
+    Reserved: { conflictMultiplier: 0.25, rebellionMultiplier: 0.2, accidentMultiplier: 0.4 },
+    Mean: { conflictMultiplier: 2, rebellionMultiplier: 1.2, fusionMultiplier: 0.08 },
+    Logical: { conflictMultiplier: 0, rebellionMultiplier: 0, accidentMultiplier: 0.2, canFight: false, canBeShattered: false },
+    Intelligent: { conflictMultiplier: 0, rebellionMultiplier: 0, accidentMultiplier: 0, canFight: false, canDisobey: false, canBeShattered: false },
+    Flippant: { conflictMultiplier: 1.5, rebellionMultiplier: 1.2, accidentMultiplier: 1.1, fusionMultiplier: 0.1 },
+    Puritanical: { conflictMultiplier: 0.3, rebellionMultiplier: 0.1, canFuse: false },
+    Clumsy: { conflictMultiplier: 0.8, rebellionMultiplier: 0.7, accidentMultiplier: 2.8 },
+    Authoritarian: { conflictMultiplier: 1.4, rebellionMultiplier: 0.8, fusionMultiplier: 0.1 },
+    Benevolent: { conflictMultiplier: 0.2, rebellionMultiplier: 0.1, accidentMultiplier: 0.5 },
+    Melancholic: { conflictMultiplier: 0.4, rebellionMultiplier: 0.3, accidentMultiplier: 1.1 },
+    Volatile: { conflictMultiplier: 2.5, rebellionMultiplier: 1.8, accidentMultiplier: 1.4, fusionMultiplier: 0.05 },
+    Reclusive: { conflictMultiplier: 0.2, rebellionMultiplier: 0.1, accidentMultiplier: 0.4, canFuse: false }
 };
 // ==========================================
 // GEM SYSTEM CONFIGURATIONS & BALANCING
@@ -194,8 +247,42 @@ const GEM_PLACEMENTS = {
         behavior: "Indicates a blunt, unyielding approach to conflict.",
         preferredPersonalities: ["Fiery", "Rebellious", "Proud"],
         conflictChanceMultiplier: 2.0
+    },
+    Mouth: {
+        theme: "Communication, voice, and outward expression.",
+        behavior: "A mouth placement prevents speech and always produces a Defective gem.",
+        preferredPersonalities: ["Talkative", "Curious", "Airheaded"],
+        conflictChanceMultiplier: 1.0
     }
 };
+
+function chooseRandomGemPlacement() {
+    if (Math.random() < 0.001) return 'Mouth';
+    const placements = Object.keys(GEM_PLACEMENTS).filter(placement => placement !== 'Mouth');
+    return placements[Math.floor(Math.random() * placements.length)];
+}
+
+function chooseRandomGemPersonality(includeDiamondPersonalities = false) {
+    const personalities = includeDiamondPersonalities
+        ? [...new Set([...GENERATION_TABLES.GEM_PERSONALITIES, ...GENERATION_TABLES.DIAMOND_PERSONALITIES])]
+        : GENERATION_TABLES.GEM_PERSONALITIES;
+    return personalities[Math.floor(Math.random() * personalities.length)];
+}
+
+function choosePlacementWeightedPersonality(placement) {
+    const pool = [...GENERATION_TABLES.GEM_PERSONALITIES];
+    const preferred = GEM_PLACEMENTS[placement]?.preferredPersonalities || [];
+    preferred.forEach(personality => pool.push(personality, personality));
+    return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function rollGemQuality(placement) {
+    if (placement === 'Mouth') return 'Defective';
+    const roll = Math.random();
+    if (roll < CONFIG.CUT_RATES.PERFECT) return 'Perfect';
+    if (roll < CONFIG.CUT_RATES.PERFECT + CONFIG.CUT_RATES.DEFECTIVE) return 'Defective';
+    return 'Regular';
+}
 // ==========================================
 // BRAINSTORMED NATURAL & ELEMENTAL BOOSTS
 // ==========================================
