@@ -180,8 +180,40 @@ const PREFIX_TABLES = {
 // 3. ENGINE MECHANICS & PROFILE EDITS
 // ==========================================
 
+const PERSONALITY_PREFIX_BLACKLISTS = {
+    Reserved: ["Giddy", "Talkative", "Snarky", "Fierce", "Playful", "Cheerful", "Mischevious", "Bold", "Daring", "Flippant", "Grumpy", "Evil"],
+    Shy: ["Giddy", "Talkative", "Snarky", "Fierce", "Playful", "Cheerful", "Mischevious", "Bold", "Daring", "Flippant", "Grumpy", "Evil", "Proud"],
+    Quiet: ["Giddy", "Talkative", "Snarky", "Fierce", "Playful", "Cheerful", "Mischevious", "Bold", "Daring", "Flippant"],
+    Reclusive: ["Giddy", "Talkative", "Snarky", "Fierce", "Playful", "Cheerful", "Mischevious", "Bold", "Daring", "Flippant", "Social"],
+    Fiery: ["Lazy", "Sleepy", "Shy", "Timid", "Gentle", "Quiet", "Calm", "Innocent", "Caring", "Friendly", "Lonely"],
+    Mean: ["Lazy", "Sleepy", "Shy", "Timid", "Gentle", "Quiet", "Calm", "Innocent", "Caring", "Friendly", "Kind", "Cheerful"],
+    Volatile: ["Lazy", "Sleepy", "Shy", "Timid", "Gentle", "Quiet", "Calm", "Innocent", "Caring", "Friendly"],
+    Arrogant: ["Lazy", "Sleepy", "Shy", "Timid", "Gentle", "Quiet", "Innocent", "Clumsy"],
+    Rebellious: ["Lazy", "Sleepy", "Timid", "Gentle", "Quiet", "Calm", "Innocent", "Loyal"],
+    Authoritarian: ["Lazy", "Sleepy", "Shy", "Timid", "Gentle", "Innocent", "Clumsy", "Airheaded"],
+    Lazy: ["Fierce", "Brave", "Daring", "Serious", "Meticulous", "Brilliant", "Wise", "Bold", "Clever", "Witty"],
+    Sleepy: ["Fierce", "Brave", "Daring", "Serious", "Meticulous", "Brilliant", "Wise", "Bold", "Clever"],
+    Stoic: ["Giddy", "Mischevious", "Lazy", "Playful", "Clumsy", "Airheaded", "Sleepy", "Snarky", "Cheerful"],
+    Logical: ["Giddy", "Mischevious", "Lazy", "Playful", "Clumsy", "Airheaded", "Sleepy", "Snarky"],
+    Intelligent: ["Clumsy", "Airheaded", "Lazy", "Sleepy", "Snarky", "Evil"],
+    Meticulous: ["Clumsy", "Airheaded", "Lazy", "Sleepy", "Snarky"],
+    Serious: ["Giddy", "Mischevious", "Lazy", "Playful", "Clumsy", "Airheaded", "Sleepy"],
+    Calm: ["Evil", "Snarky", "Grumpy", "Fierce", "Mean", "Giddy", "Mischevious", "Sullen"],
+    Patient: ["Evil", "Snarky", "Grumpy", "Fierce", "Mean", "Giddy", "Mischevious", "Sullen"],
+    Gentle: ["Evil", "Snarky", "Grumpy", "Fierce", "Mean", "Giddy", "Mischevious", "Sullen"],
+    Benevolent: ["Evil", "Snarky", "Grumpy", "Fierce", "Mean"],
+    Cheery: ["Sullen", "Grumpy", "Lazy", "Evil", "Serious", "Cynical", "Melencholic", "Melancholic", "Snarky", "Sleepy"],
+    Cheerful: ["Sullen", "Grumpy", "Lazy", "Evil", "Serious", "Cynical", "Melencholic", "Melancholic", "Snarky", "Sleepy"],
+    Playful: ["Sullen", "Grumpy", "Lazy", "Evil", "Serious", "Cynical", "Melencholic", "Melancholic"],
+    Giddy: ["Sullen", "Grumpy", "Lazy", "Evil", "Serious", "Cynical", "Melencholic", "Melancholic", "Stoic"],
+    Anxious: ["Bold", "Daring", "Fierce", "Arrogant", "Snarky", "Evil", "Grumpy", "Mean"],
+    Sensitive: ["Bold", "Daring", "Fierce", "Arrogant", "Snarky", "Evil", "Grumpy", "Mean"],
+    Brave: ["Timid", "Shy", "Lazy", "Sleepy", "Evil", "Snarky", "Sullen"],
+    Loyal: ["Evil", "Snarky", "Rebellious", "Lazy"]
+};
+
 // Calculates and compiles a valid custom prefix description card upon birth
-function generateGemPrefix(gemType) {
+function generateGemPrefix(gemType, personality = null) {
     let choices = PREFIX_TABLES.COLOR_ONLY_TYPES.includes(gemType) ? [] : [...PREFIX_TABLES.GENERAL];
     const colorPrefixes = PREFIX_TABLES.COLOR_PREFIXES_BY_TYPE[gemType];
     if (colorPrefixes) choices = choices.concat(colorPrefixes);

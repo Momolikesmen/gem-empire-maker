@@ -109,7 +109,7 @@ function generateIndividualGem(gemType, assignedCourtId) {
     const randomPrefix = useOffColorPrefix
         ? offColorPrefixes[Math.floor(Math.random() * offColorPrefixes.length)]
         : typeof generateGemPrefix === "function"
-            ? generateGemPrefix(gemType)
+            ? generateGemPrefix(gemType, finalPersonality)
             : GENERATION_TABLES.PREFIXES[Math.floor(Math.random() * GENERATION_TABLES.PREFIXES.length)];
 
     // 4. Handle innate armorer boost assignments
@@ -131,6 +131,7 @@ function generateIndividualGem(gemType, assignedCourtId) {
         reformYear: null,
         photoUrl: "assets/images/placeholder-gem.png",
         boosts: startingBoosts,
+        canFuse: Math.random() >= 0.5,
         relationships: {}
     };
 }

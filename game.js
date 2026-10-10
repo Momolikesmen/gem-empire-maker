@@ -19,7 +19,6 @@ const STRUCTURE_UNLOCK_REQUIREMENTS = {
 };
 const STRUCTURE_CARD_IDS = {
     'Extractor Injection Rig': 'rig-card',
-    'Homeworld Communications Spire': 'spire-card',
     Reef: 'reef-card',
     'Spinel Funhouse': 'funhouse-card',
     'Gem Forge': 'forge-card',
@@ -147,9 +146,14 @@ function loadLocalGame() {
         if (!GameData.structureLevels || typeof GameData.structureLevels !== 'object') GameData.structureLevels = {};
         if (!GameData.structureJobs || typeof GameData.structureJobs !== 'object') GameData.structureJobs = {};
         if (!GameData.structureStorage || typeof GameData.structureStorage !== 'object') GameData.structureStorage = {};
+        if (!GameData.fusionsCache || typeof GameData.fusionsCache !== 'object') GameData.fusionsCache = {};
         if (!GameData.rebellionWar || typeof GameData.rebellionWar !== 'object') GameData.rebellionWar = { active: false, rebelIds: [], progress: 0, difficulty: 0 };
         if (!Array.isArray(GameData.rebellionWar.rebelIds)) GameData.rebellionWar.rebelIds = [];
-        GameData.gems.forEach(gem => { gem.rebellion = Math.max(0, Math.min(100, Number(gem.rebellion || 0))); });
+        GameData.gems.forEach(gem => {
+            gem.rebellion = Math.max(0, Math.min(100, Number(gem.rebellion || 0)));
+            if (typeof gem.canFuse !== 'boolean') gem.canFuse = Math.random() >= 0.5;
+            if (!gem.relationships || typeof gem.relationships !== 'object') gem.relationships = {};
+        });
         GameData.gems.forEach(gem => { gem.inRebellion = GameData.rebellionWar.rebelIds.some(id => String(id) === String(gem.id)); });
         GameData.gems.filter(gem => Array.isArray(gem.fusionMembers)).forEach(normalizeFusionCharacter);
         saveLocalGame();
@@ -497,6 +501,17 @@ function updateUI() {
 // ==========================================
 // 3. CELESTIAL COLONIES & INCUBATION
 // ==========================================
+function getGemTypeRarityWeight(gemType) {
+    const tier = Object.values(GEM_TIERS).find(entry => entry.types.includes(gemType));
+    if (!tier) return 50;
+    const rank = Number(tier.rank);
+    if (gemType === 'Ruby' || rank === 0) return 150;
+    if (rank <= 6) return 100;
+    if (rank <= 9) return 20;
+    if (rank <= 11) return 5;
+    return 1;
+}
+
 function chooseColonyGemTypes() {
     const pool = [...COLONY_OPTIONS.GEM_TYPES];
     const count = Math.min(
@@ -505,10 +520,35 @@ function chooseColonyGemTypes() {
     );
     const selected = [];
     while (selected.length < count) {
-        const index = Math.floor(Math.random() * pool.length);
-        selected.push(pool.splice(index, 1)[0]);
+        const totalWeight = pool.reduce((sum, gem) => sum + getGemTypeRarityWeight(gem), 0);
+        let roll = Math.random() * totalWeight;
+        let chosenIndex = 0;
+        for (let i = 0; i < pool.length; i++) {
+            roll -= getGemTypeRarityWeight(pool[i]);
+            if (roll <= 0) {
+                chosenIndex = i;
+                break;
+            }
+        }
+        selected.push(pool.splice(chosenIndex, 1)[0]);
     }
     return selected;
+}
+
+function toRomanNumeral(num) {
+    const lookup = [
+        [1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'],
+        [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'],
+        [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']
+    ];
+    let roman = '';
+    for (const [val, char] of lookup) {
+        while (num >= val) {
+            roman += char;
+            num -= val;
+        }
+    }
+    return roman || 'I';
 }
 
 function getColonyCourtOptions() {
@@ -547,9 +587,10 @@ function foundColony() {
     if (GameData.mode !== "Roleplay") GameData.materials -= COLONY_OPTIONS.COLONIZATION_COST;
 
     const planet = COLONY_OPTIONS.PLANETS[Math.floor(Math.random() * COLONY_OPTIONS.PLANETS.length)];
+    const colonyNum = GameData.colonies.length + 1;
     let discoveryColonyRecord = {
         id: Date.now() + Math.random(),
-        name: planet.name + " [C-" + Math.floor(Math.random() * 89 + 10) + "]",
+        name: `${toRomanNumeral(colonyNum)} Colony`,
         planetType: planet.name,
         yieldValue: planet.materialRate,
         essenceRate: planet.essenceRate,
@@ -626,7 +667,11 @@ function openColonyControlPanel(id) {
         ? `This colony supports: ${availableGemTypes.join(', ')}. Kindergarten gem creation is immediate in Roleplay mode.`
         : `This colony supports: ${availableGemTypes.join(', ')}. Building a Kindergarten starts a ${Math.round(getKindergartenDurationMinutes() * 10) / 10}-minute timer and can produce up to three gems of one type.`;
     const diamondKindergartenButton = document.getElementById('diamond-kindergarten-button');
-    if (diamondKindergartenButton) diamondKindergartenButton.disabled = !GameData.structures.includes('Diamond Shrine');
+    if (diamondKindergartenButton) {
+        const hasShrine = GameData.structures.includes('Diamond Shrine');
+        diamondKindergartenButton.style.display = hasShrine ? 'inline-block' : 'none';
+        diamondKindergartenButton.disabled = !hasShrine;
+    }
     document.getElementById('colony-modal').style.display = 'flex';
 }
 
@@ -714,7 +759,7 @@ function createGemFromKindergarten(gemType, colony) {
     let gem = {
         id: Date.now() + Math.random(),
         type: gemType,
-        customPrefix: typeof generateGemPrefix === 'function' ? generateGemPrefix(gemType) : 'Facet-' + Math.floor(Math.random() * 899 + 100),
+        customPrefix: typeof generateGemPrefix === 'function' ? generateGemPrefix(gemType, personality) : 'Facet-' + Math.floor(Math.random() * 899 + 100),
         name: "Facet-" + Math.floor(Math.random() * 899 + 100) + " " + gemType,
         quality,
         placement,
@@ -729,7 +774,9 @@ function createGemFromKindergarten(gemType, colony) {
         guardOwnerId: null,
         image: "https://placehold.co/200x200",
         galleryPool: ["https://placehold.co/200x200"],
-        cutImage: ""
+        cutImage: "",
+        canFuse: Math.random() >= 0.5,
+        relationships: {}
     };
     gem.name = `${gem.customPrefix} ${gem.type}`;
     if (gem.courtId !== null) {
@@ -775,7 +822,9 @@ function createDiamondFromShrine(colony) {
         image: 'https://placehold.co/200x200',
         galleryPool: ['https://placehold.co/200x200'],
         cutImage: '',
-        status: 'Active'
+        status: 'Active',
+        canFuse: Math.random() >= 0.5,
+        relationships: {}
     };
 }
 
@@ -819,12 +868,6 @@ function completeDiamondShrineJob(colony, job) {
     alert(`${diamond.name} emerged from the Diamond Shrine.`);
     renderRoster();
     updateUI();
-}
-
-function surveyColony() {
-    const colony = GameData.colonies.find(c => c.id === selectedColonyId);
-    if (!colony) return;
-    alert(`${colony.name} survey:\n\nPlanet: ${colony.planetType || colony.name}\nMaterials: +${colony.yieldValue}/tick\nEssence: +${colony.essenceRate || 0}/tick\nGem types: ${(colony.availableGemTypes || COLONY_OPTIONS.GEM_TYPES).join(', ')}`);
 }
 
 function getPersonalityBehavior(gemOrPersonality) {
@@ -958,32 +1001,52 @@ function startTrialEvent() {
 
 function createFusion(gemA, gemB) {
     if (!gemA || !gemB || gemA === gemB || gemA.fusionMembers || gemB.fusionMembers) return null;
+    if (gemA.canFuse === false || gemB.canFuse === false) return null;
+
     gemA.status = 'Fused';
     gemB.status = 'Fused';
-    const fusionType = getFusionGemType(gemA.type, gemB.type);
-    const fusion = {
-        id: `fusion_${Date.now()}`,
-        type: fusionType,
-        name: `... (${fusionType})`,
-        customPrefix: '',
-        quality: 'Fusion',
-        placement: `${gemA.placement || gemA.gemPlacement} + ${gemB.placement || gemB.gemPlacement}`,
-        fusionPlacements: [gemA.placement || gemA.gemPlacement, gemB.placement || gemB.gemPlacement],
-        personality: `${gemA.personality} + ${gemB.personality}`,
-        fusionPersonalities: [gemA.personality, gemB.personality],
-        level: Math.max(Number(gemA.level || 0), Number(gemB.level || 0)),
-        boosts: [...(gemA.boosts || []), ...(gemB.boosts || [])],
-        guards: [],
-        image: '',
-        galleryPool: [],
-        fusionMembers: [gemA.id, gemB.id],
-        fusionMix: getFusionMixKey(gemA.type, gemB.type),
-        status: 'Fine'
-    };
-    GameData.gems.push(fusion);
+
+    if (!GameData.fusionsCache) GameData.fusionsCache = {};
+    const pairKey = [String(gemA.id), String(gemB.id)].sort().join(' + ');
+
+    let fusion = GameData.fusionsCache[pairKey];
+    if (fusion) {
+        fusion.status = 'Fine';
+        fusion.level = Math.max(Number(gemA.level || 0), Number(gemB.level || 0), Number(fusion.level || 0));
+        if (!GameData.gems.some(g => String(g.id) === String(fusion.id))) {
+            GameData.gems.push(fusion);
+        }
+    } else {
+        const fusionType = getFusionGemType(gemA.type, gemB.type);
+        const fusionPrefix = typeof getFusionPrefix === 'function' ? getFusionPrefix(gemA.customPrefix, gemB.customPrefix) : 'Placeholder';
+        const fullName = fusionPrefix && fusionPrefix !== 'Placeholder' ? `${fusionPrefix} ${fusionType}`.trim() : fusionType;
+        fusion = {
+            id: `fusion_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
+            type: fusionType,
+            name: fullName,
+            customPrefix: fusionPrefix,
+            quality: 'Fusion',
+            placement: `${gemA.placement || gemA.gemPlacement} + ${gemB.placement || gemB.gemPlacement}`,
+            fusionPlacements: [gemA.placement || gemA.gemPlacement, gemB.placement || gemB.gemPlacement],
+            personality: `${gemA.personality} + ${gemB.personality}`,
+            fusionPersonalities: [gemA.personality, gemB.personality],
+            level: Math.max(Number(gemA.level || 0), Number(gemB.level || 0)),
+            boosts: [...(gemA.boosts || []), ...(gemB.boosts || [])],
+            guards: [],
+            image: '',
+            galleryPool: [],
+            fusionMembers: [gemA.id, gemB.id],
+            fusionMix: getFusionMixKey(gemA.type, gemB.type),
+            status: 'Fine'
+        };
+        GameData.gems.push(fusion);
+        GameData.fusionsCache[pairKey] = fusion;
+    }
+
     addNotification(`${fusion.name} formed and replaced its component profile cards.`);
     renderRoster();
     updateUI();
+    saveLocalGame();
     return fusion;
 }
 
@@ -996,25 +1059,12 @@ function normalizeFusionCharacter(fusion) {
     fusion.fusionPersonalities = members.map(gem => gem.personality).filter(Boolean);
     fusion.fusionMix = getFusionMixKey(members[0].type, members[1].type);
     fusion.type = getFusionGemType(members[0].type, members[1].type);
-    fusion.customPrefix = typeof fusion.customPrefix === 'string' ? fusion.customPrefix : '';
-    fusion.name = `${fusion.customPrefix.trim() || '...'} (${fusion.type})`;
+    fusion.customPrefix = typeof getFusionPrefix === 'function' ? getFusionPrefix(members[0].customPrefix, members[1].customPrefix) : (fusion.customPrefix || 'Placeholder');
+    fusion.name = fusion.customPrefix && fusion.customPrefix !== 'Placeholder' ? `${fusion.customPrefix} ${fusion.type}`.trim() : fusion.type;
     fusion.quality = 'Fusion';
     fusion.placement = fusion.fusionPlacements.join(' + ');
     fusion.personality = fusion.fusionPersonalities.join(' + ');
     fusion.guards = [];
-}
-
-function saveFusionPrefix(id) {
-    const fusion = findLiveGem(id);
-    if (!fusion || !fusion.fusionMembers) return;
-    const input = document.getElementById(`fusion-prefix-${String(id).replace(/[^a-zA-Z0-9_-]/g, '-')}`);
-    if (!input) return;
-    fusion.customPrefix = input.value.trim();
-    fusion.name = `${fusion.customPrefix || '...'} (${fusion.type})`;
-    renderRoster();
-    if (document.getElementById('profile-modal')?.style.display === 'flex' && String(selectedGemId) === String(fusion.id)) {
-        openProfile(fusion.id);
-    }
 }
 
 function resolveFusionEvent(gemA, gemB) {
@@ -1030,19 +1080,31 @@ function resolveFusionEvent(gemA, gemB) {
 function splitFusionByMembers(gemA, gemB) {
     addGemRebellion(gemA, 15);
     addGemRebellion(gemB, 15);
-    gemA.status = 'Fine';
-    gemB.status = 'Fine';
-    const fusion = GameData.gems.find(gem => gem.fusionMembers && gem.fusionMembers.includes(gemA.id) && gem.fusionMembers.includes(gemB.id));
-    if (fusion) GameData.gems = GameData.gems.filter(gem => gem.id !== fusion.id);
+    if (gemA) gemA.status = 'Fine';
+    if (gemB) gemB.status = 'Fine';
+
+    if (gemA && gemB) {
+        const pairKey = [String(gemA.id), String(gemB.id)].sort().join(' + ');
+        const fusion = GameData.gems.find(gem => gem.fusionMembers && gem.fusionMembers.includes(gemA.id) && gem.fusionMembers.includes(gemB.id));
+        if (fusion) {
+            if (!GameData.fusionsCache) GameData.fusionsCache = {};
+            GameData.fusionsCache[pairKey] = fusion; // Preserve fusion profile in cache
+            GameData.gems = GameData.gems.filter(gem => gem.id !== fusion.id);
+        }
+    }
     renderRoster();
-    addNotification(`${gemA.name} and ${gemB.name} split apart.`);
+    saveLocalGame();
+    addNotification(`${gemA?.name || 'Gems'} split apart.`);
 }
 
 function splitFusionFromProfile(id) {
     const fusion = findLiveGem(id);
     if (!fusion || !fusion.fusionMembers) return;
     const members = fusion.fusionMembers.map(memberId => findLiveGem(memberId)).filter(Boolean);
-    if (members.length === 2) splitFusionByMembers(members[0], members[1]);
+    if (members.length === 2) {
+        splitFusionByMembers(members[0], members[1]);
+        closeProfile();
+    }
 }
 
 // ==========================================
@@ -1310,8 +1372,6 @@ function showStructureInventory(type) {
 
     if (type === 'Extractor Injection Rig') {
         content = `<div class="structure-menu-summary">Level ${level} | Extraction throughput increased.</div><div class="structure-menu-actions"><button type="button" data-ui-asset="extractor-injection-rig-level-button-ui" data-ui-kind="button" onclick="levelUpStructure('Extractor Injection Rig')">Level Rig</button></div>`;
-    } else if (type === 'Homeworld Communications Spire') {
-        content = `<div class="structure-menu-summary">Homeworld Communications Spire online. Deep data matrix sync arrays are available.</div>`;
     } else if (type === 'Diamond Shrine') {
         content = `<div class="structure-menu-summary">Level ${level} | ${slots} shrine slot${slots === 1 ? '' : 's'} | ${timerLabel}</div><div class="structure-menu-summary">Diamond Shrine online. Open a colony menu to start a Diamond Kindergarten.</div>`;
     } else if (type === 'Trial Building') {
@@ -1409,8 +1469,12 @@ function craftForgedBoost(blueprintId, targetGemId) {
 
 function getLevelCost(gem) {
     const currentLevel = Number(gem.level || 0);
-    const materials = (30 + (currentLevel * 25)) * 10;
-    const essence = (6 + (currentLevel * 4)) * 10;
+    let materials = (30 + (currentLevel * 25)) * 10;
+    let essence = (6 + (currentLevel * 4)) * 10;
+    if (gem && gem.type === 'Diamond') {
+        materials *= 3;
+        essence *= 3;
+    }
     return { materials, essence };
 }
 
@@ -1575,13 +1639,10 @@ function renderProfileGuardCards(gem) {
         button.type = 'button';
         button.className = 'profile-guard-button';
         button.setAttribute('aria-label', `Open ${unit?.name || record.name || record.type} profile`);
-        button.innerHTML = unit ? renderGemArtwork(unit, '', `${unit.name} portrait`) : '';
-        const label = document.createElement('span');
-        label.textContent = unit?.name || record.name || record.type || 'Guard';
-        button.appendChild(label);
+        button.title = unit?.name || record.name || record.type || 'Guard';
+        button.innerHTML = unit ? renderGemArtwork(unit, '', `${unit.name} portrait`, '', 'card', true) : '';
         if (unit) button.onclick = () => openProfile(unit.id);
         else button.disabled = true;
-        applyUiAsset(button, `guard-${gemArtSlug(record.type || unit?.type)}-ui`, 'surface', PROFILE_UI_ASSET_ROOT);
         container.appendChild(button);
     });
 }
@@ -1608,7 +1669,13 @@ function updateStructureCardButton(button, type, buildLabel, cost, canBuild = tr
         gem.type === requiredType && !['Shattered', 'Fused'].includes(normalizeGemStatus(gem))
     ));
     const card = document.getElementById(STRUCTURE_CARD_IDS[type]);
-    if (card) card.hidden = !isBuilt && !prerequisitesMet;
+    if (card) {
+        if (type === 'Diamond Shrine' || type === 'Reef') {
+            card.hidden = !isBuilt && !canBuild;
+        } else {
+            card.hidden = !isBuilt && !prerequisitesMet;
+        }
+    }
     const label = isBuilt ? `Open ${type}` : buildLabel;
     const assetName = `${getStructureUiSlug(type)}-${isBuilt ? 'open' : 'build'}-button-ui`;
     const assetChanged = button.dataset.uiAsset !== assetName;
@@ -1627,12 +1694,14 @@ function renderStructureInventoryButtons() {
     const hasBismuth = GameData.gems.some(gem => gem.type === 'Bismuth' && isGemUsable(gem));
     const hasZircon = GameData.gems.some(gem => gem.type === 'Zircon' && isGemUsable(gem));
     const hasAragonite = canAccessShattering();
+    const hasAbalone = GameData.gems.some(gem => gem.type === 'Abalone' && !['Shattered', 'Fused'].includes(normalizeGemStatus(gem)));
+    const hasLevel100Diamond = GameData.gems.some(gem => gem.type === 'Diamond' && Number(gem.level || 0) >= 100);
+
     updateStructureCardButton(document.getElementById('rig-structure-button'), 'Extractor Injection Rig', 'Build Rig (15000 Materials)', 15000);
-    updateStructureCardButton(document.getElementById('spire-structure-button'), 'Homeworld Communications Spire', 'Build Spire (40000 Materials)', 40000);
-    updateStructureCardButton(document.getElementById('reef-structure-button'), 'Reef', 'Build Reef (25000 Materials)', 25000);
+    updateStructureCardButton(document.getElementById('reef-structure-button'), 'Reef', 'Build Reef (25000 Materials)', 25000, hasAbalone);
     updateStructureCardButton(document.getElementById('funhouse-structure-button'), 'Spinel Funhouse', hasTaaffeite ? 'Build Funhouse (30000 Materials)' : 'Build Funhouse (Taaffeite Required)', 30000, hasTaaffeite);
     updateStructureCardButton(document.getElementById('forge-structure-button'), 'Gem Forge', hasBismuth ? 'Build Forge (35000 Materials)' : 'Build Forge (Bismuth Required)', 35000, hasBismuth);
-    updateStructureCardButton(document.getElementById('shrine-structure-button'), 'Diamond Shrine', 'Build Shrine (250000 Materials)', COLONY_OPTIONS.SHRINE_KINDERGARTEN_COST);
+    updateStructureCardButton(document.getElementById('shrine-structure-button'), 'Diamond Shrine', 'Build Shrine (250000 Materials)', COLONY_OPTIONS.SHRINE_KINDERGARTEN_COST, hasLevel100Diamond);
     updateStructureCardButton(document.getElementById('healing-center-button'), 'Healing Center', 'Build Healing Center (500000 Materials)', 500000);
     updateStructureCardButton(document.getElementById('soldier-ship-button'), 'Soldier Ship', 'Build Soldier Ship (75000 Materials)', 75000);
     updateStructureCardButton(document.getElementById('trial-building-button'), 'Trial Building', hasZircon && hasAragonite ? 'Build Trial Building (100000 Materials)' : 'Trial Building (Zircon and Aragonite Required)', 100000, hasZircon && hasAragonite);
@@ -1945,12 +2014,7 @@ function renderProfileLifecycleActions(gem) {
         ? `<button type="button" onclick="shatterLiveGem('${id}')">Shatter</button>`
         : '';
     if (gem.fusionMembers) {
-        const inputId = `fusion-prefix-${String(gem.id).replace(/[^a-zA-Z0-9_-]/g, '-')}`;
-        container.innerHTML = `<label for="${inputId}">Fusion prefix</label><input id="${inputId}" type="text" data-ui-asset="fusion-prefix-input-ui" data-ui-kind="textbox" maxlength="40" value="${escapeGemArtAttribute(gem.customPrefix || '')}" placeholder="Your prefix"><button type="button" data-ui-asset="fusion-prefix-save-button-ui" data-ui-kind="button" onclick="saveFusionPrefix('${id}')">Save Prefix</button><button type="button" onclick="splitFusionFromProfile('${id}')" style="width:auto;">Split Fusion</button>`;
-        const input = container.querySelector('input');
-        const saveButton = container.querySelector('[data-ui-asset="fusion-prefix-save-button-ui"]');
-        applyUiAsset(input, 'fusion-prefix-input-ui', 'textbox', PROFILE_UI_ASSET_ROOT);
-        applyUiAsset(saveButton, 'fusion-prefix-save-button-ui', 'button', PROFILE_UI_ASSET_ROOT);
+        container.innerHTML = `<button type="button" onclick="splitFusionFromProfile('${id}')" style="width:auto;">Split Fusion</button>`;
     } else if (gem.status === 'Shattered') {
         container.innerHTML = '<span style="opacity:0.6;">This gem is shattered permanently.</span>';
     } else if (gem.status === 'Poofed') {
@@ -1980,7 +2044,8 @@ function getRebellionWarState() {
 
 function addGemRebellion(gem, amount) {
     if (!gem || gem.type === 'Diamond' || GameData.mode === 'Roleplay') return;
-    gem.rebellion = Math.max(0, Math.min(100, Number(gem.rebellion || 0) + amount * getRebellionResistanceMultiplier()));
+    const rateFactor = 0.0005; // 0.05% of previous progression rate
+    gem.rebellion = Math.max(0, Math.min(100, Number(gem.rebellion || 0) + (amount * rateFactor * getRebellionResistanceMultiplier())));
     if (gem.rebellion >= 100) recruitRebel(gem);
 }
 
@@ -2284,7 +2349,9 @@ function createBismuthForForge() {
         inForge: false,
         image: 'https://placehold.co/200x200',
         galleryPool: ['https://placehold.co/200x200'],
-        status: 'Active'
+        status: 'Active',
+        canFuse: Math.random() >= 0.5,
+        relationships: {}
     };
 
     GameData.gems.push(bismuth);
@@ -2292,6 +2359,89 @@ function createBismuthForForge() {
     updateUI();
     renderStructureInventoryButtons();
     alert(`${bismuth.name} is ready to work in the forge.`);
+}
+
+function getPersonalityCompatibility(p1, p2) {
+    if (!p1 || !p2) return 1.0;
+    if (p1 === p2) return 1.5;
+    const compatible = [
+        ["Loyal", "Calm"], ["Loyal", "Stoic"], ["Playful", "Cheery"],
+        ["Calm", "Patient"], ["Empathetic", "Sensitive"], ["Stoic", "Meticulous"],
+        ["Curious", "Intelligent"], ["Brave", "Loyal"], ["Friendly", "Caring"]
+    ];
+    const conflicting = [
+        ["Fiery", "Calm"], ["Mean", "Empathetic"], ["Arrogant", "Shy"],
+        ["Volatile", "Stoic"], ["Rebellious", "Loyal"], ["Authoritarian", "Rebellious"],
+        ["Cynical", "Cheery"], ["Lazy", "Meticulous"]
+    ];
+    for (const [a, b] of compatible) {
+        if ((p1 === a && p2 === b) || (p1 === b && p2 === a)) return 2.0;
+    }
+    for (const [a, b] of conflicting) {
+        if ((p1 === a && p2 === b) || (p1 === b && p2 === a)) return 0.2;
+    }
+    return 1.0;
+}
+
+function advanceRelationships() {
+    const activeGems = GameData.gems.filter(gem => !gem.fusionMembers && isGemUsable(gem));
+    const pairs = new Set();
+
+    function addPair(g1, g2) {
+        if (!g1 || !g2 || g1 === g2) return;
+        if (g1.canFuse === false || g2.canFuse === false) return;
+        if (g1.fusionMembers || g2.fusionMembers) return;
+        const key = [String(g1.id), String(g2.id)].sort().join('::');
+        pairs.add(key);
+    }
+
+    activeGems.forEach(gem => {
+        // 1. Guard and Owner
+        if (Array.isArray(gem.guards)) {
+            gem.guards.forEach(guardRef => {
+                const guard = GameData.gems.find(g => String(g.id) === String(guardRef.id));
+                if (guard) addPair(gem, guard);
+            });
+            // 2. Co-guards
+            for (let i = 0; i < gem.guards.length; i++) {
+                for (let j = i + 1; j < gem.guards.length; j++) {
+                    const g1 = GameData.gems.find(g => String(g.id) === String(gem.guards[i].id));
+                    const g2 = GameData.gems.find(g => String(g.id) === String(gem.guards[j].id));
+                    if (g1 && g2) addPair(g1, g2);
+                }
+            }
+        }
+        // 3. Court members
+        if (gem.courtId) {
+            const courtMates = activeGems.filter(other => other.id !== gem.id && String(other.courtId) === String(gem.courtId));
+            courtMates.forEach(mate => addPair(gem, mate));
+        }
+    });
+
+    pairs.forEach(key => {
+        const [idA, idB] = key.split('::');
+        const gemA = GameData.gems.find(g => String(g.id) === idA);
+        const gemB = GameData.gems.find(g => String(g.id) === idB);
+        if (!gemA || !gemB || !isGemUsable(gemA) || !isGemUsable(gemB)) return;
+
+        if (!gemA.relationships) gemA.relationships = {};
+        if (!gemB.relationships) gemB.relationships = {};
+
+        const current = Number(gemA.relationships[gemB.id] || 0);
+        const comp = getPersonalityCompatibility(gemA.personality, gemB.personality);
+        const increase = 0.05 * comp;
+        const nextScore = Math.min(100, current + increase);
+
+        gemA.relationships[gemB.id] = nextScore;
+        gemB.relationships[gemA.id] = nextScore;
+
+        if (nextScore >= 100 && Math.random() < 0.005 && !isEventPopupOpen()) {
+            const fusion = createFusion(gemA, gemB);
+            if (fusion) {
+                addNotification(`${gemA.name} and ${gemB.name} formed a bond and fused into ${fusion.name}.`);
+            }
+        }
+    });
 }
 
 // ==========================================
@@ -2347,6 +2497,7 @@ setInterval(() => {
             });
         });
         advanceStoredGemDepartures();
+        advanceRelationships();
         advanceRebellionWar();
         updateUI();
         renderGemDirectories();
@@ -2370,7 +2521,6 @@ window.closeColonyControlPanel = closeColonyControlPanel;
 window.buildColonyKindergarten = buildColonyKindergarten;
 window.updateKindergartenButtonCost = updateKindergartenButtonCost;
 window.buildDiamondShrineKindergarten = buildDiamondShrineKindergarten;
-window.surveyColony = surveyColony;
 window.openProfile = openProfile;
 window.startTrialEvent = startTrialEvent;
 window.splitFusionFromProfile = splitFusionFromProfile;
@@ -2379,7 +2529,6 @@ window.closeStructureModal = closeStructureModal;
 window.levelUpSoldierShip = levelUpSoldierShip;
 window.assignGemToSoldierShip = assignGemToSoldierShip;
 window.closeProfile = closeProfile;
-window.saveFusionPrefix = saveFusionPrefix;
 window.changeProfileGalleryImage = changeProfileGalleryImage;
 window.addProfileGalleryImages = addProfileGalleryImages;
 window.removeCurrentProfileGalleryImage = removeCurrentProfileGalleryImage;

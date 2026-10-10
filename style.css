@@ -314,7 +314,7 @@ select:focus, input:focus {
     height: 90px;
     object-fit: cover;
     border-radius: 50%;
-    border: 2px solid var(--link-color);
+    border: none;
     margin-bottom: 10px;
 }
 
@@ -495,7 +495,7 @@ body:not(.dashboard-active) #gem-status-directories {
     flex: 0 0 auto;
     overflow: hidden;
     margin: 0 auto 10px;
-    border: 2px solid var(--link-color);
+    border: none;
     border-radius: 50%;
     background: transparent;
     vertical-align: middle;
@@ -794,7 +794,7 @@ body:not(.dashboard-active) #gem-status-directories {
     width: 56px;
     height: 56px;
     place-items: center;
-    border: 2px solid var(--link-color);
+    border: none;
     border-radius: 50%;
     overflow: hidden;
 }
@@ -873,22 +873,27 @@ body:not(.dashboard-active) #gem-status-directories {
 }
 
 .profile-guard-button {
-    display: flex;
-    min-width: 0;
-    flex-direction: column;
+    display: inline-flex;
     align-items: center;
-    gap: 4px;
-    padding: 6px;
-    border: 1px solid rgba(255,255,255,0.12);
-    background: #171a1c;
-    font-size: 0.65rem;
-    overflow-wrap: anywhere;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    box-shadow: none;
+    outline: none;
+}
+
+.profile-guard-button:hover {
+    background: transparent;
+    opacity: 0.85;
 }
 
 .profile-guard-button .gem-art-stack {
     width: 48px;
     height: 48px;
     margin: 0;
+    border: none;
 }
 
 .profile-lifecycle-actions {

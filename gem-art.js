@@ -210,21 +210,21 @@ function getActiveGemGalleryImage(gem) {
     return candidates[index] || candidates[0] || null;
 }
 
-function renderGemArtwork(gem, className = '', alt = 'Gem artwork', id = '', bubbleVariant = 'card') {
+function renderGemArtwork(gem, className = '', alt = 'Gem artwork', id = '', bubbleVariant = 'card', ignoreGallery = false) {
     if (gem.fusionMembers && typeof GameData !== 'undefined') {
         const members = gem.fusionMembers
             .map(memberId => GameData.gems.find(candidate => String(candidate.id) === String(memberId)))
             .filter(Boolean)
             .slice(0, 2);
         if (members.length) {
-            const memberArt = members.map(member => renderGemArtwork(member, 'fusion-art-piece', `${member.name} artwork`, '', bubbleVariant)).join('');
+            const memberArt = members.map(member => renderGemArtwork(member, 'fusion-art-piece', `${member.name} artwork`, '', bubbleVariant, ignoreGallery)).join('');
             const elementId = id ? ` id="${escapeGemArtAttribute(id)}"` : '';
             return `<span${elementId} class="gem-art-stack gem-art-fusion ${className}" role="img" aria-label="${escapeGemArtAttribute(alt)}">${memberArt}</span>`;
         }
     }
     const knownType = Object.values(GEM_TIERS).some(tier => tier.types.includes(gem.type));
     const bubbleOverlay = renderGemBubbleOverlay(gem, bubbleVariant);
-    const galleryImage = getActiveGemGalleryImage(gem);
+    const galleryImage = ignoreGallery ? null : getActiveGemGalleryImage(gem);
     if (galleryImage) {
         const elementId = id ? ` id="${escapeGemArtAttribute(id)}"` : '';
         const galleryMarkup = `<img class="gem-art-layer gem-art-gallery-override" src="${escapeGemArtAttribute(galleryImage)}" style="object-fit:cover; width:100%; height:100%; border-radius:inherit;" alt="" aria-hidden="true" onerror="this.remove()">`;
