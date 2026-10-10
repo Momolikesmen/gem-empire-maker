@@ -1,0 +1,1 @@
+Replace this placeholder with an image named default-background.png or default-background.gif. The page uses it as its background; if neither image exists, the theme background color is used.
