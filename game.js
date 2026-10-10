@@ -258,6 +258,11 @@ function confirmEmpireReset() {
     window.location.reload();
 }
 
+function isEventPopupOpen() {
+    const popup = document.getElementById('event-popup');
+    return Boolean(popup && popup.style.display !== 'none');
+}
+
 function showEventPopup(text) {
     const popup = document.getElementById('event-popup');
     const message = document.getElementById('event-popup-text');
@@ -828,6 +833,7 @@ function getPersonalityBehavior(gemOrPersonality) {
 }
 
 function triggerLiveGemEvent() {
+    if (isEventPopupOpen()) return;
     const now = Date.now();
     const candidates = GameData.gems.filter(gem => !gem.fusionMembers && !gem.inRebellion && isGemUsable(gem) && (!gem.eventCooldownUntil || gem.eventCooldownUntil <= now));
     if (!candidates.length || Math.random() >= (GameData.quicktimeFrequency ?? 0.025)) return;
@@ -1006,7 +1012,9 @@ function saveFusionPrefix(id) {
     fusion.customPrefix = input.value.trim();
     fusion.name = `${fusion.customPrefix || '...'} (${fusion.type})`;
     renderRoster();
-    openProfile(fusion.id);
+    if (document.getElementById('profile-modal')?.style.display === 'flex' && String(selectedGemId) === String(fusion.id)) {
+        openProfile(fusion.id);
+    }
 }
 
 function resolveFusionEvent(gemA, gemB) {
@@ -1955,7 +1963,7 @@ function renderProfileLifecycleActions(gem) {
 }
 
 function canAccessShattering() {
-    return GameData.gems.some(gem => gem.type === 'Aragonite' && !['Shattered', 'Fused'].includes(normalizeGemStatus(gem)));
+    return GameData.gems.some(gem => gem.type === 'Aragonite' && isGemUsable(gem));
 }
 
 function findLiveGem(id) {
@@ -2064,7 +2072,9 @@ function poofLiveGem(id) {
     gem.reformAt = Date.now() + 10 * 60 * 1000;
     addNotification(`${gem.name} poofed and is unusable until reformed.`);
     renderRoster();
-    openProfile(gem.id);
+    if (document.getElementById('profile-modal')?.style.display === 'flex' && String(selectedGemId) === String(gem.id)) {
+        openProfile(gem.id);
+    }
 }
 
 function bubbleGem(id) {
@@ -2076,7 +2086,9 @@ function bubbleGem(id) {
     addNotification(`${gem.name} was bubbled and moved to the Bubbled Gems directory.`);
     renderGemDirectories();
     renderRoster();
-    openProfile(gem.id);
+    if (document.getElementById('profile-modal')?.style.display === 'flex' && String(selectedGemId) === String(gem.id)) {
+        closeProfile();
+    }
 }
 
 function reformGem(id) {
@@ -2087,7 +2099,9 @@ function reformGem(id) {
     addNotification(`${gem.name} reformed and is usable again.`);
     renderGemDirectories();
     renderRoster();
-    openProfile(gem.id);
+    if (document.getElementById('profile-modal')?.style.display === 'flex' && String(selectedGemId) === String(gem.id)) {
+        openProfile(gem.id);
+    }
 }
 
 function rejuvenateLiveGem(id) {
@@ -2104,7 +2118,9 @@ function rejuvenateLiveGem(id) {
     gem.status = 'Fine';
     addNotification(`${gem.name} was rejuvenated: level, boosts, and assignments reset.`);
     renderRoster();
-    openProfile(gem.id);
+    if (document.getElementById('profile-modal')?.style.display === 'flex' && String(selectedGemId) === String(gem.id)) {
+        openProfile(gem.id);
+    }
 }
 
 function shatterLiveGem(id, involuntary = false) {
@@ -2122,7 +2138,9 @@ function shatterLiveGem(id, involuntary = false) {
     addNotification(`${gem.name} shattered permanently.`);
     renderGemDirectories();
     renderRoster();
-    openProfile(gem.id);
+    if (document.getElementById('profile-modal')?.style.display === 'flex' && String(selectedGemId) === String(gem.id)) {
+        openProfile(gem.id);
+    }
 }
 
 function closeProfile() {
@@ -2283,7 +2301,10 @@ setInterval(() => {
     saveLocalGame();
     const mainViewDashboard = document.getElementById('screen-dashboard');
     if (mainViewDashboard && mainViewDashboard.classList.contains('active-screen')) {
-        GameData.year += 0.16;
+        const eventActive = isEventPopupOpen();
+        if (!eventActive) {
+            GameData.year += 0.16;
+        }
         const activeDiamonds = GameData.gems.filter(gem => gem.type === 'Diamond' && isGemUsable(gem)).length;
         const diamondEssenceRate = CONFIG.RESOURCES.DIAMOND_ESSENCE_PER_DIAMOND_TICK || 0;
         GameData.essence += activeDiamonds * diamondEssenceRate;
@@ -2311,7 +2332,9 @@ setInterval(() => {
                 addNotification(`${gem.name} automatically reformed after remaining poofed for ten minutes.`);
             }
         });
-        triggerLiveGemEvent();
+        if (!eventActive) {
+            triggerLiveGemEvent();
+        }
         Object.keys(GameData.structureJobs || {}).forEach(type => {
             getActiveProductionJobs(type).slice().forEach(job => {
                 if (GameData.mode === 'Roleplay' || Date.now() >= job.readyAt) {

@@ -196,6 +196,20 @@ function syncGemArtMasks(image) {
     });
 }
 
+function getActiveGemGalleryImage(gem) {
+    const status = String(gem?.status || '').toLowerCase();
+    if (status === 'poofed' || status === 'shattered') return null;
+    const candidates = [
+        ...(Array.isArray(gem?.galleryPool) ? gem.galleryPool : []),
+        gem?.image
+    ].filter(source =>
+        typeof source === 'string' && source && !/^https?:\/\/placehold\.co\//i.test(source)
+    );
+    if (!candidates.length) return null;
+    const index = typeof gem.galleryIndex === 'number' ? gem.galleryIndex : 0;
+    return candidates[index] || candidates[0] || null;
+}
+
 function renderGemArtwork(gem, className = '', alt = 'Gem artwork', id = '', bubbleVariant = 'card') {
     if (gem.fusionMembers && typeof GameData !== 'undefined') {
         const members = gem.fusionMembers
@@ -210,6 +224,12 @@ function renderGemArtwork(gem, className = '', alt = 'Gem artwork', id = '', bub
     }
     const knownType = Object.values(GEM_TIERS).some(tier => tier.types.includes(gem.type));
     const bubbleOverlay = renderGemBubbleOverlay(gem, bubbleVariant);
+    const galleryImage = getActiveGemGalleryImage(gem);
+    if (galleryImage) {
+        const elementId = id ? ` id="${escapeGemArtAttribute(id)}"` : '';
+        const galleryMarkup = `<img class="gem-art-layer gem-art-gallery-override" src="${escapeGemArtAttribute(galleryImage)}" style="object-fit:cover; width:100%; height:100%; border-radius:inherit;" alt="" aria-hidden="true" onerror="this.remove()">`;
+        return `<span${elementId} class="gem-art-stack ${className}" role="img" aria-label="${escapeGemArtAttribute(alt)}">${galleryMarkup}${bubbleOverlay}</span>`;
+    }
     if (!knownType) {
         const fallbackImage = gem.image
             ? `<img class="gem-art-layer" src="${escapeGemArtAttribute(gem.image)}" alt="" aria-hidden="true" onerror="this.remove()">`

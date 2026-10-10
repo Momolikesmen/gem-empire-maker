@@ -16,17 +16,21 @@ function triggerRandomSandboxEvent() {
     const remainingGems = activeGems.filter(g => g.id !== gemA.id);
     const gemB = remainingGems.length > 0 ? remainingGems[Math.floor(Math.random() * remainingGems.length)] : null;
 
+    const choicesForFusion = [
+        { text: "Allow the Fusion", action: () => logEmpireEvent(`You allowed the fusion of ${gemA.name} and ${gemB.name} to exist.`, "Gentle") },
+        { text: "Rejuvenate Both", action: () => { rejuvenateGem(gemA.id); rejuvenateGem(gemB.id); } }
+    ];
+    if (typeof canAccessShattering === "function" && canAccessShattering()) {
+        choicesForFusion.push({ text: "Shatter Them", action: () => { shatterGem(gemA.id); shatterGem(gemB.id); } });
+    }
+
     // Sample Event Scenarios List
     const scenarios = [
         {
             title: "Forbidden Fusion Sighting",
             condition: gemB !== null,
             text: `Scouts caught ${gemA.name} and ${gemB.name} fused into an unauthorized crystalline structure on a nearby outpost! How do you handle this infraction?`,
-            choices: [
-                { text: "Allow the Fusion", action: () => logEmpireEvent(`You allowed the fusion of ${gemA.name} and ${gemB.name} to exist.`, "Gentle") },
-                { text: "Rejuvenate Both", action: () => { rejuvenateGem(gemA.id); rejuvenateGem(gemB.id); } },
-                { text: "Shatter Them", action: () => { shatterGem(gemA.id); shatterGem(gemB.id); } }
-            ]
+            choices: choicesForFusion
         },
         {
             title: "Kindergarten Mishap",
