@@ -196,12 +196,12 @@ const PERSONALITY_PREFIX_BLACKLISTS = {
     Stoic: ["Giddy", "Mischevious", "Lazy", "Playful", "Clumsy", "Airheaded", "Sleepy", "Snarky", "Cheerful"],
     Logical: ["Giddy", "Mischevious", "Lazy", "Playful", "Clumsy", "Airheaded", "Sleepy", "Snarky"],
     Intelligent: ["Clumsy", "Airheaded", "Lazy", "Sleepy", "Snarky", "Evil"],
-    Meticulous: ["Clumsy", "Airheaded", "Lazy", "Sleepy", "Snarky"],
+    Meticulous: ["Clumsy", "Airheaded", "Lazy", "Sleepy", "Snarky","Cynical"],
     Serious: ["Giddy", "Mischevious", "Lazy", "Playful", "Clumsy", "Airheaded", "Sleepy"],
     Calm: ["Evil", "Snarky", "Grumpy", "Fierce", "Mean", "Giddy", "Mischevious", "Sullen"],
-    Patient: ["Evil", "Snarky", "Grumpy", "Fierce", "Mean", "Giddy", "Mischevious", "Sullen"],
+    Patient: ["Evil", "Snarky", "Grumpy", "Fierce", "Mean", "Giddy", "Mischevious", "Sullen","Cynical"],
     Gentle: ["Evil", "Snarky", "Grumpy", "Fierce", "Mean", "Giddy", "Mischevious", "Sullen"],
-    Benevolent: ["Evil", "Snarky", "Grumpy", "Fierce", "Mean"],
+    Benevolent: ["Evil", "Snarky", "Grumpy", "Fierce", "Mean","cynical", "Melencholic", "Melancholic", "Sullen"],
     Cheery: ["Sullen", "Grumpy", "Lazy", "Evil", "Serious", "Cynical", "Melencholic", "Melancholic", "Snarky", "Sleepy"],
     Cheerful: ["Sullen", "Grumpy", "Lazy", "Evil", "Serious", "Cynical", "Melencholic", "Melancholic", "Snarky", "Sleepy"],
     Playful: ["Sullen", "Grumpy", "Lazy", "Evil", "Serious", "Cynical", "Melencholic", "Melancholic"],
@@ -209,7 +209,7 @@ const PERSONALITY_PREFIX_BLACKLISTS = {
     Anxious: ["Bold", "Daring", "Fierce", "Arrogant", "Snarky", "Evil", "Grumpy", "Mean"],
     Sensitive: ["Bold", "Daring", "Fierce", "Arrogant", "Snarky", "Evil", "Grumpy", "Mean"],
     Brave: ["Timid", "Shy", "Lazy", "Sleepy", "Evil", "Snarky", "Sullen"],
-    Loyal: ["Evil", "Snarky", "Rebellious", "Lazy"]
+    Loyal: ["Evil", "Snarky", "Rebellious", "Lazy","Cynical", "Melencholic", "Melancholic", "Grumpy", "Mean"],
 };
 
 // Calculates and compiles a valid custom prefix description card upon birth
