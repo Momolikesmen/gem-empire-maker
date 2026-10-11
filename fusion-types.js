@@ -10266,26 +10266,70 @@ const FUSION_PREFIX_OVERRIDES = {
     "Zebra + Zebra": "Monochrome-striped",
 };
 
+let NORMALIZED_FUSION_GEM_TYPE_MAP = null;
+let NORMALIZED_FUSION_PREFIX_MAP = null;
+
+function buildNormalizedFusionMaps() {
+    if (!NORMALIZED_FUSION_GEM_TYPE_MAP) {
+        NORMALIZED_FUSION_GEM_TYPE_MAP = {};
+        for (const [key, val] of Object.entries(FUSION_GEM_TYPE_OVERRIDES)) {
+            NORMALIZED_FUSION_GEM_TYPE_MAP[key.toLowerCase()] = val;
+        }
+    }
+    if (!NORMALIZED_FUSION_PREFIX_MAP) {
+        NORMALIZED_FUSION_PREFIX_MAP = {};
+        for (const [key, val] of Object.entries(FUSION_PREFIX_OVERRIDES)) {
+            NORMALIZED_FUSION_PREFIX_MAP[key.toLowerCase()] = val;
+        }
+    }
+}
+
 function getFusionMixKey(typeA, typeB) {
     const a = typeA ? typeA.trim() : 'Placeholder';
     const b = typeB ? typeB.trim() : 'Placeholder';
-    return [a, b].sort((left, right) => left.localeCompare(right)).join(' + ');
+    return [a, b].sort((left, right) => left.localeCompare(right, undefined, { sensitivity: 'base' })).join(' + ');
 }
 
 function getFusionPrefixKey(prefixA, prefixB) {
     const a = prefixA ? prefixA.trim() : 'Placeholder';
     const b = prefixB ? prefixB.trim() : 'Placeholder';
-    return [a, b].sort((left, right) => left.localeCompare(right)).join(' + ');
+    return [a, b].sort((left, right) => left.localeCompare(right, undefined, { sensitivity: 'base' })).join(' + ');
 }
 
 function getFusionGemType(typeA, typeB) {
-    const key = getFusionMixKey(typeA, typeB);
-    return FUSION_GEM_TYPE_OVERRIDES[key] || 'Placeholder';
+    buildNormalizedFusionMaps();
+    const a = typeA ? typeA.trim() : 'Placeholder';
+    const b = typeB ? typeB.trim() : 'Placeholder';
+    const sorted = [a, b].sort((left, right) => left.localeCompare(right, undefined, { sensitivity: 'base' }));
+    const key = sorted.join(' + ').toLowerCase();
+
+    if (NORMALIZED_FUSION_GEM_TYPE_MAP[key]) {
+        return NORMALIZED_FUSION_GEM_TYPE_MAP[key];
+    }
+    return 'Placeholder';
 }
 
 function getFusionPrefix(prefixA, prefixB) {
-    const key = getFusionPrefixKey(prefixA, prefixB);
-    return FUSION_PREFIX_OVERRIDES[key] || 'Placeholder';
+    buildNormalizedFusionMaps();
+    const cleanA = prefixA ? prefixA.trim() : '';
+    const cleanB = prefixB ? prefixB.trim() : '';
+    if (!cleanA && !cleanB) return 'Placeholder';
+    if (!cleanA) return cleanB;
+    if (!cleanB) return cleanA;
+
+    const sorted = [cleanA, cleanB].sort((left, right) => left.localeCompare(right, undefined, { sensitivity: 'base' }));
+    const key = sorted.join(' + ').toLowerCase();
+
+    if (NORMALIZED_FUSION_PREFIX_MAP[key]) {
+        return NORMALIZED_FUSION_PREFIX_MAP[key];
+    }
+
+    const isGenericA = /^facet-/i.test(cleanA) || cleanA === 'Placeholder';
+    const isGenericB = /^facet-/i.test(cleanB) || cleanB === 'Placeholder';
+    if (isGenericA && !isGenericB) return cleanB;
+    if (isGenericB && !isGenericA) return cleanA;
+
+    return 'Placeholder';
 }
 
 const FUSION_GEM_COMBINATIONS = [];

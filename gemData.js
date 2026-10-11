@@ -81,7 +81,7 @@ const GEM_TIERS = {
     EXPENDABLE: {
         name: "Expendable Tier",
         rank: 0,
-        types: ["Pearl", "Ruby", "Spinel"]
+        types: ["Pearl", "Ruby", "Spinel", "Cat's Eye"]
     }
 };
 
