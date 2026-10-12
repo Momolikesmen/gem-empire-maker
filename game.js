@@ -1263,9 +1263,26 @@ function triggerLiveGemEvent() {
     }
 }
 
+function addDamagedTrait(gem) {
+    if (!gem) return;
+    if (!Array.isArray(gem.boosts)) gem.boosts = [];
+    if (!gem.boosts.some(b => describeBoost(b) === 'Damaged' || b.id === 'damaged_trait')) {
+        gem.boosts.push({
+            id: 'damaged_trait',
+            name: 'Damaged',
+            stat: 'Historical Mark',
+            desc: 'This gem was cracked multiple times or shattered once and restored. It bears the mark of its past hardships.',
+            origin: 'Past Damage'
+        });
+    }
+}
+
 function crackLiveGem(gem) {
     if (!gem || ['Shattered', 'Bubbled'].includes(normalizeGemStatus(gem))) return;
     gem.crackCount = Number(gem.crackCount || 0) + 1;
+    if (gem.crackCount >= 2) {
+        addDamagedTrait(gem);
+    }
     if (gem.crackCount > 2) {
         shatterLiveGem(gem.id, true);
         addNotification(`${gem.name} shattered after suffering more than two cracks.`);
@@ -2156,6 +2173,9 @@ function healCrackedGem(id) {
     if (GameData.mode !== 'Roleplay' && GameData.materials < 100000) return alert('Healing a cracked gem costs 100000 Materials.');
     if (GameData.mode !== 'Roleplay') GameData.materials -= 100000;
     gem.status = 'Fine';
+    if (Number(gem.crackCount || 0) >= 2) {
+        addDamagedTrait(gem);
+    }
     addNotification(`${gem.name} was healed from a crack.`);
     showHealingCenter();
     renderRoster();
@@ -2168,6 +2188,7 @@ function healShatteredGem(id) {
     if (GameData.mode !== 'Roleplay' && GameData.essence < 1000000) return alert('Repairing a shattered gem costs 1000000 Essence.');
     if (GameData.mode !== 'Roleplay') GameData.essence -= 1000000;
     gem.status = 'Fine';
+    addDamagedTrait(gem);
     addNotification(`${gem.name} was restored by the Healing Center.`);
     showHealingCenter();
     renderRoster();

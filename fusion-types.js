@@ -10302,7 +10302,7 @@ function getFusionGemType(typeA, typeB) {
     const b = typeB ? typeB.trim() : 'Placeholder';
     const sorted = [a, b].sort((left, right) => left.localeCompare(right, undefined, { sensitivity: 'base' }));
     const key = sorted.join(' + ').toLowerCase();
-    
+
     if (NORMALIZED_FUSION_GEM_TYPE_MAP[key]) {
         return NORMALIZED_FUSION_GEM_TYPE_MAP[key];
     }

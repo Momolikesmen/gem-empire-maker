@@ -287,7 +287,7 @@ function rollGemQuality(placement) {
 // ==========================================
 const BOOST_POOL = {
     UNIVERSAL: [
-        { id: "well_formed", name: "Well-Formed Lattice", stat: "+15% Durability", desc: "Reduces the chance of being poofed in conflicts." },
+        { id: "well_formed", name: "Well-Formed", stat: "+15% Durability", desc: "Reduces the chance of being poofed in conflicts." },
         { id: "deep_crust", name: "Deep-Crust Density", stat: "+10% Heavy Stun", desc: "Provides physical knockback bonuses during tasks." },
         { id: "refractive", name: "Refractive Hardness", stat: "+12% Deflection", desc: "Deflects incoming weapon damage from the gemstone." }
     ],
@@ -348,18 +348,10 @@ const FORGERY_BLUEPRINTS = [
     },
     {
         id: "limb_enhancers",
-        name: "Peridot-Spec Limb Enhancers",
+        name: "Limb Enhancers",
         type: "Utility",
         stat: "+5% Task Efficiency",
         desc: "Cybernetic extensions that speed up agricultural or technical unit project timers.",
         costs: { colonyMaterials: 150, diamondEssence: 15 }
     },
-    {
-        id: "gravity_boots",
-        name: "Gravity-Anchor Boots",
-        type: "Utility",
-        stat: "+10% Resource Harvest",
-        desc: "Anchors transportation units firmly to terrains, scaling their resource yields.",
-        costs: { colonyMaterials: 200, diamondEssence: 5 }
-    }
 ];

@@ -546,19 +546,36 @@ body:not(.dashboard-active) #gem-status-directories {
     object-fit: contain;
 }
 
+.gem-art-base {
+    z-index: 1;
+}
+
 .gem-art-color {
+    z-index: 2;
     mix-blend-mode: multiply;
 }
 
-.gem-art-bubble {
-    z-index: 5;
-    object-fit: contain;
+.gem-art-highlight {
+    z-index: 3;
+    mix-blend-mode: overlay;
     pointer-events: none;
 }
 
-.gem-art-highlight,
-.gem-art-extras,
+.gem-art-extras {
+    z-index: 4;
+    mix-blend-mode: normal;
+    pointer-events: none;
+}
+
+.gem-art-crack,
 .gem-art-status {
+    z-index: 5;
+    pointer-events: none;
+}
+
+.gem-art-bubble {
+    z-index: 6;
+    object-fit: contain;
     pointer-events: none;
 }
 

@@ -52,6 +52,22 @@ function gemArtFileVariants(stem) {
 }
 
 function getGemArtBaseFile(gem, folderName, typeSlug) {
+    if (gem.type === 'Diamond') {
+        const roleTag = (gem.assignedRoleTag || gem.id || '').replace(/^diamond_/, '').toLowerCase();
+        const validRoles = ['matriarch', 'military', 'justice', 'entertainer'];
+        const role = validRoles.includes(roleTag) ? roleTag : 'matriarch';
+        gem.diamondRole = role;
+        const choices = [
+            `diamond-base-${role}`,
+            `diamond-base-${role}-2`,
+            `diamond-base-${role}-3`,
+            `diamond-base-${role}-4`
+        ];
+        const chosenStem = stableGemArtChoice(gem, `diamondBase:${role}`, choices);
+        gem.artSelections.baseCut = 'normal';
+        return gemArtPath(folderName, 'bases', chosenStem);
+    }
+
     const quality = String(gem.quality || 'Regular').toLowerCase();
     let cut = 'normal';
     if (quality === 'perfect' && stableGemArtRoll(gem, 'perfectBaseRoll') < 0.1) cut = 'perfect';
@@ -96,7 +112,9 @@ function getGemArtOverlayStem(gem, typeSlug) {
         return preferredGemArtChoice(gem, `overlay:${typeSlug}:${prefixSlug}`, [`${typeSlug}-${prefixSlug}`]);
     }
 
-    return stableGemArtChoice(gem, `overlay:${typeSlug}:${prefixSlug}`, [`${prefixSlug}-${typeSlug}`]);
+    // Default to basic gem name if prefix is not associated with a color
+    const choices = [`${typeSlug}`, `${prefixSlug}-${typeSlug}`];
+    return stableGemArtChoice(gem, `overlay:${typeSlug}:${prefixSlug}`, choices);
 }
 
 function getGemArtworkLayers(gem) {
@@ -113,6 +131,23 @@ function getGemArtworkLayers(gem) {
         : '';
 
     if (status === 'shattered') return { base, status: statusOverlay };
+
+    if (gem.type === 'Diamond') {
+        const role = gem.diamondRole || 'matriarch';
+        const choices = [
+            `diamond-highlight-${role}`,
+            `diamond-highlight-${role}-2`,
+            `diamond-highlight-${role}-3`,
+            `diamond-highlight-${role}-4`
+        ];
+        const highlightStem = stableGemArtChoice(gem, `diamondHighlight:${role}`, choices);
+        return {
+            base,
+            diamondColorHex: gem.color || (typeof GameData !== 'undefined' && GameData.diamondsCouncil?.find(d => String(d.id) === String(gem.id))?.color) || '#e2e8f0',
+            highlight: gemArtPath(folderName, 'highlights', highlightStem),
+            crack: status === 'cracked' ? gemArtPath(folderName, 'status', `diamond-crack-normal`) : ''
+        };
+    }
 
     const overlayStem = getGemArtOverlayStem(gem, typeSlug);
     const crackOverlay = status === 'cracked'
@@ -171,7 +206,10 @@ function renderGemBubbleOverlay(gem, variant) {
 function gemArtImageCandidates(source) {
     if (!source) return [];
     const stem = source.replace(/\.(?:png|gif)$/i, '');
-    return [`${stem}.png`, `${stem}.gif`];
+    if (/-\d+$/.test(stem)) {
+        return [`${stem}.png`, `${stem}.gif`];
+    }
+    return [`${stem}.png`, `${stem}-1.png`, `${stem}-2.png`, `${stem}-3.png`, `${stem}.gif`];
 }
 
 function advanceGemArtImage(image) {
@@ -241,6 +279,14 @@ function renderGemArtwork(gem, className = '', alt = 'Gem artwork', id = '', bub
     const layerMarkup = Object.entries(layers)
         .filter(([, source]) => source)
         .map(([layer, source]) => {
+            if (layer === 'diamondColorHex') {
+                const maskSource = layers.base;
+                const maskStyle = maskSource
+                    ? `mask-image:url('${maskSource}');-webkit-mask-image:url('${maskSource}');mask-size:100% 100%;-webkit-mask-size:100% 100%;mask-repeat:no-repeat;-webkit-mask-repeat:no-repeat;`
+                    : '';
+                return `<span class="gem-art-layer gem-art-color gem-art-diamond-color" style="background-color:${escapeGemArtAttribute(source)}; mix-blend-mode:multiply; opacity:0.85; ${maskStyle}" aria-hidden="true"></span>`;
+            }
+
             const maskSource = ['color', 'highlight', 'extras', 'crack'].includes(layer)
                 ? layers.base
                 : layer === 'corruption' ? layers.color : '';
