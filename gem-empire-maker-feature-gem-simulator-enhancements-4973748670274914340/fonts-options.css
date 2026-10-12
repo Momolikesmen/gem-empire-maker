@@ -1,0 +1,9 @@
+/* Add local font files here and reference them with @font-face. */
+/* Example:
+@font-face {
+    font-family: 'CustomGemFont';
+    src: url('./assets/fonts/your-font.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+*/

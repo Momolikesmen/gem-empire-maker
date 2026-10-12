@@ -20,7 +20,7 @@ const infrastructure = [
     { slug: 'gem-forge', buttons: ['build', 'open', 'level', 'blueprint'], controls: ['gem-forge-target-select-ui'] },
     { slug: 'diamond-shrine', buttons: ['build', 'open'] },
     { slug: 'healing-center', buttons: ['build', 'open', 'repair'] },
-    { slug: 'soldier-ship', buttons: ['build', 'open', 'level', 'assign'], controls: ['soldier-ship-agate-select-ui', 'soldier-ship-gem-select-ui'] },
+    { slug: 'soldier-ship', buttons: ['build', 'open', 'level', 'store', 'withdraw', 'overseer'], controls: ['structure-storage-select-ui', 'structure-overseer-select-ui'] },
     { slug: 'trial-building', buttons: ['build', 'open', 'court-trial'] },
     { slug: 'grand-ballet-hall', buttons: ['build', 'open', 'level', 'store', 'withdraw', 'overseer'], controls: ['structure-storage-select-ui', 'structure-overseer-select-ui'] },
     { slug: 'grand-ballroom', buttons: ['build', 'open', 'level', 'store', 'withdraw', 'overseer'], controls: ['structure-storage-select-ui', 'structure-overseer-select-ui'] },
@@ -82,7 +82,8 @@ const assets = {
         'gem-type-filter-select-ui',
         'rebellion-war-panel-ui',
         'rebellion-war-progress-ui',
-        'gem-rebellion-meter-ui'
+        'gem-rebellion-meter-ui',
+        'pause-year-button-ui'
     ]),
     ProfileCards: new Set(),
     Infrastructure: new Set()

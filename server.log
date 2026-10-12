@@ -1,0 +1,1851 @@
+127.0.0.1 - - [11/Oct/2026 16:38:07] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /fonts-options.css HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /gemData.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /fusion-types.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /gem-art.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /backgrounds.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /ui-assets.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /data-tables.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /generators.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /audio-manager.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /events.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /game.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /Assets/defbackgrounds/default-background.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /Assets/UI/UIBoxes/header-closed-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /Assets/UI/UIBoxes/notifications-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /Assets/UI/UIBoxes/reset-empire-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /Assets/UI/UIBoxes/notification-scroll-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /Assets/UI/UIBoxes/quicktime-event-popup-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /Assets/UI/UIBoxes/setup-empure-name-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /Assets/UI/UIBoxes/empire-designation-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /Assets/UI/UIBoxes/quicktime-event-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /Assets/UI/UIBoxes/setup-game-mode-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /Assets/UI/UIBoxes/diamondslot-matriarch-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:08] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:08] "GET /Assets/UI/UIBoxes/game-mode-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamond-prefix-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamond-color-wheel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamond-color-select-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamondslot-military-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamondslot-entertainer-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamondslot-justice-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/roster-search-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/launch-new-empire-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/rebellion-war-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colonies-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/pause-year-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/gem-type-filter-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/found-colony-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colony-control-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colony-gem-type-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colonies-grid-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colony-kindergarten-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colony-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colony-details-box-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamond-kindergarten-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colony-options-box-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/structure-control-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/structure-modal-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/extractor-injection-rig-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/structure-menu-content-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/extractor-injection-rig-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/reef-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/reef-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/spinel-funhouse-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/spinel-funhouse-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/gem-forge-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/gem-forge-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/diamond-shrine-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/diamond-shrine-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/healing-center-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/trial-building-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/trial-building-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/healing-center-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/soldier-ship-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/soldier-ship-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-ballet-hall-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-ballet-hall-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-ballroom-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-ballroom-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-theater-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-theater-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/archives-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/archives-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/organic-zoo-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/organic-zoo-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-circus-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-circus-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/gathering-hall-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/gathering-hall-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-palace-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-palace-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/structures-log-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/reset-empire-confirmation-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/reset-empire-confirm-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/reset-empire-cancel-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/bubbled-gems-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/shattered-gems-closed-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/bubbled-gems-toggle-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/shattered-gems-toggle-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/defbackgrounds/default-background.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/reset-empire-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/notification-scroll-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/notifications-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/header-closed-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/quicktime-event-popup-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/setup-empure-name-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/quicktime-event-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/setup-game-mode-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamondslot-matriarch-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/game-mode-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/empire-designation-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamond-prefix-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamond-color-select-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamondslot-military-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamond-color-wheel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamondslot-entertainer-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamondslot-justice-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/roster-search-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/launch-new-empire-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/rebellion-war-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colonies-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/pause-year-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/gem-type-filter-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/found-colony-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colony-control-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colony-gem-type-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colony-kindergarten-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colony-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colonies-grid-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colony-details-box-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/colony-options-box-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/structure-control-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/diamond-kindergarten-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/structure-modal-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/extractor-injection-rig-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/structure-menu-content-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/extractor-injection-rig-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/reef-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/reef-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/spinel-funhouse-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/spinel-funhouse-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/gem-forge-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/diamond-shrine-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/gem-forge-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/diamond-shrine-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/healing-center-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/trial-building-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/healing-center-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/soldier-ship-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/soldier-ship-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-ballet-hall-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-ballet-hall-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-ballroom-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/trial-building-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-ballroom-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-theater-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-theater-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/archives-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-circus-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/archives-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/organic-zoo-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/gathering-hall-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/organic-zoo-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-circus-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-palace-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/grand-palace-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/structures-log-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/Infrastructure/gathering-hall-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/reset-empire-confirmation-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/bubbled-gems-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/shattered-gems-closed-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/reset-empire-cancel-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/shattered-gems-toggle-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/bubbled-gems-toggle-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/UIBoxes/reset-empire-confirm-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/notifications-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/notification-scroll-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/quicktime-event-popup-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/reset-empire-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/setup-empure-name-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/header-closed-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamond-prefix-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/empire-designation-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/quicktime-event-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/setup-game-mode-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamond-color-select-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/game-mode-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamondslot-matriarch-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamondslot-military-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/roster-search-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamondslot-entertainer-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamondslot-justice-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamond-color-wheel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/launch-new-empire-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/rebellion-war-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colonies-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/pause-year-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colony-gem-type-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/found-colony-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colony-kindergarten-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/gem-type-filter-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colony-control-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colony-details-box-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamond-kindergarten-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colony-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colonies-grid-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colony-options-box-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/structure-control-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/structure-menu-content-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/reef-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/extractor-injection-rig-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/extractor-injection-rig-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/structure-modal-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/reef-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/spinel-funhouse-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/gem-forge-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamond-shrine-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/healing-center-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamond-shrine-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/gem-forge-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/spinel-funhouse-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/soldier-ship-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/trial-building-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/healing-center-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-ballet-hall-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/soldier-ship-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-ballet-hall-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/trial-building-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-ballroom-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-ballroom-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-theater-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-theater-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/archives-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/gathering-hall-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/organic-zoo-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/archives-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-circus-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-circus-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/organic-zoo-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-palace-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-palace-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/structures-log-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/bubbled-gems-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/reset-empire-cancel-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/shattered-gems-closed-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/gathering-hall-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/reset-empire-confirmation-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/shattered-gems-toggle-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/bubbled-gems-toggle-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/reset-empire-confirm-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/notifications-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/notification-scroll-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/reset-empire-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/setup-empure-name-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/quicktime-event-popup-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamond-prefix-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/setup-game-mode-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/quicktime-event-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamond-color-select-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/empire-designation-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/header-closed-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/game-mode-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/roster-search-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamondslot-matriarch-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamondslot-justice-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamondslot-entertainer-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/launch-new-empire-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamondslot-military-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamond-color-wheel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/rebellion-war-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colony-gem-type-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/pause-year-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colony-kindergarten-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/found-colony-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colonies-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/gem-type-filter-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colony-control-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colonies-grid-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamond-kindergarten-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colony-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colony-details-box-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/colony-options-box-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/structure-control-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/structure-menu-content-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/extractor-injection-rig-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/extractor-injection-rig-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/spinel-funhouse-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/structure-modal-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/reef-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/gem-forge-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/reef-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamond-shrine-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/healing-center-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/diamond-shrine-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/gem-forge-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/spinel-funhouse-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/healing-center-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/soldier-ship-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/trial-building-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-ballet-hall-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/soldier-ship-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-ballet-hall-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/trial-building-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-ballroom-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/organic-zoo-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-ballroom-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-theater-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/archives-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-theater-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/gathering-hall-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-circus-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-circus-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/archives-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/organic-zoo-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-palace-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/structures-log-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/grand-palace-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/shattered-gems-toggle-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/gathering-hall-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/bubbled-gems-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/reset-empire-cancel-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/shattered-gems-closed-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/reset-empire-confirmation-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/bubbled-gems-toggle-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:38:09] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:38:09] "GET /Assets/UI/reset-empire-confirm-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:40] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:40:40] "GET /fonts-options.css HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:40:40] "GET /gemData.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:40:40] "GET /gem-art.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:40:40] "GET /ui-assets.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:40:40] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:40:40] "GET /fusion-types.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:40:40] "GET /backgrounds.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:40:40] "GET /data-tables.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:40:40] "GET /generators.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:40:40] "GET /audio-manager.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:40:40] "GET /events.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:40:40] "GET /game.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/header-closed-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/defbackgrounds/default-background.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/notifications-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/reset-empire-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/notification-scroll-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/quicktime-event-popup-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/quicktime-event-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/setup-empure-name-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/empire-designation-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/setup-game-mode-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/game-mode-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamondslot-matriarch-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamond-prefix-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamond-color-select-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamondslot-justice-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamondslot-military-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamondslot-entertainer-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamond-color-wheel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/launch-new-empire-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/pause-year-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colonies-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/roster-search-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/gem-type-filter-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/rebellion-war-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/found-colony-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colonies-grid-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colony-control-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colony-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colony-details-box-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamond-kindergarten-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colony-kindergarten-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colony-options-box-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colony-gem-type-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/structure-control-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/structure-modal-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/structure-menu-content-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/extractor-injection-rig-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/reef-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/spinel-funhouse-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/reef-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/extractor-injection-rig-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/spinel-funhouse-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/diamond-shrine-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/healing-center-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/healing-center-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/gem-forge-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/gem-forge-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/diamond-shrine-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/soldier-ship-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/soldier-ship-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/trial-building-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/trial-building-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-ballet-hall-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-ballet-hall-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-ballroom-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-ballroom-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-theater-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-theater-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/archives-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/archives-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/organic-zoo-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/organic-zoo-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-circus-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-palace-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-circus-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/gathering-hall-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-palace-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/gathering-hall-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/structures-log-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/reset-empire-confirmation-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/reset-empire-confirm-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/reset-empire-cancel-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/bubbled-gems-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/bubbled-gems-toggle-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/shattered-gems-closed-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/shattered-gems-toggle-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/header-closed-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/defbackgrounds/default-background.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/notifications-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/reset-empire-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/notification-scroll-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/quicktime-event-popup-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/quicktime-event-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/setup-empure-name-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/empire-designation-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/setup-game-mode-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/game-mode-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamondslot-matriarch-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamond-prefix-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamond-color-select-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamondslot-justice-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamondslot-military-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamondslot-entertainer-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamond-color-wheel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/launch-new-empire-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/pause-year-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/roster-search-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colonies-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/gem-type-filter-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/rebellion-war-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/found-colony-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colonies-grid-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colony-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colony-control-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colony-details-box-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/diamond-kindergarten-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colony-kindergarten-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colony-options-box-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/colony-gem-type-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/structure-control-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/structure-modal-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/extractor-injection-rig-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/structure-menu-content-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/spinel-funhouse-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/reef-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/extractor-injection-rig-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/reef-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/diamond-shrine-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/spinel-funhouse-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/healing-center-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/gem-forge-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/healing-center-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/soldier-ship-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/gem-forge-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/trial-building-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/diamond-shrine-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/soldier-ship-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/trial-building-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-ballet-hall-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-ballet-hall-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-ballroom-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-ballroom-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-theater-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-theater-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/archives-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/organic-zoo-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/organic-zoo-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/gathering-hall-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/archives-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-palace-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-circus-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-circus-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/gathering-hall-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/reset-empire-confirm-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/structures-log-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/reset-empire-cancel-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/Infrastructure/grand-palace-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/reset-empire-confirmation-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/bubbled-gems-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/bubbled-gems-toggle-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/shattered-gems-closed-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/UIBoxes/shattered-gems-toggle-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/quicktime-event-popup-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/notification-scroll-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/notifications-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/header-closed-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/reset-empire-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/setup-game-mode-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/quicktime-event-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/setup-empure-name-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/game-mode-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamondslot-matriarch-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/empire-designation-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamondslot-military-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamond-color-select-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamond-prefix-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamond-color-wheel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamondslot-justice-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamondslot-entertainer-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/gem-type-filter-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colonies-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/launch-new-empire-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/pause-year-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/rebellion-war-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/roster-search-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamond-kindergarten-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colony-control-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/found-colony-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colony-details-box-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colony-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colonies-grid-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colony-gem-type-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colony-options-box-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/structure-modal-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colony-kindergarten-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/extractor-injection-rig-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/structure-control-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/spinel-funhouse-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/structure-menu-content-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/reef-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/reef-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/extractor-injection-rig-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/spinel-funhouse-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamond-shrine-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/healing-center-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/soldier-ship-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/trial-building-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/gem-forge-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/healing-center-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/gem-forge-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamond-shrine-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-ballroom-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/soldier-ship-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-ballet-hall-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/trial-building-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-ballet-hall-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-ballroom-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-theater-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/archives-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-theater-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/archives-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/organic-zoo-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/organic-zoo-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/gathering-hall-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-palace-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-circus-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/reset-empire-confirm-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-circus-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/structures-log-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/gathering-hall-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/reset-empire-confirmation-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/reset-empire-cancel-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/bubbled-gems-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-palace-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/shattered-gems-closed-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/bubbled-gems-toggle-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/shattered-gems-toggle-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/quicktime-event-popup-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/notification-scroll-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/notifications-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/reset-empire-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/header-closed-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/setup-game-mode-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/setup-empure-name-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/game-mode-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/quicktime-event-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamondslot-matriarch-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/empire-designation-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamondslot-military-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamond-color-select-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamondslot-entertainer-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamondslot-justice-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamond-color-wheel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamond-prefix-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/gem-type-filter-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/launch-new-empire-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/rebellion-war-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colonies-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colony-control-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/found-colony-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/pause-year-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/roster-search-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colony-details-box-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colonies-grid-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colony-gem-type-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamond-kindergarten-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colony-options-box-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colony-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/structure-modal-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/structure-control-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/reef-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/colony-kindergarten-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/extractor-injection-rig-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/spinel-funhouse-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/structure-menu-content-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/extractor-injection-rig-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/reef-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamond-shrine-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/trial-building-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/soldier-ship-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/healing-center-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/gem-forge-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/healing-center-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/gem-forge-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/spinel-funhouse-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/diamond-shrine-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-ballroom-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/soldier-ship-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/trial-building-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-ballroom-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-theater-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-ballet-hall-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-ballet-hall-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/archives-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/organic-zoo-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/organic-zoo-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/archives-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-theater-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-palace-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/gathering-hall-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/reset-empire-confirm-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/reset-empire-cancel-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-circus-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/reset-empire-confirmation-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-circus-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/structures-log-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/bubbled-gems-toggle-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/gathering-hall-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/grand-palace-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/shattered-gems-closed-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/shattered-gems-toggle-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:40:41] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:40:41] "GET /Assets/UI/bubbled-gems-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /fonts-options.css HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /gemData.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /gem-art.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /fusion-types.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /ui-assets.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /backgrounds.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /data-tables.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /events.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /audio-manager.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /generators.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /game.js HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/defbackgrounds/default-background.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/header-closed-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/reset-empire-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/notification-scroll-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/notifications-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/quicktime-event-popup-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/quicktime-event-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/setup-empure-name-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/empire-designation-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/setup-game-mode-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/game-mode-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/diamondslot-matriarch-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/diamond-prefix-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/diamond-color-select-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/diamondslot-military-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/diamondslot-justice-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/diamondslot-entertainer-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/diamond-color-wheel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/launch-new-empire-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/pause-year-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/colonies-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/roster-search-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/gem-type-filter-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/rebellion-war-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/found-colony-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/colony-control-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/colonies-grid-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/colony-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/colony-details-box-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/colony-gem-type-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/colony-kindergarten-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/diamond-kindergarten-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/colony-options-box-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/structure-control-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/structure-modal-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/UIBoxes/structure-menu-content-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/extractor-injection-rig-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/extractor-injection-rig-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/reef-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/reef-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/spinel-funhouse-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/spinel-funhouse-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/gem-forge-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/gem-forge-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/diamond-shrine-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/diamond-shrine-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/healing-center-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/healing-center-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/soldier-ship-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/trial-building-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/soldier-ship-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/trial-building-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:14] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:14] "GET /Assets/UI/Infrastructure/grand-ballet-hall-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-ballet-hall-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-ballroom-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-theater-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-ballroom-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-theater-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/archives-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/archives-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/organic-zoo-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/organic-zoo-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-circus-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-circus-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/gathering-hall-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/gathering-hall-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-palace-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-palace-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/structures-log-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/reset-empire-confirmation-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/reset-empire-confirm-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/reset-empire-cancel-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/bubbled-gems-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/bubbled-gems-toggle-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/shattered-gems-closed-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/shattered-gems-toggle-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/defbackgrounds/default-background.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/header-closed-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/notification-scroll-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/notifications-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/reset-empire-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/quicktime-event-popup-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/quicktime-event-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/empire-designation-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/setup-empure-name-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/setup-game-mode-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/game-mode-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/diamondslot-matriarch-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/diamond-prefix-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/diamond-color-select-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/diamondslot-military-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/diamondslot-justice-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/diamondslot-entertainer-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/diamond-color-wheel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/launch-new-empire-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/pause-year-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/colonies-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/roster-search-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/gem-type-filter-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/rebellion-war-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/colony-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/found-colony-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/colonies-grid-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/colony-control-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/colony-details-box-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/colony-gem-type-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/structure-control-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/structure-modal-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/colony-options-box-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/colony-kindergarten-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/diamond-kindergarten-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/structure-menu-content-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/extractor-injection-rig-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/extractor-injection-rig-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/reef-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/reef-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/spinel-funhouse-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/spinel-funhouse-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/gem-forge-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/gem-forge-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/diamond-shrine-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/healing-center-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/diamond-shrine-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/healing-center-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/soldier-ship-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/trial-building-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-ballroom-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/soldier-ship-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-ballet-hall-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/trial-building-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-ballet-hall-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/archives-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-theater-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-ballroom-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/archives-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/organic-zoo-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-theater-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-circus-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-circus-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/gathering-hall-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-palace-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/organic-zoo-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/gathering-hall-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/Infrastructure/grand-palace-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/structures-log-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/reset-empire-confirmation-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/reset-empire-confirm-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/reset-empire-cancel-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/bubbled-gems-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/bubbled-gems-toggle-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/shattered-gems-closed-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/reset-empire-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/notifications-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/UIBoxes/shattered-gems-toggle-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/notification-scroll-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/header-closed-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/quicktime-event-popup-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/quicktime-event-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/setup-empure-name-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/game-mode-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/setup-game-mode-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamondslot-matriarch-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/empire-designation-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamond-prefix-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamondslot-military-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamond-color-select-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamondslot-justice-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/launch-new-empire-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/pause-year-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamondslot-entertainer-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamond-color-wheel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colonies-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/roster-search-input-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/gem-type-filter-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/rebellion-war-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colony-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colonies-grid-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colony-control-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/found-colony-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colony-details-box-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colony-gem-type-select-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/structure-control-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/structure-modal-close-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colony-kindergarten-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colony-options-box-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/extractor-injection-rig-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/structure-menu-content-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/reef-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamond-kindergarten-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/reef-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/extractor-injection-rig-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/gem-forge-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/gem-forge-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/spinel-funhouse-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/spinel-funhouse-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamond-shrine-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/healing-center-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamond-shrine-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/healing-center-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/soldier-ship-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/trial-building-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-ballroom-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-ballet-hall-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/trial-building-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/soldier-ship-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-ballet-hall-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/archives-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-theater-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-theater-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/organic-zoo-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-ballroom-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/archives-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-circus-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-circus-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/gathering-hall-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-palace-infrastructure-option-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/organic-zoo-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/gathering-hall-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-palace-build-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/structures-log-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/reset-empire-confirmation-modal-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/reset-empire-confirm-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/reset-empire-cancel-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/bubbled-gems-panel-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/bubbled-gems-toggle-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/reset-empire-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/shattered-gems-closed-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/notifications-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/shattered-gems-toggle-button-ui.png HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/quicktime-event-popup-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/notification-scroll-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/setup-empure-name-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/game-mode-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/header-closed-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/quicktime-event-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamondslot-matriarch-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamond-prefix-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/setup-game-mode-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/empire-designation-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamondslot-military-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamond-color-select-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamondslot-justice-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/launch-new-empire-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/pause-year-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamondslot-entertainer-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamond-color-wheel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colonies-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colonies-grid-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colony-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/roster-search-input-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/rebellion-war-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/gem-type-filter-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/found-colony-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colony-control-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colony-details-box-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colony-gem-type-select-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/structure-control-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/structure-modal-close-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colony-kindergarten-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/colony-options-box-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/extractor-injection-rig-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/structure-menu-content-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/reef-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamond-kindergarten-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/extractor-injection-rig-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/reef-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/gem-forge-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/gem-forge-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/spinel-funhouse-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamond-shrine-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/healing-center-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/spinel-funhouse-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/diamond-shrine-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/healing-center-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/soldier-ship-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-ballroom-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/trial-building-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-ballet-hall-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/trial-building-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-ballet-hall-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/soldier-ship-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-theater-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/archives-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/archives-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/organic-zoo-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-ballroom-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-theater-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/gathering-hall-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-palace-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-circus-infrastructure-option-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-circus-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/gathering-hall-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/organic-zoo-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/grand-palace-build-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/structures-log-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/reset-empire-confirmation-modal-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/reset-empire-confirm-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/reset-empire-cancel-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/bubbled-gems-panel-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] code 404, message File not found
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/shattered-gems-toggle-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/bubbled-gems-toggle-button-ui.gif HTTP/1.1" 404 -
+127.0.0.1 - - [11/Oct/2026 16:43:15] "GET /Assets/UI/shattered-gems-closed-ui.gif HTTP/1.1" 404 -

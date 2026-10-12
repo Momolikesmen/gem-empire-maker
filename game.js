@@ -9,6 +9,7 @@ const LOCAL_SAVE_KEY = 'gemEmpireLocalSave';
 const STRUCTURE_UNLOCK_REQUIREMENTS = {
     'Spinel Funhouse': ['Taaffeite'],
     'Gem Forge': ['Bismuth'],
+    'Soldier Ship': ['Agate'],
     'Trial Building': ['Zircon', 'Aragonite'],
     'Grand Ballet Hall': ['Rhyolite'],
     'Grand Ballroom': ['Larkavite'],
@@ -67,52 +68,153 @@ let profileQuoteTimer = null;
 let selectedSetupDiamondSlot = null;
 
 const GEM_QUOTES = {
-    Fiery: ["I was not shouting. The room was too quiet.", "Try me. Please.", "Heat is just confidence with better lighting."],
-    Rebellious: ["Rules are suggestions with paperwork.", "I heard the order. I declined it.", "The system has a crack, and I found it."],
-    Loyal: ["I will stand where I am needed.", "The court is worth protecting.", "You can count on me."],
-    Anxious: ["I have prepared for this. Probably.", "Is that a normal sound?", "I would like a smaller responsibility."],
-    Proud: ["Obviously, I handled it beautifully.", "Admire from a respectful distance.", "Excellence is a habit."],
-    Stoic: ["Noted.", "The crystal holds.", "I have seen worse days."],
-    Meticulous: ["There is a correct way to do this.", "I made a list for the emergency.", "Precision prevents regret."],
-    Calm: ["There is time to think before we act.", "Let the noise pass; the answer will remain."],
-    Playful: ["Race you to the next disaster.", "I was being serious. Mostly."],
-    Cheery: ["Well, this is a bright spot in the day.", "We can make something good of this."],
-    Patient: ["We can wait until the right moment.", "No need to rush a good decision."],
-    Arrogant: ["Naturally, I was the best choice.", "Try to keep up with excellence."],
-    Empathetic: ["Tell me what you need; I am listening.", "Your worry matters to me."],
-    Sensitive: ["I felt the whole room change.", "Please be gentle with that truth."],
-    Lazy: ["Can this wait until after a rest?", "I am conserving energy for something important."],
-    Cynical: ["I expected less, and still I am disappointed.", "Every promise has a footnote."],
-    Observant: ["The detail everyone missed is right there.", "I noticed the pause before the answer."],
-    Melencholic: ["Some light takes longer to reach us.", "I remember when this felt easier."],
-    Curious: ["What happens if we try the other way?", "I have three questions and a theory."],
-    Airheaded: ["Wait, what were we talking about?", "I had a thought. It may come back."],
-    Brave: ["Stand behind me. I will go first.", "Fear can come along; it does not lead."],
-    Shy: ["I had something to say. Maybe later.", "Could you stay while I try?"],
-    Talkative: ["I can explain, but first there is a story.", "One more thing, then I promise I am done."],
-    Reserved: ["I have said enough for now.", "Some things are better kept quiet."],
-    Mean: ["I could be kinder. I choose not to.", "That was your best effort?"],
-    Logical: ["The evidence points to one conclusion.", "Let us separate facts from assumptions."],
-    Intelligent: ["I have already tested that possibility.", "There is a simpler solution."],
-    Flippant: ["Well, that went almost according to plan.", "I would worry, but it ruins the look."],
-    Puritanical: ["Some lines are not meant to be crossed.", "Discipline is its own kind of freedom."],
-    Clumsy: ["I meant to do that. Probably.", "The floor moved. I am sure of it."],
-    Authoritarian: ["Order keeps the court standing.", "The decision is made; carry it out."],
-    Benevolent: ["Power is best used to shelter others.", "Let us choose the gentler answer."],
-    Melancholic: ["The quiet has a familiar weight.", "I keep the memories others set down."],
-    Volatile: ["Do not mistake a pause for peace.", "My temper arrived before I did."],
-    Reclusive: ["I prefer the company of a quiet room.", "You will find me when I am ready."]
+    Fiery: ["I was not shouting. The room was too quiet.", "Try me. Please.", "Heat is just confidence with better lighting.", "Spark a flame and watch them step back!"],
+    Rebellious: ["Rules are suggestions with paperwork.", "I heard the order. I declined it.", "The system has a crack, and I found it.", "Why follow order when freedom is right here?"],
+    Loyal: ["I will stand where I am needed.", "The court is worth protecting.", "You can count on me.", "Duty is my purpose and my shield."],
+    Anxious: ["I have prepared for this. Probably.", "Is that a normal sound?", "I would like a smaller responsibility.", "What if everything goes wrong at once?"],
+    Proud: ["Obviously, I handled it beautifully.", "Admire from a respectful distance.", "Excellence is a habit.", "Few can match my shine."],
+    Stoic: ["Noted.", "The crystal holds.", "I have seen worse days.", "Silence speaks louder than panic."],
+    Meticulous: ["There is a correct way to do this.", "I made a list for the emergency.", "Precision prevents regret.", "Double-checking is just good sense."],
+    Calm: ["There is time to think before we act.", "Let the noise pass; the answer will remain.", "Breathe; the storm will clear."],
+    Playful: ["Race you to the next disaster.", "I was being serious. Mostly.", "Rules are more fun when bent!"],
+    Cheery: ["Well, this is a bright spot in the day.", "We can make something good of this.", "A smile makes any task lighter!"],
+    Patient: ["We can wait until the right moment.", "No need to rush a good decision.", "Time is always on our side."],
+    Arrogant: ["Naturally, I was the best choice.", "Try to keep up with excellence.", "I do not compete; I set the standard."],
+    Empathetic: ["Tell me what you need; I am listening.", "Your worry matters to me.", "We are all connected in this court."],
+    Sensitive: ["I felt the whole room change.", "Please be gentle with that truth.", "Words leave deep marks."],
+    Lazy: ["Can this wait until after a rest?", "I am conserving energy for something important.", "Effort is overrated."],
+    Cynical: ["I expected less, and still I am disappointed.", "Every promise has a footnote.", "Flattery gets you nowhere here."],
+    Observant: ["The detail everyone missed is right there.", "I noticed the pause before the answer.", "Nothing escapes a watchful eye."],
+    Melencholic: ["Some light takes longer to reach us.", "I remember when this felt easier.", "Shadows lengthen when day ends."],
+    Curious: ["What happens if we try the other way?", "I have three questions and a theory.", "Every discovery begins with a question."],
+    Airheaded: ["Wait, what were we talking about?", "I had a thought. It may come back.", "Look at that lovely light!"],
+    Brave: ["Stand behind me. I will go first.", "Fear can come along; it does not lead.", "Forward without hesitation."],
+    Shy: ["I had something to say. Maybe later.", "Could you stay while I try?", "I prefer watching from here."],
+    Talkative: ["I can explain, but first there is a story.", "One more thing, then I promise I am done.", "Silence makes me nervous!"],
+    Reserved: ["I have said enough for now.", "Some things are better kept quiet.", "Fewer words, fewer mistakes."],
+    Mean: ["I could be kinder. I choose not to.", "That was your best effort?", "Softness is weakness."],
+    Logical: ["The evidence points to one conclusion.", "Let us separate facts from assumptions.", "Emotion obscures reason."],
+    Intelligent: ["I have already tested that possibility.", "There is a simpler solution.", "Analysis reveals the truth."],
+    Flippant: ["Well, that went almost according to plan.", "I would worry, but it ruins the look.", "Oh dear, another catastrophe."],
+    Puritanical: ["Some lines are not meant to be crossed.", "Discipline is its own kind of freedom.", "Purity in purpose, purity in form."],
+    Clumsy: ["I meant to do that. Probably.", "The floor moved. I am sure of it.", "Oops! It was like that when I got here."],
+    Authoritarian: ["Order keeps the court standing.", "The decision is made; carry it out.", "Obey without question."],
+    Benevolent: ["Power is best used to shelter others.", "Let us choose the gentler answer.", "Kindness costs nothing."],
+    Melancholic: ["The quiet has a familiar weight.", "I keep the memories others set down.", "Dusk falls on all of us."],
+    Volatile: ["Do not mistake a pause for peace.", "My temper arrived before I did.", "One wrong move and it all blows up."],
+    Reclusive: ["I prefer the company of a quiet room.", "You will find me when I am ready.", "Solitude is peaceful."]
+};
+
+const GEM_TYPE_QUOTES = {
+    Sapphire: ["The future holds many paths; I see the clearest one.", "Cold clarity reveals what heat obscures.", "Vision is a quiet burden."],
+    Ruby: ["I am ready for whatever comes next!", "Just give me the word, and I will take care of it.", "My heat never cools down."],
+    Pearl: ["Everything is organized to perfection.", "At your service, as expected.", "Precision and elegance in all things."],
+    Spinel: ["Ready to play! What are we doing next?", "I can turn any dull day into a spectacle!", "Laughter is the best form of order."],
+    Agate: ["Order will be maintained across all ranks.", "Stand tall and do your duty.", "A disciplined soldier is a successful soldier."],
+    Bismuth: ["Give me a forge, and I can shape anything.", "Built to last, forged to endure.", "The lattice holds strong."],
+    Diamond: ["The empire shines under our guidance.", "Authority is not requested; it is embodied.", "Perfection is the baseline."],
+    Peridot: ["Logistics check out; efficiency is up by 14%!", "Fascinating structural parameters!", "According to my calculations, we are on schedule."],
+    "Lapis Lazuli": ["The tides answer to my call.", "A vast expanse of sky is all I need.", "Water shapes the hardest stone given time."],
+    Jasper: ["Strength is the only truth that matters.", "I was forged for battle and nothing less.", "Defeat is not in my programming."],
+    Amethyst: ["Why so serious? We got this!", "Rough around the edges, but tough as iron.", "Living life on my own terms."],
+    "Rose Quartz": ["Every gem has a unique beauty.", "Love and compassion can change the empire.", "We are more than our designated purpose."],
+    Emerald: ["Fleet status is green across all sectors.", "Command requires foresight and absolute control.", "The stars are ours to navigate."]
+};
+
+const QUALITY_QUOTES = {
+    Perfect: [
+        "Flawless cut, flawless execution.",
+        "My lattice was born without a single defect.",
+        "Perfection comes naturally when you are built right.",
+        "I was born to set the standard."
+    ],
+    Defective: [
+        "I might not fit the mold, but I am still here.",
+        "Imperfections just mean I am one of a kind.",
+        "They called me defective, but I keep pushing forward.",
+        "My form is my own, regardless of what Homeworld says."
+    ]
+};
+
+const FUSION_QUOTES = [
+    "Two gems, one heartbeat, infinite possibilities.",
+    "We are not two gems anymore; we are something entirely new.",
+    "Together, we see further and hit harder.",
+    "This bond makes us stronger than we ever were alone."
+];
+
+const SPLIT_FUSION_QUOTES = [
+    "I still feel the echo of our shared mind...",
+    "Being separated feels so quiet... I miss our fusion.",
+    "We were so much more together. I want to fuse again.",
+    "Part of me is still back there, in our combined form."
+];
+
+const ASSIGNED_GUARD_QUOTES = {
+    Pearl: [
+        "My Pearl keeps everything running seamlessly.",
+        "I am never without a reliable Pearl at my side.",
+        "An elegant Pearl makes managing my duties effortless."
+    ],
+    Spinel: [
+        "My Spinel always knows how to brighten the mood.",
+        "There is never a dull moment with my Spinel around!",
+        "A little entertainment keeps the spirit high."
+    ],
+    Ruby: [
+        "My Ruby guards keep a watchful eye on every threat.",
+        "I feel completely secure with my Rubies on watch.",
+        "Stand close, my Rubies will handle any danger."
+    ]
 };
 
 function randomGemQuote(gem) {
     if (gem.placement === 'Mouth' || gem.gemPlacement === 'Mouth' || gem.fusionPlacements?.includes('Mouth')) {
-        return Math.random() < 0.5 ? '*They seem happy*' : '*They seem focused*';
+        const mouthQuotes = ['*They seem happy*', '*They seem focused*', '*Nods quietly with a warm smile*'];
+        return mouthQuotes[Math.floor(Math.random() * mouthQuotes.length)];
     }
-    const personalities = gem.fusionPersonalities || [gem.personality];
-    const pool = personalities.flatMap(personality => GEM_QUOTES[personality] || []);
-    const availableQuotes = pool.length ? pool : GEM_QUOTES.Stoic;
+
+    let candidates = [];
+
+    // Personalities
+    const personalities = gem.fusionPersonalities || (gem.personality ? [gem.personality] : []);
+    personalities.forEach(p => {
+        if (GEM_QUOTES[p]) candidates.push(...GEM_QUOTES[p]);
+    });
+
+    // Type quotes
+    if (gem.type && GEM_TYPE_QUOTES[gem.type]) {
+        candidates.push(...GEM_TYPE_QUOTES[gem.type]);
+    }
+
+    // Quality quotes
+    if (gem.quality && QUALITY_QUOTES[gem.quality]) {
+        candidates.push(...QUALITY_QUOTES[gem.quality]);
+    }
+
+    // Active fusion quotes
+    if (gem.fusionMembers || gem.quality === 'Fusion') {
+        candidates.push(...FUSION_QUOTES);
+    }
+
+    // Split fusion quotes
+    if (gem.wasFused || gem.splitFusionPartner || gem.previouslyFused) {
+        candidates.push(...SPLIT_FUSION_QUOTES);
+    }
+
+    // Assigned guards
+    if (Array.isArray(gem.guards) && gem.guards.length > 0) {
+        if (gem.guards.some(g => g.type === 'Pearl')) candidates.push(...ASSIGNED_GUARD_QUOTES.Pearl);
+        if (gem.guards.some(g => g.type === 'Spinel')) candidates.push(...ASSIGNED_GUARD_QUOTES.Spinel);
+        if (gem.guards.some(g => g.type === 'Ruby')) candidates.push(...ASSIGNED_GUARD_QUOTES.Ruby);
+    }
+
+    if (!candidates.length) {
+        candidates = GEM_QUOTES.Stoic || ["The crystal holds."];
+    }
+
     const mood = gem.status === 'Cracked' ? 'The fracture is inconvenient, not decisive.' : gem.level > 10 ? 'Experience has sharpened the edges.' : null;
-    return mood && Math.random() < 0.45 ? mood : availableQuotes[Math.floor(Math.random() * availableQuotes.length)];
+    return mood && Math.random() < 0.35 ? mood : candidates[Math.floor(Math.random() * candidates.length)];
 }
 
 function saveLocalGame() {
@@ -484,6 +586,19 @@ function launchNewEmpire() {
     saveLocalGame();
 }
 
+function togglePauseYearProgression() {
+    GameData.isPaused = !GameData.isPaused;
+    updatePauseButtonUI();
+}
+
+function updatePauseButtonUI() {
+    const btn = document.getElementById('pause-year-button');
+    if (btn) {
+        btn.textContent = GameData.isPaused ? 'Unpause' : 'Pause';
+        btn.setAttribute('aria-label', GameData.isPaused ? 'Unpause' : 'Pause');
+    }
+}
+
 function updateUI() {
     const yearVal = document.getElementById('year-val');
     const essenceVal = document.getElementById('essence-val');
@@ -495,6 +610,7 @@ function updateUI() {
     if(materialsVal) materialsVal.innerText = GameData.mode === "Roleplay" ? "∞" : GameData.materials;
     if(popVal) popVal.innerText = GameData.gems.length;
 
+    updatePauseButtonUI();
     renderStructureInventoryButtons();
 }
 
@@ -751,22 +867,157 @@ function formatTimer(readyAt) {
     return remaining <= 0 ? 'Ready' : `${minutes}m ${String(seconds).padStart(2, '0')}s remaining`;
 }
 
+const SPECIAL_TRAIT_DESCRIPTIONS = {
+    // Defective
+    "Underbaked": "Lacks full physical density, reducing performance.",
+    "Overbaked": "Slightly brittle form, reducing structural stability.",
+    "Fading Future Vision": "Inconsistent glimpses of time, rendering vision mostly useless.",
+    "Blurry Future Vision": "Unclear visions of the future, rendering predictions mostly useless.",
+    "Present Vision": "Only sees what is happening right now, rendering vision useless.",
+    "Two Left Feet": "Uncoordinated physical form, rendering entertainer duties useless.",
+    "Uncoordinated": "Clumsy and imbalanced, rendering entertainer duties useless.",
+    "Soft-Spoken": "Quiet and gentle voice, preventing assignment to Soldier Ships.",
+    "Weak": "Substandard physical strength, rendering soldier combat useless.",
+    "Legal Malpractice": "Flawed legal reasoning, almost guaranteeing court loss.",
+
+    // Perfect
+    "Efficient": "Optimized lattice, boosting contributed stats by up to 150%.",
+    "All Seeing Vision": "Flawless foresight, boosting luck contribution by 200%.",
+    "Cryokinesis": "Ability to freeze local moisture and drop temperature (purely for show).",
+    "Graceful": "Exquisite movement and poise, making entertainer duties 200% more effective.",
+    "Idolized": "Captivating aura and charm, making entertainer duties 200% more effective.",
+    "Beefy": "Massive crystalline density, making soldier strength 200% higher.",
+    "Pyrokinesis": "Ability to generate intense heat and flames.",
+    "Metallokinesis": "Ferromagnetic control, boosting kindergarten efficiency by 200%.",
+    "Informed": "Mastery of empire jurisprudence, ensuring court trial wins against regular opponents."
+};
+
+function getDefectiveDeformity(gemType, placement, customPrefix) {
+    if (placement === 'Mouth') return null;
+    if (gemType === 'Ruby' && customPrefix === 'Blue') return null;
+    if (gemType === 'Sapphire' && customPrefix === 'Red') return null;
+
+    const pool = ['Underbaked', 'Overbaked'];
+
+    const tierEntry = Object.values(GEM_TIERS).find(t => t.types.includes(gemType));
+    const tierName = tierEntry ? tierEntry.name : '';
+
+    if (tierName === 'Elite Advisor Tier' || gemType === 'Sapphire') {
+        pool.push('Fading Future Vision', 'Blurry Future Vision', 'Present Vision');
+    }
+    if (tierName === 'Elite Entertainer Tier') {
+        pool.push('Two Left Feet', 'Uncoordinated');
+    }
+    if (tierName === 'Quartz Commander Tier') {
+        pool.push('Soft-Spoken');
+    }
+    if (tierName === 'Quartz Soldier Tier' || gemType === 'Ruby') {
+        pool.push('Weak');
+    }
+    if (tierName === 'Justice Tier') {
+        pool.push('Legal Malpractice');
+    }
+
+    return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function getPerfectBoost(gemType) {
+    const pool = ['Efficient'];
+
+    const tierEntry = Object.values(GEM_TIERS).find(t => t.types.includes(gemType));
+    const tierName = tierEntry ? tierEntry.name : '';
+
+    if (tierName === 'Elite Advisor Tier' || gemType === 'Sapphire') {
+        pool.push('All Seeing Vision');
+        if (gemType === 'Sapphire') pool.push('Cryokinesis');
+    }
+    if (tierName === 'Elite Entertainer Tier') {
+        pool.push('Graceful', 'Idolized');
+    }
+    if (tierName === 'Quartz Soldier Tier' || gemType === 'Ruby') {
+        pool.push('Beefy');
+        if (gemType === 'Ruby') pool.push('Pyrokinesis');
+    }
+    if (gemType === 'Peridot') {
+        pool.push('Metallokinesis');
+    }
+    if (tierName === 'Justice Tier') {
+        pool.push('Informed');
+    }
+
+    return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function determineStartingBoosts(quality, gemType, placement = null, customPrefix = null) {
+    let finalBoosts = [];
+
+    if (quality === 'Defective') {
+        const deformity = getDefectiveDeformity(gemType, placement, customPrefix);
+        if (deformity) {
+            finalBoosts.push({
+                id: 'deformity_' + deformity.toLowerCase().replace(/[^a-z0-9]+/g, '_'),
+                name: deformity,
+                stat: 'Deformality',
+                desc: SPECIAL_TRAIT_DESCRIPTIONS[deformity] || 'Defective physical trait.',
+                origin: 'Defective'
+            });
+        }
+        return finalBoosts;
+    }
+
+    if (quality === 'Perfect') {
+        const perfectBoost = getPerfectBoost(gemType);
+        if (perfectBoost) {
+            finalBoosts.push({
+                id: 'perfect_' + perfectBoost.toLowerCase().replace(/[^a-z0-9]+/g, '_'),
+                name: perfectBoost,
+                stat: 'Perfect Trait',
+                desc: SPECIAL_TRAIT_DESCRIPTIONS[perfectBoost] || 'Flawless physical trait.',
+                origin: 'Perfect'
+            });
+        }
+        let universal = typeof BOOST_POOL !== 'undefined' && BOOST_POOL.UNIVERSAL ? [...BOOST_POOL.UNIVERSAL] : [];
+        if (typeof BOOST_POOL !== 'undefined' && BOOST_POOL.SPECIALIZED && BOOST_POOL.SPECIALIZED[gemType]) {
+            universal = universal.concat(BOOST_POOL.SPECIALIZED[gemType]);
+        }
+        for (let i = 0; i < 3 && universal.length > 0; i++) {
+            const idx = Math.floor(Math.random() * universal.length);
+            finalBoosts.push(universal[idx]);
+            universal.splice(idx, 1);
+        }
+        return finalBoosts;
+    }
+
+    const count = Math.random() < 0.5 ? 1 : 2;
+    let available = typeof BOOST_POOL !== 'undefined' && BOOST_POOL.UNIVERSAL ? [...BOOST_POOL.UNIVERSAL] : [];
+    if (typeof BOOST_POOL !== 'undefined' && BOOST_POOL.SPECIALIZED && BOOST_POOL.SPECIALIZED[gemType]) {
+        available = available.concat(BOOST_POOL.SPECIALIZED[gemType]);
+    }
+    for (let i = 0; i < count && available.length > 0; i++) {
+        const idx = Math.floor(Math.random() * available.length);
+        finalBoosts.push(available[idx]);
+        available.splice(idx, 1);
+    }
+    return finalBoosts;
+}
+
 function createGemFromKindergarten(gemType, colony) {
     const placement = chooseRandomGemPlacement();
     const quality = rollGemQuality(placement);
     const personality = choosePlacementWeightedPersonality(placement);
-    
+    const customPrefix = typeof generateGemPrefix === 'function' ? generateGemPrefix(gemType, personality) : 'Facet-' + Math.floor(Math.random() * 899 + 100);
+
     let gem = {
         id: Date.now() + Math.random(),
         type: gemType,
-        customPrefix: typeof generateGemPrefix === 'function' ? generateGemPrefix(gemType, personality) : 'Facet-' + Math.floor(Math.random() * 899 + 100),
-        name: "Facet-" + Math.floor(Math.random() * 899 + 100) + " " + gemType,
+        customPrefix,
+        name: `${customPrefix} ${gemType}`,
         quality,
         placement,
         personality,
         level: 0,
         guards: [],
-        boosts: typeof determineStartingBoosts === 'function' ? determineStartingBoosts(quality, gemType) : [],
+        boosts: determineStartingBoosts(quality, gemType, placement, customPrefix),
         courtId: assignColonyCourt(colony)?.id ?? null,
         colonyId: colony?.id ?? null,
         colonyName: colony?.name ?? null,
@@ -875,69 +1126,141 @@ function getPersonalityBehavior(gemOrPersonality) {
     return { ...PERSONALITY_BEHAVIOR_DEFAULTS, ...(PERSONALITY_BEHAVIORS[personality] || {}) };
 }
 
+function porcelainsCrackEvent(porcelain) {
+    porcelain.status = 'Cracked';
+    porcelain.crackCount = (porcelain.crackCount || 0) + 1;
+    const courtDiamond = GameData.gems.find(g => String(g.id) === String(porcelain.courtId)) ||
+        GameData.gems.find(g => g.type === 'Diamond' && isGemUsable(g)) || { name: 'their Diamond' };
+
+    showEventChoices(
+        `${porcelain.name} cracked while entertaining ${courtDiamond.name}! what will you do!`,
+        [
+            {
+                id: 'heal',
+                label: 'heal',
+                action: () => {
+                    porcelain.status = 'Fine';
+                    addNotification(`${porcelain.name} was healed.`);
+                    renderRoster();
+                }
+            },
+            {
+                id: 'shatter',
+                label: 'just go ahead and shatter lil bruh',
+                action: () => {
+                    shatterLiveGem(porcelain.id);
+                }
+            },
+            {
+                id: 'ignore',
+                label: 'ignore',
+                action: () => {
+                    addNotification(`${porcelain.name} was left cracked.`);
+                    renderRoster();
+                }
+            }
+        ]
+    );
+}
+
+function soldierFightEvent(soldierA, soldierB) {
+    soldierB.status = 'Cracked';
+    soldierB.crackCount = (soldierB.crackCount || 0) + 1;
+
+    showEventChoices(
+        `${soldierA.name} and ${soldierB.name} got into a fight, and ${soldierA.name} cracked ${soldierB.name}! what will you do?`,
+        [
+            {
+                id: 'heal-b',
+                label: `heal ${soldierB.name}`,
+                action: () => {
+                    soldierB.status = 'Fine';
+                    addNotification(`${soldierB.name} was healed after the fight.`);
+                    renderRoster();
+                }
+            },
+            {
+                id: 'poof-a',
+                label: `poof ${soldierA.name}`,
+                action: () => {
+                    poofLiveGem(soldierA.id);
+                    addNotification(`${soldierA.name} was poofed for cracking ${soldierB.name}.`);
+                }
+            },
+            {
+                id: 'ignore-fight',
+                label: 'Ignore',
+                action: () => {
+                    if (Math.random() < 0.25) {
+                        const victim = Math.random() < 0.5 ? soldierA : soldierB;
+                        GameData.pendingFightFollowup = { soldierA, soldierB, victim };
+                    }
+                    addNotification(`The fight between ${soldierA.name} and ${soldierB.name} was ignored.`);
+                }
+            }
+        ]
+    );
+}
+
 function triggerLiveGemEvent() {
     if (isEventPopupOpen()) return;
-    const now = Date.now();
-    const candidates = GameData.gems.filter(gem => !gem.fusionMembers && !gem.inRebellion && isGemUsable(gem) && (!gem.eventCooldownUntil || gem.eventCooldownUntil <= now));
-    if (!candidates.length || Math.random() >= (GameData.quicktimeFrequency ?? 0.025)) return;
 
-    const kind = candidates[Math.floor(Math.random() * candidates.length)];
-    const kindBehavior = getPersonalityBehavior(kind);
-    const fusionPartners = candidates.filter(gem =>
-        gem.id !== kind.id &&
-        gem.type !== 'Zircon' &&
-        gem.type !== 'Zirconium' &&
-        kindBehavior.canFuse &&
-        getPersonalityBehavior(gem).canFuse
-    );
-    const fusionPartner = fusionPartners[Math.floor(Math.random() * fusionPartners.length)];
-    const fusionChance = fusionPartner
-        ? 0.12 * kindBehavior.fusionMultiplier * getPersonalityBehavior(fusionPartner).fusionMultiplier
-        : 0;
-    if (fusionPartner && Math.random() < fusionChance) {
-        kind.eventCooldownUntil = now + 2.5 * 60 * 1000;
-        fusionPartner.eventCooldownUntil = now + 2.5 * 60 * 1000;
-        resolveFusionEvent(kind, fusionPartner);
+    if (GameData.pendingFightFollowup) {
+        const { soldierA, soldierB, victim } = GameData.pendingFightFollowup;
+        GameData.pendingFightFollowup = null;
+        if (victim && isGemUsable(victim)) {
+            showEventChoices(
+                `${soldierA.name} and ${soldierB.name} started arguing again, and it got out of control. ${victim.name} got shattered in the fight. :(`,
+                [{
+                    id: 'fiddlesticks',
+                    label: 'aw fiddlesticks',
+                    action: () => {
+                        shatterLiveGem(victim.id);
+                    }
+                }]
+            );
+            return;
+        }
+    }
+
+    if (Math.random() >= (GameData.quicktimeFrequency ?? 0.025)) return;
+
+    const usableGems = GameData.gems.filter(g => isGemUsable(g) && !g.fusionMembers && !g.inRebellion);
+
+    const splitPairs = [];
+    usableGems.forEach(gem => {
+        if (gem.splitFusionPartner) {
+            const partner = usableGems.find(other => String(other.id) === String(gem.splitFusionPartner));
+            if (partner && !splitPairs.some(p => (p[0].id === gem.id && p[1].id === partner.id) || (p[0].id === partner.id && p[1].id === gem.id))) {
+                splitPairs.push([gem, partner]);
+            }
+        }
+    });
+
+    if (splitPairs.length > 0 && Math.random() < 0.75) {
+        const pair = splitPairs[Math.floor(Math.random() * splitPairs.length)];
+        const [gemA, gemB] = pair;
+        delete gemA.splitFusionPartner;
+        delete gemB.splitFusionPartner;
+        const fusion = createFusion(gemA, gemB);
+        showEventChoices(
+            `${gemA.name} and ${gemB.name} have fused again!`,
+            [{
+                id: 'refusion-ok',
+                label: 'gyad damn queers...',
+                action: () => {
+                    closeEventPopup();
+                }
+            }]
+        );
         return;
     }
 
-    const placement = kind.placement || kind.gemPlacement;
-    const placementRisk = GEM_PLACEMENTS[placement]?.conflictChanceMultiplier || 1;
-    const conflictPool = candidates.filter(gem => gem.id !== kind.id && getPersonalityBehavior(gem).canFight);
-    const possibleOther = conflictPool[Math.floor(Math.random() * conflictPool.length)];
-    const conflictRisk = possibleOther
-        ? kindBehavior.conflictMultiplier * getPersonalityBehavior(possibleOther).conflictMultiplier * placementRisk
-        : 0;
-    const startsConflict = kindBehavior.canFight && possibleOther && Math.random() < Math.min(0.8, 0.22 * conflictRisk);
-    const other = startsConflict ? possibleOther : null;
-    const affected = other ? [kind, other] : [kind];
-    const cooldownUntil = now + (2.5 * 60 * 1000);
-    affected.forEach(gem => { gem.eventCooldownUntil = cooldownUntil; });
-    if (other) affected.forEach(gem => addGemRebellion(gem, 6));
-
-    let eventText;
-    if (other && Math.random() < Math.min(0.6, 0.18 * kindBehavior.conflictMultiplier * getPersonalityBehavior(other).conflictMultiplier)) {
-        crackLiveGem(kind);
-        crackLiveGem(other);
-        eventText = `${kind.name} and ${other.name} got into a heated conflict and cracked each other. The Healing Center can repair them.`;
-    } else if (Math.random() < Math.min(0.8, 0.16 * kindBehavior.accidentMultiplier)) {
-        if (Math.random() < 0.65) {
-            crackLiveGem(kind);
-            eventText = `${kind.name} was caught in an accident and cracked. The Healing Center can repair them.`;
-        } else {
-            eventText = `${kind.name} had a close call, but the accident was contained.`;
-        }
-    } else if (kindBehavior.canDisobey && Math.random() < Math.min(0.75, 0.12 * kindBehavior.rebellionMultiplier)) {
-        kind.status = 'Poofed';
-        kind.reformAt = now + 10 * 60 * 1000;
-        eventText = `${kind.name} disobeyed the court and poofed during a rebellion. They will remain unusable until reformed.`;
-    } else {
-        eventText = `${kind.name}'s ${kind.personality || 'unpredictable'} nature caused a small scare, but the court contained it.`;
+    const availableEvents = typeof QUICKTIME_EVENTS !== 'undefined' ? QUICKTIME_EVENTS.filter(e => e.condition(usableGems)) : [];
+    if (availableEvents.length > 0) {
+        const chosen = availableEvents[Math.floor(Math.random() * availableEvents.length)];
+        chosen.trigger(usableGems);
     }
-
-    addNotification(eventText);
-    showEventPopup(eventText);
-    renderRoster();
 }
 
 function crackLiveGem(gem) {
@@ -1068,13 +1391,59 @@ function normalizeFusionCharacter(fusion) {
 }
 
 function resolveFusionEvent(gemA, gemB) {
+    const fusionType = getFusionGemType(gemA.type, gemB.type);
+    const fusionPrefix = typeof getFusionPrefix === 'function' ? getFusionPrefix(gemA.customPrefix, gemB.customPrefix) : 'Placeholder';
+    const fullName = (fusionPrefix && fusionPrefix !== 'Placeholder') ? `${fusionPrefix} ${fusionType}` : fusionType;
+
+    const hasAragonite = GameData.gems.some(g => g.type === 'Aragonite' && isGemUsable(g));
+    const hasRhyolite = GameData.gems.some(g => g.type === 'Rhyolite' && isGemUsable(g));
+
     const choices = [
-        { id: 'keep-fusion', label: 'Keep Fusion', action: () => createFusion(gemA, gemB) },
-        { id: 'split-fusion', label: 'Split the Fusion', action: () => splitFusionByMembers(gemA, gemB) },
-        { id: 'rejuvenate-fusion', label: 'Rejuvenate Both', action: () => { gemA.level = 0; gemB.level = 0; gemA.status = 'Fine'; gemB.status = 'Fine'; addNotification(`${gemA.name} and ${gemB.name} were rejuvenated and separated.`); renderRoster(); } }
+        {
+            id: 'keep-fusion',
+            label: 'aww keep it',
+            action: () => {
+                const fusion = createFusion(gemA, gemB);
+                if (fusion) {
+                    addNotification(`${gemA.name} and ${gemB.name} fused into ${fusion.name}.`);
+                }
+            }
+        },
+        {
+            id: 'split-fusion',
+            label: 'no i hate love break up',
+            action: () => {
+                addNotification(`${gemA.name} and ${gemB.name} were forced to break up their fusion.`);
+            }
+        }
     ];
-    if (canAccessShattering()) choices.push({ id: 'shatter-fusion', label: 'Shatter Both', action: () => { shatterLiveGem(gemA.id); shatterLiveGem(gemB.id); } });
-    showEventChoices(`${gemA.name} and ${gemB.name} began to fuse. What should the court do?`, choices);
+
+    if (hasAragonite) {
+        choices.push({
+            id: 'kill-fusion',
+            label: 'ew kill it kill it',
+            action: () => {
+                shatterLiveGem(gemA.id);
+                shatterLiveGem(gemB.id);
+                addNotification(`${gemA.name} and ${gemB.name} were shattered.`);
+            }
+        });
+    }
+
+    if (hasRhyolite) {
+        choices.push({
+            id: 'neurolize-fusion',
+            label: 'men in black neurolize them now',
+            action: () => {
+                gemA.level = 0; gemA.status = 'Fine';
+                gemB.level = 0; gemB.status = 'Fine';
+                addNotification(`${gemA.name} and ${gemB.name} were rejuvenated.`);
+                renderRoster();
+            }
+        });
+    }
+
+    showEventChoices(`${gemA.name} and ${gemB.name} have been caught fusing into ${fullName}! what will you do?`, choices);
 }
 
 function splitFusionByMembers(gemA, gemB) {
@@ -1216,7 +1585,17 @@ function getStructureStorageRules(type) {
     const overseerRules = {
         'Grand Ballet Hall': { occupantType: 'Porcelain', overseerType: 'Rhyolite', overseersPerLevel: 20 },
         'Grand Ballroom': { occupantType: 'Jade', overseerType: 'Larkavite', overseersPerLevel: 20 },
-        'Grand Theater': { occupantType: 'Lepidolite', overseerType: 'Cinnabar', overseersPerLevel: 20 }
+        'Grand Theater': { occupantType: 'Lepidolite', overseerType: 'Cinnabar', overseersPerLevel: 20 },
+        'Soldier Ship': {
+            occupantTypes: [
+                'Ruby', 'Amethyst', 'Rose Quartz', 'Jasper', 'Citrine', 'Carnelian',
+                'Honey Quartz', 'Clear Quartz', 'Smoky Quartz', 'Milky Quartz',
+                'Ametrine', 'Prasiolite', "Tiger's Eye", "Hawk's Eye", 'Rutile',
+                'Bloodstone', 'Cherry Quartz', 'Flint', 'Chert', 'Obsidian'
+            ],
+            overseerType: 'Agate',
+            overseersPerLevel: 20
+        }
     };
     if (overseerRules[type]) return overseerRules[type];
     if (type === 'Archives') return { occupantType: 'Psilomelane', baseCapacity: 5, levelsPerSlot: 10, noOverseerRequired: true };
@@ -1259,6 +1638,12 @@ function getEligibleStructureGems(type, role) {
             const tier = Object.values(GEM_TIERS).find(entry => entry.types.includes(gem.type));
             return tier && tier.rank >= 8 && gem.type !== 'Diamond';
         }
+        if (type === 'Soldier Ship' && (gem.deformity === 'Soft-Spoken' || (Array.isArray(gem.boosts) && gem.boosts.some(b => describeBoost(b) === 'Soft-Spoken')))) {
+            return false;
+        }
+        if (Array.isArray(rules.occupantTypes)) {
+            return rules.occupantTypes.includes(gem.type);
+        }
         return gem.type === rules.occupantType;
     });
 }
@@ -1275,8 +1660,9 @@ function renderStoredStructureMenu(type) {
     const safeType = escapeGemArtAttribute(type);
     const capacityLabel = capacity === Infinity ? 'Unlimited overseer positions' : `${occupants.length}/${capacity} stored`;
     const occupantOptions = eligible.map(gem => `<option value="${escapeGemArtAttribute(gem.id)}">${escapeGemArtAttribute(gem.name)} (${escapeGemArtAttribute(gem.type)})</option>`).join('');
+    const occupantLabel = Array.isArray(rules.occupantTypes) ? 'soldier' : rules.occupantType;
     const occupantControl = rules.overseerType
-        ? `<label>Store ${escapeGemArtAttribute(rules.occupantType)}<select id="structure-storage-select" data-ui-asset="structure-storage-select-ui" data-ui-kind="textbox"><option value="">Choose gem</option>${occupantOptions}</select></label><button type="button" data-storage-add="occupant" data-ui-asset="${slug}-store-button-ui" data-ui-kind="button" ${occupants.length >= capacity ? 'disabled' : ''}>Store Gem</button>`
+        ? `<label>Store ${escapeGemArtAttribute(occupantLabel)}<select id="structure-storage-select" data-ui-asset="structure-storage-select-ui" data-ui-kind="textbox"><option value="">Choose gem</option>${occupantOptions}</select></label><button type="button" data-storage-add="occupant" data-ui-asset="${slug}-store-button-ui" data-ui-kind="button" ${occupants.length >= capacity ? 'disabled' : ''}>Store Gem</button>`
         : `<label>Store gem<select id="structure-storage-select" data-ui-asset="structure-storage-select-ui" data-ui-kind="textbox"><option value="">Choose gem</option>${occupantOptions}</select></label><button type="button" data-storage-add="occupant" data-ui-asset="${slug}-store-button-ui" data-ui-kind="button" ${occupants.length >= capacity ? 'disabled' : ''}>Store Gem</button>`;
     const overseerOptions = rules.overseerType ? getEligibleStructureGems(type, 'overseer')
         .map(gem => `<option value="${escapeGemArtAttribute(gem.id)}">${escapeGemArtAttribute(gem.name)}</option>`).join('') : '';
@@ -1355,8 +1741,7 @@ function advanceStoredGemDepartures() {
 function showStructureInventory(type) {
     if (!GameData.structures.includes(type)) return;
     if (type === 'Healing Center') return showHealingCenter();
-    if (type === 'Soldier Ship') return showSoldierShipInventory();
-    if (['Grand Ballet Hall', 'Grand Ballroom', 'Grand Theater', 'Archives', 'Grand Circus', 'Grand Palace'].includes(type)) return renderStoredStructureMenu(type);
+    if (['Grand Ballet Hall', 'Grand Ballroom', 'Grand Theater', 'Archives', 'Grand Circus', 'Grand Palace', 'Soldier Ship'].includes(type)) return renderStoredStructureMenu(type);
     if (type === 'Organic Zoo') {
         return renderStructureMenu(type, '<div class="structure-menu-summary">The Organic Zoo is online. It has no active function yet.</div>');
     }
@@ -1702,8 +2087,9 @@ function renderStructureInventoryButtons() {
     updateStructureCardButton(document.getElementById('funhouse-structure-button'), 'Spinel Funhouse', hasTaaffeite ? 'Build Funhouse (30000 Materials)' : 'Build Funhouse (Taaffeite Required)', 30000, hasTaaffeite);
     updateStructureCardButton(document.getElementById('forge-structure-button'), 'Gem Forge', hasBismuth ? 'Build Forge (35000 Materials)' : 'Build Forge (Bismuth Required)', 35000, hasBismuth);
     updateStructureCardButton(document.getElementById('shrine-structure-button'), 'Diamond Shrine', 'Build Shrine (250000 Materials)', COLONY_OPTIONS.SHRINE_KINDERGARTEN_COST, hasLevel100Diamond);
+    const hasAgate = GameData.gems.some(gem => gem.type === 'Agate' && isGemUsable(gem));
     updateStructureCardButton(document.getElementById('healing-center-button'), 'Healing Center', 'Build Healing Center (500000 Materials)', 500000);
-    updateStructureCardButton(document.getElementById('soldier-ship-button'), 'Soldier Ship', 'Build Soldier Ship (75000 Materials)', 75000);
+    updateStructureCardButton(document.getElementById('soldier-ship-button'), 'Soldier Ship', hasAgate ? 'Build Soldier Ship (75000 Materials)' : 'Build Soldier Ship (Agate Required)', 75000, hasAgate);
     updateStructureCardButton(document.getElementById('trial-building-button'), 'Trial Building', hasZircon && hasAragonite ? 'Build Trial Building (100000 Materials)' : 'Trial Building (Zircon and Aragonite Required)', 100000, hasZircon && hasAragonite);
     updateStructureCardButton(document.getElementById('grand-ballet-hall-button'), 'Grand Ballet Hall', 'Build Grand Ballet Hall (750000 Materials)', COLONY_OPTIONS.STRUCTURE_BUILD_COSTS['Grand Ballet Hall']);
     updateStructureCardButton(document.getElementById('grand-ballroom-button'), 'Grand Ballroom', 'Build Grand Ballroom (750000 Materials)', COLONY_OPTIONS.STRUCTURE_BUILD_COSTS['Grand Ballroom']);
@@ -2014,7 +2400,7 @@ function renderProfileLifecycleActions(gem) {
         ? `<button type="button" onclick="shatterLiveGem('${id}')">Shatter</button>`
         : '';
     if (gem.fusionMembers) {
-        container.innerHTML = `<button type="button" onclick="splitFusionFromProfile('${id}')" style="width:auto;">Split Fusion</button>`;
+        container.innerHTML = `<button type="button" onclick="poofLiveGem('${id}')" style="width:auto;">Poof Fusion</button><button type="button" onclick="splitFusionFromProfile('${id}')" style="width:auto;">Split Fusion</button>`;
     } else if (gem.status === 'Shattered') {
         container.innerHTML = '<span style="opacity:0.6;">This gem is shattered permanently.</span>';
     } else if (gem.status === 'Poofed') {
@@ -2022,7 +2408,7 @@ function renderProfileLifecycleActions(gem) {
     } else if (gem.status === 'Bubbled') {
         container.innerHTML = `<button type="button" onclick="reformGem('${id}')">Reform</button>${shatterAction}`;
     } else {
-        container.innerHTML = `<button type="button" onclick="poofLiveGem('${id}')">Poof</button><button type="button" onclick="bubbleGem('${id}')">Bubble</button>${shatterAction}`;
+        container.innerHTML = `<button type="button" onclick="poofLiveGem('${id}')">Poof</button>${shatterAction}`;
     }
 }
 
@@ -2042,9 +2428,70 @@ function getRebellionWarState() {
     return GameData.rebellionWar;
 }
 
+function advanceAnnualRebellion() {
+    GameData.gems.forEach(gem => {
+        if (gem.type === 'Diamond' || gem.inRebellion || !isGemUsable(gem)) return;
+        let rate = 0.3;
+        const p = gem.personality;
+        if (['Loyal', 'Benevolent', 'Calm', 'Patient', 'Puritanical'].includes(p)) rate = 0.06;
+        else if (['Mean', 'Fiery', 'Rebellious', 'Volatile', 'Arrogant', 'Cynical'].includes(p)) rate = 0.6;
+
+        gem.rebellion = Math.max(0, Math.min(100, Number(gem.rebellion || 0) + rate));
+        if (gem.rebellion >= 100) recruitRebel(gem);
+    });
+}
+
+function checkSapphireWarning() {
+    if (isEventPopupOpen()) return false;
+    const sapphires = GameData.gems.filter(g => g.type === 'Sapphire' && isGemUsable(g));
+    if (!sapphires.length) return false;
+
+    const highRebellionGems = GameData.gems.filter(g => g.type !== 'Diamond' && !g.inRebellion && isGemUsable(g) && Number(g.rebellion || 0) >= 80 && !g.warnedBySapphire);
+    if (!highRebellionGems.length) return false;
+
+    if (Math.random() < 0.15) {
+        const affected = highRebellionGems[Math.floor(Math.random() * highRebellionGems.length)];
+        const sapphire = sapphires[Math.floor(Math.random() * sapphires.length)];
+        affected.warnedBySapphire = true;
+
+        const courtDiamond = GameData.gems.find(g => String(g.id) === String(affected.courtId)) ||
+            GameData.gems.find(g => g.type === 'Diamond' && isGemUsable(g)) || { name: 'their Diamond' };
+
+        showEventChoices(
+            `${sapphire.name} came to ${courtDiamond.name} and informed them that there is a possibility of rebellion! what will you do!`,
+            [
+                {
+                    id: 'ignore-warning',
+                    label: 'ignore',
+                    action: () => {
+                        addNotification(`Ignored ${sapphire.name}'s warning about ${affected.name}.`);
+                    }
+                },
+                {
+                    id: 'view-profile',
+                    label: 'view profile of affected gem',
+                    action: () => {
+                        openProfile(affected.id);
+                    }
+                },
+                {
+                    id: 'poof-sapphire',
+                    label: `poof ${sapphire.name}`,
+                    action: () => {
+                        poofLiveGem(sapphire.id);
+                        addNotification(`${sapphire.name} was poofed for delivering unwelcome news.`);
+                    }
+                }
+            ]
+        );
+        return true;
+    }
+    return false;
+}
+
 function addGemRebellion(gem, amount) {
     if (!gem || gem.type === 'Diamond' || GameData.mode === 'Roleplay') return;
-    const rateFactor = 0.0005; // 0.05% of previous progression rate
+    const rateFactor = 0.0005;
     gem.rebellion = Math.max(0, Math.min(100, Number(gem.rebellion || 0) + (amount * rateFactor * getRebellionResistanceMultiplier())));
     if (gem.rebellion >= 100) recruitRebel(gem);
 }
@@ -2132,6 +2579,37 @@ function renderRebellionStatus() {
 function poofLiveGem(id) {
     const gem = findLiveGem(id);
     if (!gem || gem.status === 'Shattered' || gem.storedIn || gem.inRebellion) return;
+
+    if (gem.fusionMembers && Array.isArray(gem.fusionMembers)) {
+        const memberA = findLiveGem(gem.fusionMembers[0]);
+        const memberB = findLiveGem(gem.fusionMembers[1]);
+
+        GameData.gems = GameData.gems.filter(g => g.id !== gem.id);
+
+        if (memberA) {
+            memberA.status = 'Poofed';
+            memberA.reformAt = Date.now() + 10 * 60 * 1000;
+            memberA.splitFusionPartner = memberB ? memberB.id : null;
+            memberA.wasFused = true;
+            if (!GameData.gems.some(g => String(g.id) === String(memberA.id))) GameData.gems.push(memberA);
+        }
+        if (memberB) {
+            memberB.status = 'Poofed';
+            memberB.reformAt = Date.now() + 10 * 60 * 1000;
+            memberB.splitFusionPartner = memberA ? memberA.id : null;
+            memberB.wasFused = true;
+            if (!GameData.gems.some(g => String(g.id) === String(memberB.id))) GameData.gems.push(memberB);
+        }
+
+        addNotification(`${gem.name} poofed and split into ${memberA ? memberA.name : 'its components'}${memberB ? ' and ' + memberB.name : ''}. Both are poofed.`);
+        renderRoster();
+        renderGemDirectories();
+        if (document.getElementById('profile-modal')?.style.display === 'flex' && String(selectedGemId) === String(gem.id)) {
+            closeProfile();
+        }
+        return;
+    }
+
     addGemRebellion(gem, 15);
     gem.status = 'Poofed';
     gem.reformAt = Date.now() + 10 * 60 * 1000;
@@ -2144,7 +2622,11 @@ function poofLiveGem(id) {
 
 function bubbleGem(id) {
     const gem = findLiveGem(id);
-    if (!gem || gem.storedIn || gem.inRebellion || !['Fine', 'Cracked', 'Poofed'].includes(normalizeGemStatus(gem))) return;
+    if (!gem || gem.storedIn || gem.inRebellion) return;
+    if (normalizeGemStatus(gem) !== 'Poofed') {
+        alert('A gem can only be bubbled after it has been poofed.');
+        return;
+    }
     ensureGemBubbleColor(gem);
     gem.status = 'Bubbled';
     gem.reformAt = null;
@@ -2452,8 +2934,12 @@ setInterval(() => {
     const mainViewDashboard = document.getElementById('screen-dashboard');
     if (mainViewDashboard && mainViewDashboard.classList.contains('active-screen')) {
         const eventActive = isEventPopupOpen();
-        if (!eventActive) {
+        if (!eventActive && !GameData.isPaused) {
             GameData.year += 0.16;
+            if (Math.floor(GameData.year) > Math.floor(GameData.lastYearRebellionTick || 0)) {
+                GameData.lastYearRebellionTick = Math.floor(GameData.year);
+                advanceAnnualRebellion();
+            }
         }
         const activeDiamonds = GameData.gems.filter(gem => gem.type === 'Diamond' && isGemUsable(gem)).length;
         const diamondEssenceRate = CONFIG.RESOURCES.DIAMOND_ESSENCE_PER_DIAMOND_TICK || 0;
@@ -2551,6 +3037,7 @@ window.createSpinelFromFunhouse = createSpinelFromFunhouse;
 window.levelUpGem = levelUpGem;
 window.levelUpStructure = levelUpStructure;
 window.assignGuard = assignGuard;
+window.togglePauseYearProgression = togglePauseYearProgression;
 
 // Safe runtime inputs fallback setup
 document.addEventListener("DOMContentLoaded", () => {
